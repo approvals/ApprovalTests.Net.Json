@@ -990,7 +990,7 @@ namespace ObjectApproval
             bool success = true;
             string stringValue = value as string;
             if (stringValue != null)
-                success = SerializeString(stringValue, builder);
+                success = SerializeString(stringValue, builder, true);
             else
             {
                 IDictionary<string, object> dict = value as IDictionary<string, object>;
@@ -1043,7 +1043,7 @@ namespace ObjectApproval
                     builder.Append(",");
                 string stringKey = key as string;
                 if (stringKey != null)
-                    SerializeString(stringKey, builder);
+                    SerializeString(stringKey, builder,false);
                 else
                     if (!SerializeValue(jsonSerializerStrategy, value, builder)) return false;
                 builder.Append(":");
@@ -1071,8 +1071,9 @@ namespace ObjectApproval
             return true;
         }
 
-        static bool SerializeString(string aString, StringBuilder builder)
+        static bool SerializeString(string aString, StringBuilder builder, bool wrap)
         {
+            if (wrap)
             builder.Append("\"");
             char[] charArray = aString.ToCharArray();
             for (int i = 0; i < charArray.Length; i++)
@@ -1095,6 +1096,7 @@ namespace ObjectApproval
                 else
                     builder.Append(c);
             }
+            if (wrap)
             builder.Append("\"");
             return true;
         }

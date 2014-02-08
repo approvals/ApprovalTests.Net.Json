@@ -15,7 +15,7 @@ public class ObjectApproverTests
                 Address = new Address
                     {
                         Street = "1 Puddle Lane",
-                        Country = "Gotham"
+                        Country = "USA"
                     }
             };
 
