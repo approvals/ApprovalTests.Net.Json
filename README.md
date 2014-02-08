@@ -51,8 +51,10 @@ var person = new Person
 ObjectApprover.VerifyWithJson(person);
 ```
 
-The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use.
+The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
 
-## Icon http://thenounproject.com/term/helmet/9554/
+![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/SampleDiff)
+
+## Icon 
 
 <a href="http://thenounproject.com/term/helmet/9554/" target="_blank">Helmet</a> designed by <a href="http://thenounproject.com/alterego" target="_blank">Leonidas Ikonomou</a> from The Noun Project
