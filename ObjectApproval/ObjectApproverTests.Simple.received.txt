@@ -1,9 +1,0 @@
-﻿{
-    "GivenNames": "John",
-    "FamilyName": "Smith",
-    "Spouse": "Jill",
-    "Address": {
-        "Street": "1 Puddle Lane",
-        "Country": "Australia"
-    }
-}

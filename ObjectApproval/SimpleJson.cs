@@ -1039,17 +1039,30 @@ namespace ObjectApproval
             {
                 object key = ke.Current;
                 object value = ve.Current;
-                if (value == null)
-                {
-                    continue;
-                }
-                if (!first)
-                    builder.Append(",");
                 string stringKey = key as string;
                 if (stringKey != null)
-                    SerializeString(stringKey, builder,false);
+                {
+                    if (value == null)
+                    {
+                        continue;
+                    }
+                    if (!first)
+                    {
+                        builder.Append(",");
+                    }
+                    SerializeString(stringKey, builder, false);
+                }
                 else
-                    if (!SerializeValue(jsonSerializerStrategy, value, builder)) return false;
+                {
+                    if (!first)
+                    {
+                        builder.Append(",");
+                    }
+                    if (!SerializeValue(jsonSerializerStrategy, value, builder))
+                    {
+                        return false;
+                    }
+                }
                 builder.Append(":");
                 if (!SerializeValue(jsonSerializerStrategy, value, builder))
                     return false;
