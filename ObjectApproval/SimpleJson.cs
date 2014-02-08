@@ -1039,6 +1039,10 @@ namespace ObjectApproval
             {
                 object key = ke.Current;
                 object value = ve.Current;
+                if (value == null)
+                {
+                    continue;
+                }
                 if (!first)
                     builder.Append(",");
                 string stringKey = key as string;
