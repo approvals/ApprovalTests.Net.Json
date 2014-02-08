@@ -14,7 +14,7 @@ To Install from the Nuget Package Manager Console
 
 ## Usage
 
-Assuming you have previously verified using this this. 
+Assuming you have previously verified and approved using this. 
 
 ```
 var person = new Person
@@ -43,7 +43,7 @@ var person = new Person
         Address = new Address
             {
                 Street = "1 Puddle Lane",
-                Suburb = "Gotham"				
+                Suburb = "Gotham",				
                 Country = "USA"
             }
     };
