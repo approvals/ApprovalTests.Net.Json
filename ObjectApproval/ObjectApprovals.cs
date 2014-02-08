@@ -8,7 +8,7 @@ namespace ObjectApproval
         {
             var serializeObject = SimpleJson.SerializeObject(target);
             var formatJson = serializeObject.FormatJson().FixNewLines();
-            Approvals.Verify(formatJson);
+            Approvals.Verify(formatJson, s => s.FixNewLines());
         }
     }
 }
