@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectApproval", "ObjectApproval\ObjectApproval.csproj", "{C35E31DE-40A9-45C0-817B-41BE5B7D076E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Deployable|Any CPU = Deployable|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C35E31DE-40A9-45C0-817B-41BE5B7D076E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C35E31DE-40A9-45C0-817B-41BE5B7D076E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C35E31DE-40A9-45C0-817B-41BE5B7D076E}.Deployable|Any CPU.ActiveCfg = Deployable|Any CPU
+		{C35E31DE-40A9-45C0-817B-41BE5B7D076E}.Deployable|Any CPU.Build.0 = Deployable|Any CPU
+		{C35E31DE-40A9-45C0-817B-41BE5B7D076E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C35E31DE-40A9-45C0-817B-41BE5B7D076E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

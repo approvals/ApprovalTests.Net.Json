@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ObjectApproval</id>
+    <version>$version$</version>
+    <title>ObjectApproval</title>
+    <authors>Simon Cropp</authors>
+    <owners>Simon Cropp</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://github.com/SimonCropp/ObjectApproval</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://raw.github.com/SimonCropp/ObjectApproval/master/Icons/package_icon.png</iconUrl>
+    <description>Extends ApprovalTests to allow simple approval of complex models.</description>
+    <language>en-AU</language>
+    <tags>Json, ApprovalTests, </tags>
+    <dependencies>
+      <dependency id="ApprovalTests"/>
+    </dependencies>
+  </metadata>
+</package>
