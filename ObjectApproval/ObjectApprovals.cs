@@ -7,7 +7,7 @@ namespace ObjectApproval
         public static void VerifyWithJson(object target)
         {
             var serializeObject = SimpleJson.SerializeObject(target);
-            var formatJson = serializeObject.FormatJson();
+            var formatJson = serializeObject.FormatJson().FixNewLines();
             Approvals.Verify(formatJson);
         }
     }
