@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ObjectApproval
 {
-    static class  JsonHelper
+    static class  JsonPrettyPrint
     {
         const string INDENT_STRING = "    ";
         public static string FormatJson(this string str)
@@ -19,20 +19,46 @@ namespace ObjectApproval
                 switch (ch)
                 {
                     case '{':
+                        sb.Append(ch);
+                        if (!quoted)
+                        {
+                            if (str[i + 1] != '}')
+                            {
+                                sb.AppendLine();
+                                Enumerable.Range(0, ++indent).ForEach(item => sb.Append(INDENT_STRING));
+                            }
+                        }
+                        break;
                     case '[':
                         sb.Append(ch);
                         if (!quoted)
                         {
-                            sb.AppendLine();
-                            Enumerable.Range(0, ++indent).ForEach(item => sb.Append(INDENT_STRING));
+                            if (str[i + 1] != ']')
+                            {
+                                sb.AppendLine();
+                                Enumerable.Range(0, ++indent).ForEach(item => sb.Append(INDENT_STRING));
+                            }
                         }
                         break;
                     case '}':
+                        if (!quoted)
+                        {
+                            if (str[i - 1] != '{')
+                            {
+                                sb.AppendLine();
+                                Enumerable.Range(0, --indent).ForEach(item => sb.Append(INDENT_STRING));
+                            }
+                        }
+                        sb.Append(ch);
+                        break;
                     case ']':
                         if (!quoted)
                         {
-                            sb.AppendLine();
-                            Enumerable.Range(0, --indent).ForEach(item => sb.Append(INDENT_STRING));
+                            if (str[i - 1] != '[')
+                            {
+                                sb.AppendLine();
+                                Enumerable.Range(0, --indent).ForEach(item => sb.Append(INDENT_STRING));
+                            }
                         }
                         sb.Append(ch);
                         break;
