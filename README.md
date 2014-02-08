@@ -53,7 +53,7 @@ ObjectApprover.VerifyWithJson(person);
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
 
-![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/SampleDiff)
+![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/SampleDiff.png)
 
 ## Icon 
 
