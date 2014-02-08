@@ -4,7 +4,6 @@
     Spouse: "Jill",
     Address: {
         Street: "1 Puddle Lane",
-        Suburb: null,
         Country: "USA"
     }
 }
