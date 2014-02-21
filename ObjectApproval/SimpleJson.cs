@@ -17,7 +17,7 @@
 // <website>https://github.com/facebook-csharp-sdk/simple-json</website>
 //-----------------------------------------------------------------------
 
-// VERSION: 0.30.0
+// VERSION: 0.32.0
 
 // NOTE: uncomment the following line to make SimpleJson class internal.
 //#define SIMPLE_JSON_INTERNAL
@@ -30,6 +30,9 @@
 
 // NOTE: uncomment the following line to enable DataContract support.
 //#define SIMPLE_JSON_DATACONTRACT
+
+// NOTE: uncomment the following line to enable IReadOnlyCollection<T> and IReadOnlyList<T> support.
+//#define SIMPLE_JSON_READONLY_COLLECTIONS
 
 // NOTE: uncomment the following line to disable linq expressions/compiled lambda (better performance) instead of method.invoke().
 // define if you are using .net framework <= 3.0 or < WP7.5
@@ -990,7 +993,7 @@ namespace ObjectApproval
             bool success = true;
             string stringValue = value as string;
             if (stringValue != null)
-                success = SerializeString(stringValue, builder, true);
+                success = SerializeString(stringValue, builder);
             else
             {
                 IDictionary<string, object> dict = value as IDictionary<string, object>;
@@ -1039,30 +1042,13 @@ namespace ObjectApproval
             {
                 object key = ke.Current;
                 object value = ve.Current;
+                if (!first)
+                    builder.Append(",");
                 string stringKey = key as string;
                 if (stringKey != null)
-                {
-                    if (value == null)
-                    {
-                        continue;
-                    }
-                    if (!first)
-                    {
-                        builder.Append(",");
-                    }
-                    SerializeString(stringKey, builder, false);
-                }
+                    SerializeString(stringKey, builder);
                 else
-                {
-                    if (!first)
-                    {
-                        builder.Append(",");
-                    }
-                    if (!SerializeValue(jsonSerializerStrategy, value, builder))
-                    {
-                        return false;
-                    }
-                }
+                    if (!SerializeValue(jsonSerializerStrategy, value, builder)) return false;
                 builder.Append(":");
                 if (!SerializeValue(jsonSerializerStrategy, value, builder))
                     return false;
@@ -1088,9 +1074,8 @@ namespace ObjectApproval
             return true;
         }
 
-        static bool SerializeString(string aString, StringBuilder builder, bool wrap)
+        static bool SerializeString(string aString, StringBuilder builder)
         {
-            if (wrap)
             builder.Append("\"");
             char[] charArray = aString.ToCharArray();
             for (int i = 0; i < charArray.Length; i++)
@@ -1113,7 +1098,6 @@ namespace ObjectApproval
                 else
                     builder.Append(c);
             }
-            if (wrap)
             builder.Append("\"");
             return true;
         }
@@ -1665,7 +1649,14 @@ namespace ObjectApproval
 
                 Type genericDefinition = type.GetGenericTypeDefinition();
 
-                return (genericDefinition == typeof(IList<>) || genericDefinition == typeof(ICollection<>) || genericDefinition == typeof(IEnumerable<>));
+                return (genericDefinition == typeof(IList<>)
+                    || genericDefinition == typeof(ICollection<>)
+                    || genericDefinition == typeof(IEnumerable<>)
+#if SIMPLE_JSON_READONLY_COLLECTIONS
+                    || genericDefinition == typeof(IReadOnlyCollection<>)
+                    || genericDefinition == typeof(IReadOnlyList<>)
+#endif
+                    );
             }
 
             public static bool IsAssignableFrom(Type type1, Type type2)

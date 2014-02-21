@@ -1,12 +1,13 @@
 ﻿{
-    GivenNames: "John",
-    FamilyName: "Smith",
-    Spouse: "Jill",
-    Address: {
-        Street: "1 Puddle Lane",
-        Country: "USA"
+    "GivenNames": "John",
+    "FamilyName": "Smith",
+    "Spouse": "Jill",
+    "Address": {
+        "Street": "1 Puddle Lane",
+        "Suburb": null,
+        "Country": "USA"
     },
-    Childres: [
+    "Childres": [
         "Sam",
         "Mary"
     ]
