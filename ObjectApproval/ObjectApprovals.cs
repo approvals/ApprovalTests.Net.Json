@@ -14,11 +14,7 @@ namespace ObjectApproval
         {
             var serializeObject = SimpleJson.SerializeObject(target);
             var formatJson = serializeObject.FormatJson().FixNewLines();
-            Approvals.Verify(formatJson, s =>
-            {
-                var fixNewLines = s.FixNewLines();
-                return scrubber(fixNewLines);
-            });
+            Approvals.Verify(formatJson, s => scrubber(s).FixNewLines());
         }
     }
 }
