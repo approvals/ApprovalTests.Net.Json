@@ -66,6 +66,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumSupportedStrategy.cs" />
     <Compile Include="JsonPrettyPrint.cs" />
     <Compile Include="ObjectApprovals.cs" />
     <Compile Include="AssemblyInfo.cs" />

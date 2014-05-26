@@ -10,6 +10,7 @@ public class ObjectApproverTests
     {
         var person = new Person
             {
+                Title = Title.Mr,
                 GivenNames = "John",
                 FamilyName = "Smith",
                 Spouse = "Jill",
@@ -31,6 +32,7 @@ public class ObjectApproverTests
         public string Spouse;
         public Address Address;
         public List<string> Childres;
+        public Title Title;
     }
 
     class Address
@@ -39,4 +41,9 @@ public class ObjectApproverTests
         public string Suburb;
         public string Country;
     }
+}
+
+public enum Title
+{
+    Mr
 }

@@ -12,7 +12,7 @@ namespace ObjectApproval
 
         public static void VerifyWithJson(object target, Func<string,string> scrubber)
         {
-            var serializeObject = SimpleJson.SerializeObject(target);
+            var serializeObject = SimpleJson.SerializeObject(target, new EnumSupportedStrategy());
             var formatJson = serializeObject.FormatJson().FixNewLines();
             Approvals.Verify(formatJson, s => scrubber(s).FixNewLines());
         }
