@@ -1,3 +1,10 @@
+// ReSharper disable UnusedMember.Local
+// ReSharper disable ConvertToLambdaExpression
+// ReSharper disable ConvertClosureToMethodGroup
+// ReSharper disable RedundantNameQualifier
+// ReSharper disable JoinDeclarationAndInitializer
+// ReSharper disable RedundantIfElseBlock
+// ReSharper disable SuggestUseVarKeywordEverywhere
 //-----------------------------------------------------------------------
 // <copyright file="SimpleJson.cs" company="The Outercurve Foundation">
 //    Copyright (c) 2011, The Outercurve Foundation.
