@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ObjectApproval
 {
-    static class  JsonPrettyPrint
+    static public class  JsonPrettyPrint
     {
         const string INDENT_STRING = "    ";
         public static string FormatJson(this string str)
