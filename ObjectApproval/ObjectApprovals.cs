@@ -19,8 +19,7 @@ namespace ObjectApproval
 		public static string AsFormattedJson(object target)
 		{
 			var serializeObject = SimpleJson.SerializeObject(target, new EnumSupportedStrategy());
-			var formatJson = serializeObject.FormatJson().FixNewLines();
-			return formatJson;
+			return serializeObject.FormatJson().FixNewLines();
 		}
 	}
 }

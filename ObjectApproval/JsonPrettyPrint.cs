@@ -5,9 +5,10 @@ using System.Text;
 
 namespace ObjectApproval
 {
-    static public class  JsonPrettyPrint
+    public static class JsonPrettyPrint
     {
         const string INDENT_STRING = "    ";
+
         public static string FormatJson(this string str)
         {
             var indent = 0;
@@ -97,6 +98,7 @@ namespace ObjectApproval
             }
             return sb.ToString();
         }
+
         static void ForEach<T>(this IEnumerable<T> ie, Action<T> action)
         {
             foreach (var i in ie)
