@@ -3,14 +3,11 @@
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models.
 
-## Nuget
+## The nuget package  [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg?style=flat)](https://www.nuget.org/packages/ObjectApproval/)
 
-Nuget package http://nuget.org/packages/ObjectApproval 
+https://nuget.org/packages/ObjectApproval/
 
-To Install from the Nuget Package Manager Console 
-    
     PM> Install-Package ObjectApproval
-
 
 ## Usage
 
