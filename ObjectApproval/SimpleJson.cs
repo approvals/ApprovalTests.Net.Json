@@ -74,6 +74,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using ObjectApproval.Reflection;
+// ReSharper disable IdentifierTypo
 
 // ReSharper disable LoopCanBeConvertedToQuery
 // ReSharper disable RedundantExplicitArrayCreation

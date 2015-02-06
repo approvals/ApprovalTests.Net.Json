@@ -12,9 +12,9 @@
     <iconUrl>https://raw.github.com/SimonCropp/ObjectApproval/master/Icons/package_icon.png</iconUrl>
     <description>Extends ApprovalTests to allow simple approval of complex models.</description>
     <language>en-AU</language>
-    <tags>Json, ApprovalTests, </tags>
+    <tags>Json, ApprovalTests</tags>
     <dependencies>
-      <dependency id="ApprovalTests"/>
+      <dependency id="ApprovalTests"  version="[3.0.8, 4.0.0)"/>
     </dependencies>
   </metadata>
 </package>
