@@ -15,7 +15,7 @@
     <tags>Json, ApprovalTests</tags>
     <dependencies>
       <dependency id="ApprovalTests"  version="[3.0.8, 4.0.0)"/>
-      <dependency id="Newtonsoft.Json"  version="[6.0.0, 7.0.0)"/>
+      <dependency id="Newtonsoft.Json"  version="[7.0.0, 8.0.0)"/>
     </dependencies>
   </metadata>
 </package>

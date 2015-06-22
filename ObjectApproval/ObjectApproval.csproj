@@ -55,8 +55,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\ApprovalUtilities.3.0.8\lib\net35\ApprovalUtilities.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,7 +65,6 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="JsonPrettyPrint.cs" />
     <Compile Include="ObjectApprovals.cs" />
     <Compile Include="AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,17 +80,20 @@
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
+  <PropertyGroup>
+    <NugetDir>$(SolutionDir)NuGetBuild\</NugetDir>
+  </PropertyGroup>
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
     <ItemGroup>
-      <FilesToDelete Include="$(SolutionDir)NuGetBuild\**\*.*" />
+      <FilesToDelete Include="$(NugetDir)**\*.*" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
-    <MakeDir Directories="$(SolutionDir)NuGetBuild" />
-    <Copy SourceFiles="$(ProjectDir)NugetAssets\ObjectApproval.nuspec" DestinationFolder="$(SolutionDir)NuGetBuild" />
-    <Copy SourceFiles="$(OutputPath)ObjectApproval.dll" DestinationFolder="$(SolutionDir)NuGetBuild\Lib\NET40" />
-    <Copy SourceFiles="$(OutputPath)ObjectApproval.pdb" DestinationFolder="$(SolutionDir)NuGetBuild\Lib\NET40" />
-    <Copy SourceFiles="$(OutputPath)ObjectApproval.xml" DestinationFolder="$(SolutionDir)NuGetBuild\Lib\NET40" />
-    <PepitaPackage.CreatePackageTask NuGetBuildDirectory="$(SolutionDir)NuGetBuild" MetadataAssembly="$(OutputPath)ObjectApproval.dll" />
+    <MakeDir Directories="$(NugetDir)" />
+    <Copy SourceFiles="$(ProjectDir)NugetAssets\ObjectApproval.nuspec" DestinationFolder="$(NugetDir)" />
+    <Copy SourceFiles="$(OutputPath)ObjectApproval.dll" DestinationFolder="$(NugetDir)\Lib\NET40" />
+    <Copy SourceFiles="$(OutputPath)ObjectApproval.pdb" DestinationFolder="$(NugetDir)\Lib\NET40" />
+    <Copy SourceFiles="$(OutputPath)ObjectApproval.xml" DestinationFolder="$(NugetDir)\Lib\NET40" />
+    <PepitaPackage.CreatePackageTask NuGetBuildDirectory="$(NugetDir)" MetadataAssembly="$(OutputPath)ObjectApproval.dll" />
   </Target>
   <Import Project="..\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\packages\Fody.1.28.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
