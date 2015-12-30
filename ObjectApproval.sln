@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 14.0.23107.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectApproval", "ObjectApproval\ObjectApproval.csproj", "{C35E31DE-40A9-45C0-817B-41BE5B7D076E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{76FE87D9-EF6B-4D31-99F2-7099C719AE99}"
