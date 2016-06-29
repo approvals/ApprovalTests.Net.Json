@@ -18,8 +18,8 @@ namespace ObjectApproval
                 Formatting = Formatting.Indented
             };
             JsonSerializer.Converters.Add(new StringEnumConverter());
-	        
 	    }
+
 		public static void VerifyWithJson(object target)
 		{
 			VerifyWithJson(target, s => s);
