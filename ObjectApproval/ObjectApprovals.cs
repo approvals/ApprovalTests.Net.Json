@@ -7,31 +7,31 @@ using Newtonsoft.Json.Converters;
 
 namespace ObjectApproval
 {
-	public static class ObjectApprover
-	{
-	    public static JsonSerializer JsonSerializer;
+    public static class ObjectApprover
+    {
+        public static JsonSerializer JsonSerializer;
 
-	    static ObjectApprover()
+        static ObjectApprover()
         {
             JsonSerializer = new JsonSerializer
             {
                 Formatting = Formatting.Indented
             };
             JsonSerializer.Converters.Add(new StringEnumConverter());
-	    }
+        }
 
-		public static void VerifyWithJson(object target)
-		{
-			VerifyWithJson(target, s => s);
-		}
+        public static void VerifyWithJson(object target)
+        {
+            VerifyWithJson(target, s => s);
+        }
 
-		public static void VerifyWithJson(object target, Func<string, string> scrubber)
-		{
-			var formatJson = AsFormattedJson(target);
-			Approvals.Verify(formatJson, scrubber);
-		}
+        public static void VerifyWithJson(object target, Func<string, string> scrubber)
+        {
+            var formatJson = AsFormattedJson(target);
+            Approvals.Verify(formatJson, scrubber);
+        }
 
-		public static string AsFormattedJson(object target)
+        public static string AsFormattedJson(object target)
         {
             var stringBuilder = new StringBuilder();
             using (var stringWriter = new StringWriter(stringBuilder))
@@ -43,6 +43,6 @@ namespace ObjectApproval
                 }
                 return stringWriter.ToString();
             }
-		}
-	}
+        }
+    }
 }
