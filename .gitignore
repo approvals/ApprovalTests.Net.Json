@@ -11,6 +11,8 @@
 *.sln.docstates
 *.pidb
 
+.vs
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
