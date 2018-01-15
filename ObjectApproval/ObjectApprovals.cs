@@ -7,33 +7,38 @@ using Newtonsoft.Json.Converters;
 
 namespace ObjectApproval
 {
-	public static class ObjectApprover
-	{
-	    public static JsonSerializer JsonSerializer { get; set; }
+    public static class ObjectApprover
+    {
+        public static JsonSerializer JsonSerializer { get; set; }
 
-	    static ObjectApprover()
+        static ObjectApprover()
         {
-            JsonSerializer = new JsonSerializer
+            var settings = new JsonSerializerSettings
             {
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             };
-            JsonSerializer.Converters.Add(new StringEnumConverter());
-	    }
-
-		public static void VerifyWithJson(object target, Func<string, string> scrubber= null, JsonSerializerSettings jsonSerializerSettings = null)
-		{
-		    var formatJson = AsFormattedJson(target, jsonSerializerSettings);
-		    if (scrubber == null)
-		    {
-		        scrubber = s => s;
-		    }
-		    Approvals.Verify(formatJson, scrubber);
+            settings.Converters.Add(new StringEnumConverter());
+            JsonSerializer.Create(settings);
+            JsonSerializer = JsonSerializer.Create(settings);
         }
 
-		public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
+        public static void VerifyWithJson(object target, Func<string, string> scrubber = null,
+            JsonSerializerSettings jsonSerializerSettings = null)
         {
-            var stringBuilder = new StringBuilder();
-            using (var stringWriter = new StringWriter(stringBuilder))
+            var formatJson = AsFormattedJson(target, jsonSerializerSettings);
+            if (scrubber == null)
+            {
+                scrubber = s => s;
+            }
+
+            Approvals.Verify(formatJson, scrubber);
+        }
+
+        public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
+        {
+            var builder = new StringBuilder();
+            using (var stringWriter = new StringWriter(builder))
             {
                 using (var jsonWriter = new JsonTextWriter(stringWriter))
                 {
@@ -42,18 +47,19 @@ namespace ObjectApproval
                     jsonWriter.Formatting = jsonSerializer.Formatting;
                     jsonSerializer.Serialize(jsonWriter, target);
                 }
+
                 return stringWriter.ToString();
             }
-		}
+        }
 
-	    static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)
-	    {
-	        if (jsonSerializerSettings == null)
-	        {
-	            return JsonSerializer;
-	        }
+        static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)
+        {
+            if (jsonSerializerSettings == null)
+            {
+                return JsonSerializer;
+            }
 
-	        return JsonSerializer.Create(jsonSerializerSettings);
-	    }
-	}
+            return JsonSerializer.Create(jsonSerializerSettings);
+        }
+    }
 }

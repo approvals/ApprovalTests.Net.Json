@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using ApprovalTests.Reporters;
 using ObjectApproval;
+using Xunit;
 
-[TestFixture]
+[assembly: UseReporter(typeof(ClipboardReporter), typeof(DiffReporter))]
+
 public class ObjectApproverTests
 {
-    [Test]
+    [Fact]
     public void Example()
     {
         var person = new Person
