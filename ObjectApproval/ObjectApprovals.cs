@@ -17,14 +17,13 @@ namespace ObjectApproval
             {
                 Formatting = Formatting.Indented,
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore
             };
             settings.Converters.Add(new StringEnumConverter());
-            JsonSerializer.Create(settings);
             JsonSerializer = JsonSerializer.Create(settings);
         }
 
-        public static void VerifyWithJson(object target, Func<string, string> scrubber = null,
-            JsonSerializerSettings jsonSerializerSettings = null)
+        public static void VerifyWithJson(object target, Func<string, string> scrubber = null, JsonSerializerSettings jsonSerializerSettings = null)
         {
             var formatJson = AsFormattedJson(target, jsonSerializerSettings);
             if (scrubber == null)

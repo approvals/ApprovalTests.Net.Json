@@ -3,4 +3,4 @@ using ApprovalTests.Reporters;
 
 [assembly: AssemblyTitle("ObjectApproval")]
 [assembly: AssemblyProduct("ObjectApproval")]
-[assembly: AssemblyVersion("2.0.1")]
+[assembly: AssemblyVersion("2.1.0")]
