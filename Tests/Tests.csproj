@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="3.0.13" />
     <PackageReference Include="ApprovalUtilities" Version="3.0.13" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
     <ProjectReference Include="..\ObjectApproval\ObjectApproval.csproj" />
