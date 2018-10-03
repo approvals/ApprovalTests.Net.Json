@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>CS1591;CS0649</NoWarn>
+    <Version>2.3.0</Version>
+    <AssemblyInformationalVersion>$(Version)</AssemblyInformationalVersion>
+    <Authors>Simon Cropp</Authors>
+    <PackageLicenseUrl>http://github.com/SimonCropp/ObjectApproval/license.txt</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)) Simon Cropp. All rights reserved</Copyright>
+    <PackageTags>Json, ApprovalTests</PackageTags>
+    <PackageIconUrl>https://raw.github.com/SimonCropp/ObjectApproval/master/Icons/package_icon.png</PackageIconUrl>
+    <PackageProjectUrl>http://github.com/SimonCropp/ObjectApproval</PackageProjectUrl>
+    <PackageOutputPath>..\nugets</PackageOutputPath>
+    <Description>Extends ApprovalTests to allow simple approval of complex models.</Description>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludePDBsInPackage</TargetsForTfmSpecificContentInPackage>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)Key.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+
+  <Target Name="IncludePDBsInPackage" Condition="'$(IncludeBuildOutput)' != 'false'">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\$(AssemblyName).pdb" PackagePath="lib/$(TargetFramework)" />
+    </ItemGroup>
+  </Target>
+</Project>
