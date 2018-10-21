@@ -16,7 +16,7 @@ public class ObjectApproverTests
                 GivenNames = "John",
                 FamilyName = "Smith",
                 Spouse = "Jill",
-                Childres = new List<string> {"Sam", "Mary"},
+                Children = new List<string> {"Sam", "Mary"},
                 Address = new Address
                     {
                         Street = "1 Puddle Lane",
@@ -33,7 +33,7 @@ public class ObjectApproverTests
         public string FamilyName;
         public string Spouse;
         public Address Address;
-        public List<string> Childres;
+        public List<string> Children;
         public Title Title;
     }
 
