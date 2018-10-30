@@ -1,0 +1,9 @@
+﻿{
+  "$type": "ObjectApproverTests.DateTimeTarget",
+  "DateTime": "DateTime 1",
+  "DateTimeNullable": "DateTime 2",
+  "DateTimeOffset": "DateTimeOffset 1",
+  "DateTimeOffsetNullable": "DateTimeOffset 2",
+  "DateTimeString": "DateTimeOffset 3",
+  "DateTimeOffsetString": "DateTimeOffset 3"
+}

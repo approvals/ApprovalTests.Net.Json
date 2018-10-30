@@ -1,28 +1,146 @@
-﻿using System.Collections.Generic;
-using ApprovalTests.Reporters;
+﻿using System;
+using System.Collections.Generic;
 using ObjectApproval;
 using Xunit;
-
-[assembly: UseReporter(typeof(ClipboardReporter), typeof(DiffReporter))]
 
 public class ObjectApproverTests
 {
     [Fact]
+    public void ShouldReUseGuid()
+    {
+        var guid = Guid.NewGuid();
+        var target = new GuidTarget
+        {
+            Guid = guid,
+            GuidNullable = guid,
+            GuidString = guid.ToString(),
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    [Fact]
+    public void ShouldScrubGuid()
+    {
+        var target = new GuidTarget
+        {
+            Guid = Guid.NewGuid(),
+            GuidNullable = Guid.NewGuid(),
+            GuidString = Guid.NewGuid().ToString(),
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    [Fact]
+    public void ShouldIgnoreGuidDefaults()
+    {
+        var target = new GuidTarget();
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    public class GuidTarget
+    {
+        public Guid Guid;
+        public Guid? GuidNullable;
+        public string GuidString;
+    }
+
+    [Fact]
+    public void ShouldReUseDatetime()
+    {
+        var dateTime = DateTime.Now;
+        var dateTimeOffset = DateTimeOffset.Now;
+        var target = new DateTimeTarget
+        {
+            DateTime = dateTime,
+            DateTimeNullable = dateTime,
+            DateTimeString = dateTime.ToString(),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset,
+            DateTimeOffsetString = dateTimeOffset.ToString(),
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    [Fact]
+    public void ShouldScrubDatetime()
+    {
+        var dateTime = DateTime.Now;
+        var dateTimeOffset = DateTimeOffset.Now;
+        var target = new DateTimeTarget
+        {
+            DateTime = dateTime,
+            DateTimeNullable = dateTime.AddDays(1),
+            DateTimeString = dateTime.AddDays(2).ToString(),
+            DateTimeOffset = dateTimeOffset,
+            DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
+            DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString(),
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    [Fact]
+    public void ShouldIgnoreDatetimeDefaults()
+    {
+        var target = new DateTimeTarget();
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    public class DateTimeTarget
+    {
+        public DateTime DateTime;
+        public DateTime? DateTimeNullable;
+        public DateTimeOffset DateTimeOffset;
+        public DateTimeOffset? DateTimeOffsetNullable;
+        public string DateTimeString;
+        public string DateTimeOffsetString;
+    }
+
+    [Fact]
+    public void ExampleNonDefaults()
+    {
+        var person = new Person
+        {
+            Id = new Guid("ebced679-45d3-4653-8791-3d969c4a986c"),
+            Title = Title.Mr,
+            GivenNames = "John",
+            FamilyName = "Smith",
+            Dob = DateTime.MaxValue,
+            Spouse = "Jill",
+            Children = new List<string> {"Sam", "Mary"},
+            Address = new Address
+            {
+                Street = "1 Puddle Lane",
+                Country = "USA"
+            }
+        };
+
+        ObjectApprover.VerifyWithJson(person, false, false, false, s => s.Replace("Lane", "Street"));
+    }
+
+    [Fact]
     public void Example()
     {
         var person = new Person
+        {
+            Id = Guid.NewGuid(),
+            Title = Title.Mr,
+            GivenNames = "John",
+            FamilyName = "Smith",
+            Dob = DateTime.Now,
+            Spouse = "Jill",
+            Children = new List<string> {"Sam", "Mary"},
+            Address = new Address
             {
-                Title = Title.Mr,
-                GivenNames = "John",
-                FamilyName = "Smith",
-                Spouse = "Jill",
-                Children = new List<string> {"Sam", "Mary"},
-                Address = new Address
-                    {
-                        Street = "1 Puddle Lane",
-                        Country = "USA"
-                    }
-            };
+                Street = "1 Puddle Lane",
+                Country = "USA"
+            }
+        };
 
         ObjectApprover.VerifyWithJson(person);
     }
@@ -35,6 +153,8 @@ public class ObjectApproverTests
         public Address Address;
         public List<string> Children;
         public Title Title;
+        public DateTime Dob;
+        public Guid Id;
     }
 
     class Address
@@ -43,9 +163,9 @@ public class ObjectApproverTests
         public string Suburb;
         public string Country;
     }
-}
 
-public enum Title
-{
-    Mr
+    enum Title
+    {
+        Mr
+    }
 }

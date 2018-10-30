@@ -5,7 +5,7 @@
   "Spouse": "Jill",
   "Address": {
     "$type": "ObjectApproverTests.Address",
-    "Street": "1 Puddle Lane",
+    "Street": "1 Puddle Street",
     "Country": "USA"
   },
   "Children": {
@@ -15,6 +15,6 @@
       "Mary"
     ]
   },
-  "Dob": "DateTime 1",
-  "Id": "Guid 1"
+  "Dob": "9999-12-31T23:59:59.9999999",
+  "Id": "ebced679-45d3-4653-8791-3d969c4a986c"
 }
