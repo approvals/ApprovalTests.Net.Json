@@ -2,17 +2,31 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.CSharp;
 
 namespace ObjectApproval
 {
-    public static class CSharpTypeNameConverter
+    public static class TypeNameConverter
     {
         static CSharpCodeProvider codeDomProvider = new CSharpCodeProvider();
 
         public static string GetName(Type type)
         {
             //TODO: cache
+
+            if (type.Name.StartsWith("<"))
+            {
+                var singleOrDefault = type.GetInterfaces()
+                    .SingleOrDefault(x=>
+                        x.IsGenericType &&
+                        x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+                if (singleOrDefault != null)
+                {
+                    return GetName(singleOrDefault);
+                }
+            }
+
             var typeName = type.FullName.Replace(type.Namespace + ".", "");
             var reference = new CodeTypeReference(typeName);
             var name = codeDomProvider.GetTypeOutput(reference);
