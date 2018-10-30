@@ -35,6 +35,10 @@ namespace ObjectApproval
                         x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
                 if (singleOrDefault != null)
                 {
+                    if (singleOrDefault.GetGenericArguments().Single().IsAnonType())
+                    {
+                        return "IEnumerable<dynamic>";
+                    }
                     return GetName(singleOrDefault);
                 }
             }
@@ -53,7 +57,7 @@ namespace ObjectApproval
             return name;
         }
 
-        static bool IsAnonType(Type type)
+        static bool IsAnonType(this Type type)
         {
             return type.Name.Contains("AnonymousType");
         }

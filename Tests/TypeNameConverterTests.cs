@@ -56,9 +56,27 @@ public class TypeNameConverterTests
     }
 
     [Fact]
+    public void RuntimeEnumerableDynamic()
+    {
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().GetType()));
+    }
+
+    [Fact]
     public void RuntimeEnumerableWithSelect()
     {
         Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x=>x!=null).GetType()));
+    }
+
+    [Fact]
+    public void RuntimeEnumerableDynamicWithSelect()
+    {
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x=>x!=null).GetType()));
+    }
+
+    [Fact]
+    public void RuntimeEnumerableDynamicWithInnerSelect()
+    {
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x=>new {X=x.ToString()}).GetType()));
     }
 
     [Fact]
@@ -70,6 +88,10 @@ public class TypeNameConverterTests
     IEnumerable<TargetWithNamespace> MethodWithYield()
     {
         yield return new TargetWithNamespace();
+    }
+    IEnumerable<dynamic> MethodWithYieldDynamic()
+    {
+        yield return new {X="1"};
     }
 
     [Fact]
