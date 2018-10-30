@@ -21,9 +21,11 @@ namespace ObjectApproval
                 ContractResolver = new CustomContractResolver(ignoreEmptyCollections)
             };
             AddConverters(scrubGuids, scrubDateTimes, settings);
-
+            ExtraSettings(settings);
             return settings;
         }
+
+        public static Action<JsonSerializerSettings> ExtraSettings = settings => {};
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {
