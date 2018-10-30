@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ApprovalTests;
 using MyNamespace;
 using ObjectApproval;
@@ -45,13 +46,19 @@ public class TypeNameConverterTests
     [Fact]
     public void Dynamic()
     {
-        Approvals.Verify(TypeNameConverter.GetName((new{Name="foo"}).GetType()));
+        Approvals.Verify(TypeNameConverter.GetName(new{Name="foo"}.GetType()));
     }
 
     [Fact]
     public void RuntimeEnumerable()
     {
         Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().GetType()));
+    }
+
+    [Fact]
+    public void RuntimeEnumerableWithSelect()
+    {
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x=>x!=null).GetType()));
     }
 
     [Fact]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CSharp;
@@ -8,20 +9,28 @@ namespace ObjectApproval
 {
     public static class TypeNameConverter
     {
+        static ConcurrentDictionary<Type, string> cacheDictionary = new ConcurrentDictionary<Type, string>();
+
         static CSharpCodeProvider codeDomProvider = new CSharpCodeProvider();
 
         public static string GetName(Type type)
         {
-            //TODO: cache
+            return cacheDictionary.GetOrAdd(type, Inner);
+        }
 
-            if (type.Name.StartsWith("<"))
+        private static string Inner(Type type)
+        {
+            if (IsAnonType(type))
             {
-                if (IsAnonType(type))
-                {
-                    return "dynamic";
-                }
+                return "dynamic";
+            }
+
+
+            if (type.Name.StartsWith("<")
+                || (type.IsNested && type.DeclaringType == typeof(Enumerable)))
+            {
                 var singleOrDefault = type.GetInterfaces()
-                    .SingleOrDefault(x=>
+                    .SingleOrDefault(x =>
                         x.IsGenericType &&
                         x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
                 if (singleOrDefault != null)
