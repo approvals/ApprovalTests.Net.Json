@@ -2,7 +2,6 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Microsoft.CSharp;
 
 namespace ObjectApproval
@@ -17,6 +16,10 @@ namespace ObjectApproval
 
             if (type.Name.StartsWith("<"))
             {
+                if (IsAnonType(type))
+                {
+                    return "dynamic";
+                }
                 var singleOrDefault = type.GetInterfaces()
                     .SingleOrDefault(x=>
                         x.IsGenericType &&
@@ -39,6 +42,11 @@ namespace ObjectApproval
             }
 
             return name;
+        }
+
+        static bool IsAnonType(Type type)
+        {
+            return type.Name.Contains("AnonymousType");
         }
 
         static void AllGenericArgumentNamespace(Type type, List<string> list)

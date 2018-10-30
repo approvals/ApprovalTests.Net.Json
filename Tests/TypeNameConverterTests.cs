@@ -43,6 +43,12 @@ public class TypeNameConverterTests
     }
 
     [Fact]
+    public void Dynamic()
+    {
+        Approvals.Verify(TypeNameConverter.GetName((new{Name="foo"}).GetType()));
+    }
+
+    [Fact]
     public void RuntimeEnumerable()
     {
         Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().GetType()));
