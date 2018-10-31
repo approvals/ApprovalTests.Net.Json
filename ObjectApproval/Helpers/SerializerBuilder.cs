@@ -13,7 +13,6 @@ namespace ObjectApproval
         {
             var settings = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.All,
                 Formatting = Formatting.Indented,
                 SerializationBinder = new ShortNameBinder(),
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,

@@ -1,20 +1,15 @@
 ﻿{
-  "$type": "ObjectApproverTests.Person",
   "GivenNames": "John",
   "FamilyName": "Smith",
   "Spouse": "Jill",
   "Address": {
-    "$type": "ObjectApproverTests.Address",
     "Street": "1 Puddle Lane",
     "Country": "USA"
   },
-  "Children": {
-    "$type": "List<string>",
-    "$values": [
-      "Sam",
-      "Mary"
-    ]
-  },
+  "Children": [
+    "Sam",
+    "Mary"
+  ],
   "Dob": "DateTime 1",
   "Id": "Guid 1"
 }
