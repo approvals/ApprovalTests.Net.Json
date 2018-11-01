@@ -5,6 +5,11 @@ using Xunit;
 
 public class ObjectApproverTests
 {
+    static ObjectApproverTests()
+    {
+        StringScrubber.AddExtraDatetimeFormat("F");
+        StringScrubber.AddExtraDatetimeOffsetFormat("F");
+    }
     [Fact]
     public void ShouldReUseGuid()
     {
@@ -17,6 +22,22 @@ public class ObjectApproverTests
         };
 
         ObjectApprover.VerifyWithJson(target);
+    }
+
+    [Fact]
+    public void OnlySpecificDates()
+    {
+        var target = new NotDatesTarget
+        {
+            NotDate = "1.2.3"
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    public class NotDatesTarget
+    {
+        public string NotDate;
     }
 
     [Fact]
@@ -56,10 +77,10 @@ public class ObjectApproverTests
         {
             DateTime = dateTime,
             DateTimeNullable = dateTime,
-            DateTimeString = dateTime.ToString(),
+            DateTimeString = dateTime.ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset,
-            DateTimeOffsetString = dateTimeOffset.ToString(),
+            DateTimeOffsetString = dateTimeOffset.ToString("F"),
         };
 
         ObjectApprover.VerifyWithJson(target);
@@ -74,10 +95,10 @@ public class ObjectApproverTests
         {
             DateTime = dateTime,
             DateTimeNullable = dateTime.AddDays(1),
-            DateTimeString = dateTime.AddDays(2).ToString(),
+            DateTimeString = dateTime.AddDays(2).ToString("F"),
             DateTimeOffset = dateTimeOffset,
             DateTimeOffsetNullable = dateTimeOffset.AddDays(1),
-            DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString(),
+            DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
         };
 
         ObjectApprover.VerifyWithJson(target);

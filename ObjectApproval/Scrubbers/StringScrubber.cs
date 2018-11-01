@@ -47,30 +47,18 @@ namespace ObjectApproval
 
                 if (dateTimeScrubber != null)
                 {
-                    if (DateTimeOffset.TryParse(valueAsString, out var dateTimeOffset))
-                    {
-                        dateTimeOffsetScrubber.WriteValue(writer, dateTimeOffset);
-                        return;
-                    }
-
                     foreach (var format in datetimeOffsetFormats)
                     {
-                        if (DateTimeOffset.TryParseExact(valueAsString, format, null, DateTimeStyles.None, out dateTimeOffset))
+                        if (DateTimeOffset.TryParseExact(valueAsString, format, null, DateTimeStyles.None, out var dateTimeOffset))
                         {
                             dateTimeOffsetScrubber.WriteValue(writer, dateTimeOffset);
                             return;
                         }
                     }
 
-                    if (DateTime.TryParse(valueAsString, out var dateTime))
-                    {
-                        dateTimeScrubber.WriteValue(writer, dateTime);
-                        return;
-                    }
-
                     foreach (var format in datetimeFormats)
                     {
-                        if (DateTime.TryParseExact(valueAsString, format, null, DateTimeStyles.None, out dateTime))
+                        if (DateTime.TryParseExact(valueAsString, format, null, DateTimeStyles.None, out var dateTime))
                         {
                             dateTimeScrubber.WriteValue(writer, dateTime);
                             return;
