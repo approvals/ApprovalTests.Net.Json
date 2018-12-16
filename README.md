@@ -6,7 +6,7 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 **This project is supported by the community via [Patreon sponsorship](https://www.patreon.com/join/simoncropp). If you are using this project to deliver business value or build commercial software it is expected that you will provide support [via Patreon](https://www.patreon.com/join/simoncropp).**
 
 
-## The nuget package  [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg?style=flat)](https://www.nuget.org/packages/ObjectApproval/)
+## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg?style=flat)](https://www.nuget.org/packages/ObjectApproval/)
 
 https://nuget.org/packages/ObjectApproval/
 
@@ -16,7 +16,7 @@ https://nuget.org/packages/ObjectApproval/
 
 Assuming you have previously verified and approved using this. 
 
-```
+```csharp
 var person = new Person
     {
         GivenNames = "John",
@@ -34,7 +34,7 @@ ObjectApprover.VerifyWithJson(person);
 
 Then you attempt to verify this 
 
-```
+```csharp
 var person = new Person
     {
         GivenNames = "John",
@@ -55,6 +55,6 @@ The serialized json version of these will then be compared and you will be displ
 
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/SampleDiff.png)
 
-## Icon 
+## Icon
 
 <a href="http://thenounproject.com/term/helmet/9554/" target="_blank">Helmet</a> designed by <a href="http://thenounproject.com/alterego" target="_blank">Leonidas Ikonomou</a> from The Noun Project
