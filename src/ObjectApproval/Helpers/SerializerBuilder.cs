@@ -8,7 +8,8 @@ namespace ObjectApproval
 {
     public static class SerializerBuilder
     {
-        static Dictionary<Type,List<string>> ignored = new Dictionary<Type, List<string>>();
+        static Dictionary<Type,List<string>> ignoredMembers = new Dictionary<Type, List<string>>();
+        static List<Type> ignoredTypes = new List<Type>();
 
         public static void AddIgnore<T>(Expression<Func<T, object>> expression)
         {
@@ -16,11 +17,16 @@ namespace ObjectApproval
             {
                 throw new ArgumentException("expression");
             }
-            if (!ignored.TryGetValue(member.Member.DeclaringType, out var list))
+            if (!ignoredMembers.TryGetValue(member.Member.DeclaringType, out var list))
             {
-                ignored[member.Member.DeclaringType]=list = new List<string>();
+                ignoredMembers[member.Member.DeclaringType]=list = new List<string>();
             }
             list.Add(member.Member.Name);
+        }
+
+        public static void AddIgnore<T>()
+        {
+            ignoredTypes.Add(typeof(T));
         }
 
         public static JsonSerializerSettings BuildSettings(
@@ -34,7 +40,7 @@ namespace ObjectApproval
                 SerializationBinder = new ShortNameBinder(),
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 DefaultValueHandling = DefaultValueHandling.Ignore,
-                ContractResolver = new CustomContractResolver(ignoreEmptyCollections, ignored)
+                ContractResolver = new CustomContractResolver(ignoreEmptyCollections, ignoredMembers,ignoredTypes)
             };
             AddConverters(scrubGuids, scrubDateTimes, settings);
             ExtraSettings(settings);

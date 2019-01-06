@@ -26,6 +26,29 @@ public class ObjectApproverTests
     }
 
     [Fact]
+    public void IgnoreType()
+    {
+        var target = new IgnoreTypeTarget
+        {
+            ToIgnore = new ToIgnore
+            {
+                Property="Value"
+            }
+        };
+        SerializerBuilder.AddIgnore<ToIgnore>();
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    class IgnoreTypeTarget
+    {
+        public ToIgnore ToIgnore { get; set; }
+    }
+    class ToIgnore
+    {
+        public string Property { get; set; }
+    }
+
+    [Fact]
     public void IgnoreExplicit()
     {
         var target = new IgnoreExplicitTarget

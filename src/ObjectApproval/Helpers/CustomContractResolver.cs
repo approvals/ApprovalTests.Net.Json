@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -10,11 +11,13 @@ namespace ObjectApproval
     {
         bool ignoreEmptyCollections;
         IReadOnlyDictionary<Type, List<string>> ignored;
+        IReadOnlyList<Type> ignoredTypes;
 
-        public CustomContractResolver(bool ignoreEmptyCollections, IReadOnlyDictionary<Type, List<string>> ignored)
+        public CustomContractResolver(bool ignoreEmptyCollections, IReadOnlyDictionary<Type, List<string>> ignored, IReadOnlyList<Type> ignoredTypes)
         {
             this.ignoreEmptyCollections = ignoreEmptyCollections;
             this.ignored = ignored;
+            this.ignoredTypes = ignoredTypes;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
@@ -25,7 +28,14 @@ namespace ObjectApproval
                 property.SkipEmptyCollections(member);
             }
 
+
             if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
+            {
+                property.Ignored = true;
+                return property;
+            }
+
+            if (ignoredTypes.Any(x=>x.IsAssignableFrom(property.PropertyType)))
             {
                 property.Ignored = true;
                 return property;
