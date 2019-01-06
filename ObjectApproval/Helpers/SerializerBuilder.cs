@@ -10,22 +10,18 @@ namespace ObjectApproval
     {
         static Dictionary<Type,List<string>> ignored = new Dictionary<Type, List<string>>();
 
-        public static void AddIgnore<TObject, TProperty>(Expression<Func<TObject, TProperty>> expression)
+        public static void AddIgnore<T>(Expression<Func<T, object>> expression)
         {
-            if (!ignored.TryGetValue(typeof(TObject), out var list))
+            if (!(expression.Body is MemberExpression member))
             {
-                ignored[typeof(TObject)]=list = new List<string>();
+                throw new ArgumentException("expression");
             }
-
-            if (expression.Body is MemberExpression member)
+            if (!ignored.TryGetValue(member.Member.DeclaringType, out var list))
             {
-                list.Add(member.Member.Name);
-                return;
+                ignored[member.Member.DeclaringType]=list = new List<string>();
             }
-
-            throw new ArgumentException("expression");
+            list.Add(member.Member.Name);
         }
-
 
         public static JsonSerializerSettings BuildSettings(
             bool ignoreEmptyCollections = true,

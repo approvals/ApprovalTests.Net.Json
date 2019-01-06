@@ -34,8 +34,8 @@ public class ObjectApproverTests
             Property = "Value",
             Include = "Value"
         };
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget,string>(x=>x.Property);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget,string>(x=>x.Field);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.Property);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.Field);
         ObjectApprover.VerifyWithJson(target);
     }
 
