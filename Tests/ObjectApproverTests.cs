@@ -24,6 +24,18 @@ public class ObjectApproverTests
         ObjectApprover.VerifyWithJson(target);
     }
     [Fact]
+    public void NotImplementedExceptionProp()
+    {
+        var target = new WithNotImplementedException();
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+    class WithNotImplementedException
+    {
+        public Guid NotImplementedExceptionObsoleteProperty => throw new NotImplementedException();
+    }
+
+    [Fact]
     public void WithObsoleteProp()
     {
         var target = new WithObsolete();

@@ -22,10 +22,12 @@ namespace ObjectApproval
                 property.SkipEmptyCollections(member);
             }
 
-            if (member.GetCustomAttribute<ObsoleteAttribute>(true)!= null)
+            if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
             {
                 property.Ignored = true;
             }
+
+            property.ValueProvider = new CustomValueProvider(property.ValueProvider,property.PropertyType);
 
             return property;
         }
