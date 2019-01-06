@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -19,6 +20,11 @@ namespace ObjectApproval
             if (ignoreEmptyCollections)
             {
                 property.SkipEmptyCollections(member);
+            }
+
+            if (member.GetCustomAttribute<ObsoleteAttribute>(true)!= null)
+            {
+                property.Ignored = true;
             }
 
             return property;

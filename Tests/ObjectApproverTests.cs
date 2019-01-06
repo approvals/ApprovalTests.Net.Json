@@ -23,6 +23,27 @@ public class ObjectApproverTests
 
         ObjectApprover.VerifyWithJson(target);
     }
+    [Fact]
+    public void WithObsoleteProp()
+    {
+        var target = new WithObsolete();
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+    class WithObsolete
+    {
+        Guid obsoleteProperty;
+
+        [Obsolete]
+        public Guid ObsoleteProperty
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set => obsoleteProperty = value;
+        }
+    }
 
     [Fact]
     public void OnlySpecificDates()
