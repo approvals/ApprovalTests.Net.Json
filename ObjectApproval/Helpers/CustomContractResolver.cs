@@ -27,7 +27,7 @@ namespace ObjectApproval
                 property.Ignored = true;
             }
 
-            property.ValueProvider = new CustomValueProvider(property.ValueProvider,property.PropertyType);
+            property.ValueProvider = new CustomValueProvider(property.ValueProvider, property.PropertyType);
 
             return property;
         }

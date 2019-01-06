@@ -10,6 +10,7 @@ public class ObjectApproverTests
         StringScrubber.AddExtraDatetimeFormat("F");
         StringScrubber.AddExtraDatetimeOffsetFormat("F");
     }
+
     [Fact]
     public void ShouldReUseGuid()
     {
@@ -23,6 +24,7 @@ public class ObjectApproverTests
 
         ObjectApprover.VerifyWithJson(target);
     }
+
     [Fact]
     public void NotImplementedExceptionProp()
     {
@@ -30,9 +32,23 @@ public class ObjectApproverTests
 
         ObjectApprover.VerifyWithJson(target);
     }
+
     class WithNotImplementedException
     {
         public Guid NotImplementedExceptionObsoleteProperty => throw new NotImplementedException();
+    }
+
+    [Fact]
+    public void NotSupportedExceptionProp()
+    {
+        var target = new WithNotSupportedException();
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    class WithNotSupportedException
+    {
+        public Guid NotImplementedExceptionProperty => throw new NotSupportedException();
     }
 
     [Fact]
@@ -42,6 +58,7 @@ public class ObjectApproverTests
 
         ObjectApprover.VerifyWithJson(target);
     }
+
     class WithObsolete
     {
         Guid obsoleteProperty;
@@ -49,10 +66,7 @@ public class ObjectApproverTests
         [Obsolete]
         public Guid ObsoleteProperty
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
             set => obsoleteProperty = value;
         }
     }
@@ -100,7 +114,7 @@ public class ObjectApproverTests
 
     public class CollectionTarget
     {
-        public Dictionary<int,string> DictionaryProperty;
+        public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;
     }
 

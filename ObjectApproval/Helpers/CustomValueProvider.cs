@@ -28,17 +28,24 @@ namespace ObjectApproval
             }
             catch (JsonSerializationException exception)
             {
-                if (exception.InnerException is NotImplementedException)
+                if (exception.InnerException is NotImplementedException ||
+                    exception.InnerException is NotSupportedException)
                 {
-                    if(propertyType.IsValueType)
-                    {
-                        return Activator.CreateInstance(propertyType);
-                    }
-                    return null;
+                    return GetDefault();
                 }
 
                 throw;
             }
+        }
+
+        object GetDefault()
+        {
+            if (propertyType.IsValueType)
+            {
+                return Activator.CreateInstance(propertyType);
+            }
+
+            return null;
         }
     }
 }
