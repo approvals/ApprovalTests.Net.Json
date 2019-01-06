@@ -43,6 +43,7 @@ public class ObjectApproverTests
     {
         public ToIgnore ToIgnore { get; set; }
     }
+
     class ToIgnore
     {
         public string Property { get; set; }
