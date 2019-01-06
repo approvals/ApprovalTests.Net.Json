@@ -75,6 +75,24 @@ public class ObjectApproverTests
     }
 
     [Fact]
+    public void ShouldIgnoreEmptyList()
+    {
+        var target = new CollectionTarget
+        {
+            DictionaryProperty = new Dictionary<int, string>(),
+            ListProperty = new List<string>()
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    public class CollectionTarget
+    {
+        public Dictionary<int,string> DictionaryProperty;
+        public List<string> ListProperty;
+    }
+
+    [Fact]
     public void ShouldIgnoreGuidDefaults()
     {
         var target = new GuidTarget();
