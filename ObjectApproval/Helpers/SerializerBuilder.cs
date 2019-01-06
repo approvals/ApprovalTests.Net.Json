@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -6,6 +8,25 @@ namespace ObjectApproval
 {
     public static class SerializerBuilder
     {
+        static Dictionary<Type,List<string>> ignored = new Dictionary<Type, List<string>>();
+
+        public static void AddIgnore<TObject, TProperty>(Expression<Func<TObject, TProperty>> expression)
+        {
+            if (!ignored.TryGetValue(typeof(TObject), out var list))
+            {
+                ignored[typeof(TObject)]=list = new List<string>();
+            }
+
+            if (expression.Body is MemberExpression member)
+            {
+                list.Add(member.Member.Name);
+                return;
+            }
+
+            throw new ArgumentException("expression");
+        }
+
+
         public static JsonSerializerSettings BuildSettings(
             bool ignoreEmptyCollections = true,
             bool scrubGuids = true,
@@ -17,7 +38,7 @@ namespace ObjectApproval
                 SerializationBinder = new ShortNameBinder(),
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 DefaultValueHandling = DefaultValueHandling.Ignore,
-                ContractResolver = new CustomContractResolver(ignoreEmptyCollections)
+                ContractResolver = new CustomContractResolver(ignoreEmptyCollections, ignored)
             };
             AddConverters(scrubGuids, scrubDateTimes, settings);
             ExtraSettings(settings);

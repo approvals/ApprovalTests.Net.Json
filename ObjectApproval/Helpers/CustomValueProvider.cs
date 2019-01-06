@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace ObjectApproval
 {
-    class CustomValueProvider : IValueProvider
+    public class CustomValueProvider : IValueProvider
     {
         IValueProvider inner;
         Type propertyType;

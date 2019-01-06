@@ -26,6 +26,27 @@ public class ObjectApproverTests
     }
 
     [Fact]
+    public void IgnoreExplicit()
+    {
+        var target = new IgnoreExplicitTarget
+        {
+            Field = "Value",
+            Property = "Value",
+            Include = "Value"
+        };
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget,string>(x=>x.Property);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget,string>(x=>x.Field);
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    class IgnoreExplicitTarget
+    {
+        public string Include { get; set; }
+        public string Property { get; set; }
+        public string Field;
+    }
+
+    [Fact]
     public void NotImplementedExceptionProp()
     {
         var target = new WithNotImplementedException();
