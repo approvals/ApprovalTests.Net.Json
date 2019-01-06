@@ -1,5 +1,5 @@
 
-![Icon](https://raw.github.com/SimonCropp/ObjectApproval/master/Icons/package_icon.png)
+![Icon](https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png)
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models.
 
@@ -11,6 +11,7 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 https://nuget.org/packages/ObjectApproval/
 
     PM> Install-Package ObjectApproval
+
 
 ## Usage
 
@@ -43,7 +44,7 @@ var person = new Person
         Address = new Address
             {
                 Street = "1 Puddle Lane",
-                Suburb = "Gotham",				
+                Suburb = "Gotham",
                 Country = "USA"
             }
     };
@@ -53,7 +54,8 @@ ObjectApprover.VerifyWithJson(person);
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
 
-![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/SampleDiff.png)
+![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
+
 
 ## Icon
 
