@@ -60,6 +60,8 @@ public class ObjectApproverTests
         };
         SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.Property);
         SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.Field);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.GetOnlyProperty);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.PropertyThatThrows);
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -67,6 +69,8 @@ public class ObjectApproverTests
     {
         public string Include { get; set; }
         public string Property { get; set; }
+        public string GetOnlyProperty => "asd";
+        public string PropertyThatThrows => throw new Exception();
         public string Field;
     }
 

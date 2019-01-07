@@ -13,15 +13,39 @@ namespace ObjectApproval
 
         public static void AddIgnore<T>(Expression<Func<T, object>> expression)
         {
-            if (!(expression.Body is MemberExpression member))
+            Guard.AgainstNull(expression, nameof(expression));
+            if (expression.Body is UnaryExpression unary)
             {
-                throw new ArgumentException("expression");
+                if (unary.Operand is MemberExpression unaryMember)
+                {
+                    var declaringType = unaryMember.Member.DeclaringType;
+                    var memberName = unaryMember.Member.Name;
+                    AddIgnore(declaringType, memberName);
+                    return;
+                }
             }
-            if (!ignoredMembers.TryGetValue(member.Member.DeclaringType, out var list))
+
+            if (expression.Body is MemberExpression member)
             {
-                ignoredMembers[member.Member.DeclaringType]=list = new List<string>();
+                var declaringType = member.Member.DeclaringType;
+                var memberName = member.Member.Name;
+                AddIgnore(declaringType, memberName);
+                return;
             }
-            list.Add(member.Member.Name);
+
+            throw new ArgumentException("expression");
+        }
+
+        public static void AddIgnore(Type declaringType, string memberName)
+        {
+            Guard.AgainstNull(declaringType, nameof(declaringType));
+            Guard.AgainstNullOrEmpty(memberName, nameof(memberName));
+            if (!ignoredMembers.TryGetValue(declaringType, out var list))
+            {
+                ignoredMembers[declaringType] = list = new List<string>();
+            }
+
+            list.Add(memberName);
         }
 
         public static void AddIgnore<T>()
