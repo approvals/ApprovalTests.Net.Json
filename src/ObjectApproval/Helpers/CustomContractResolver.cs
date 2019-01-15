@@ -13,8 +13,15 @@ namespace ObjectApproval
         IReadOnlyDictionary<Type, List<string>> ignored;
         IReadOnlyList<Type> ignoredTypes;
 
+        public CustomContractResolver(bool ignoreEmptyCollections) :
+            this(ignoreEmptyCollections, new Dictionary<Type, List<string>>(), new List<Type>())
+        {
+        }
+
         public CustomContractResolver(bool ignoreEmptyCollections, IReadOnlyDictionary<Type, List<string>> ignored, IReadOnlyList<Type> ignoredTypes)
         {
+            Guard.AgainstNull(ignored, nameof(ignored));
+            Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
             this.ignoreEmptyCollections = ignoreEmptyCollections;
             this.ignored = ignored;
             this.ignoredTypes = ignoredTypes;
@@ -35,7 +42,7 @@ namespace ObjectApproval
                 return property;
             }
 
-            if (ignoredTypes.Any(x=>x.IsAssignableFrom(property.PropertyType)))
+            if (ignoredTypes.Any(x => x.IsAssignableFrom(property.PropertyType)))
             {
                 property.Ignored = true;
                 return property;
