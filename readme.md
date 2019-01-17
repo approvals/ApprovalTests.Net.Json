@@ -118,6 +118,8 @@ ObjectApprover.VerifyWithJson(target);
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L17-L30)</sup>
 <!-- endsnippet -->
 
+Results in the following:
+
 ```json
 {
   "Guid": "Guid 1",
@@ -172,6 +174,8 @@ ObjectApprover.VerifyWithJson(target);
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L231-L247)</sup>
 <!-- endsnippet -->
 
+Results in the following:
+
 ```json
 {
   "DateTime": "DateTime 1",
@@ -188,8 +192,6 @@ To disable this behavior use:
 ```cs
 SerializerBuilder.ScrubDateTimes = false;
 ```
-
-
 
 
 ### Changing settings globally
@@ -285,6 +287,8 @@ ObjectApprover.VerifyWithJson(target);
 
 ### Scrubber
 
+A scrubber can be used to cleanup or sanitize the resultant serialized string prior to verification.
+
 <!-- snippet: Scrubber -->
 ```cs
 var target = new ToBeScrubbed
@@ -297,6 +301,8 @@ ObjectApprover.VerifyWithJson(target,
 ```
 <sup>[snippet source](/src/Tests/Samples.cs#L10-L20)</sup>
 <!-- endsnippet -->
+
+Results in the following:
 
 ```json
 {

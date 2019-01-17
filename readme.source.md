@@ -59,6 +59,8 @@ By default guids are sanitized during verification. This is done by finding each
 
 snippet: guid
 
+Results in the following:
+
 ```json
 {
   "Guid": "Guid 1",
@@ -88,6 +90,8 @@ By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verifica
 
 snippet: Date
 
+Results in the following:
+
 ```json
 {
   "DateTime": "DateTime 1",
@@ -104,8 +108,6 @@ To disable this behavior use:
 ```cs
 SerializerBuilder.ScrubDateTimes = false;
 ```
-
-
 
 
 ### Changing settings globally
@@ -138,7 +140,11 @@ snippet: IgnoreMemberByName
 
 ### Scrubber
 
+A scrubber can be used to cleanup or sanitize the resultant serialized string prior to verification.
+
 snippet: Scrubber
+
+Results in the following:
 
 ```json
 {
