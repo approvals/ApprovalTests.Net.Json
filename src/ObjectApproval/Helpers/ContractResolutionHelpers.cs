@@ -11,6 +11,7 @@ namespace ObjectApproval
     {
         static bool IsCollection(this Type type)
         {
+            Guard.AgainstNull(type, nameof(type));
             return type.GetInterfaces()
                 .Any(x => x.IsGenericType &&
                           x.GetGenericTypeDefinition() == typeof(ICollection<>));
@@ -18,6 +19,8 @@ namespace ObjectApproval
 
         public static void SkipEmptyCollections(this JsonProperty property, MemberInfo member)
         {
+            Guard.AgainstNull(property, nameof(property));
+            Guard.AgainstNull(member, nameof(member));
             if (property.PropertyType == typeof(string))
             {
                 return;
@@ -48,12 +51,12 @@ namespace ObjectApproval
             // this value could be in a public field or public property
             if (member is PropertyInfo propertyInfo)
             {
-                return (IEnumerable)propertyInfo.GetValue(instance, null);
+                return (IEnumerable) propertyInfo.GetValue(instance, null);
             }
 
             if (member is FieldInfo fieldInfo)
             {
-                return (IEnumerable)fieldInfo.GetValue(instance);
+                return (IEnumerable) fieldInfo.GetValue(instance);
             }
 
             throw new Exception($"No supported MemberType: {member.MemberType}");

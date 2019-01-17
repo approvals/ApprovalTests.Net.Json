@@ -69,6 +69,111 @@ The serialized json version of these will then be compared and you will be displ
 
 All modifications of `SerializerBuilder` behavior is global for all verifications and should be done once at assembly load time.
 
+
+### Default settings
+
+The default serialization settings are:
+
+<!-- snippet: defaultSerialization -->
+```cs
+var settings = new JsonSerializerSettings
+{
+    Formatting = Formatting.Indented,
+    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+    DefaultValueHandling = DefaultValueHandling.Ignore
+};
+```
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L69-L78)</sup>
+<!-- endsnippet -->
+
+
+### Empty collections are ignored
+
+By default empty collections are ignored during verification.
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.IgnoreEmptyCollections = false;
+```
+
+
+### Guids are scrubbed
+
+By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
+
+<!-- snippet: guid -->
+```cs
+var guid = Guid.NewGuid();
+var target = new GuidTarget
+{
+    Guid = guid,
+    GuidNullable = guid,
+    GuidString = guid.ToString(),
+    OtherGuid = Guid.NewGuid(),
+};
+
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L17-L30)</sup>
+<!-- endsnippet -->
+
+```json
+{
+  "Guid": "Guid 1",
+  "GuidNullable": "Guid 1",
+  "GuidString": "Guid 1",
+  "OtherGuid": "Guid 2"
+}
+```
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.ScrubGuids = false;
+```
+
+
+### Dates are scrubbed
+
+By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
+
+<!-- snippet: Date -->
+```cs
+var dateTime = DateTime.Now;
+var dateTimeOffset = DateTimeOffset.Now;
+var target = new DateTimeTarget
+{
+    DateTime = dateTime,
+    DateTimeNullable = dateTime,
+    DateTimeString = dateTime.ToString("F"),
+    DateTimeOffset = dateTimeOffset,
+    DateTimeOffsetNullable = dateTimeOffset,
+    DateTimeOffsetString = dateTimeOffset.ToString("F"),
+};
+
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L222-L238)</sup>
+<!-- endsnippet -->
+
+```json
+{
+  "DateTime": "DateTime 1",
+  "DateTimeNullable": "DateTime 1",
+  "DateTimeOffset": "DateTimeOffset 1",
+  "DateTimeOffsetNullable": "DateTimeOffset 1",
+  "DateTimeString": "DateTimeOffset 2",
+  "DateTimeOffsetString": "DateTimeOffset 2"
+}
+```
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.ScrubDateTimes = false;
+```
+
 ### Changing settings globally
 
 To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
@@ -103,7 +208,7 @@ SerializerBuilder.AddIgnore<ToIgnore>();
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L31-L44)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L36-L49)</sup>
 <!-- endsnippet -->
 
 
@@ -125,7 +230,7 @@ SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
 SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L60-L72)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L65-L77)</sup>
 <!-- endsnippet -->
 
 
@@ -148,7 +253,7 @@ SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
 SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L78-L93)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L83-L98)</sup>
 <!-- endsnippet -->
 
 

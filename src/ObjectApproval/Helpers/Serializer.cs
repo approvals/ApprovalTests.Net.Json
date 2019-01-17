@@ -8,6 +8,8 @@ namespace ObjectApproval
     {
         public static string Serialize(this JsonSerializer jsonSerializer, object target)
         {
+            Guard.AgainstNull(jsonSerializer, nameof(jsonSerializer));
+            Guard.AgainstNull(target, nameof(target));
             var builder = new StringBuilder();
             using (var stringWriter = new StringWriter(builder))
             {

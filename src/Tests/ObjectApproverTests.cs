@@ -14,15 +14,20 @@ public class ObjectApproverTests
     [Fact]
     public void ShouldReUseGuid()
     {
+        #region guid
+
         var guid = Guid.NewGuid();
         var target = new GuidTarget
         {
             Guid = guid,
             GuidNullable = guid,
             GuidString = guid.ToString(),
+            OtherGuid = Guid.NewGuid(),
         };
 
         ObjectApprover.VerifyWithJson(target);
+
+        #endregion
     }
 
     [Fact]
@@ -208,11 +213,14 @@ public class ObjectApproverTests
         public Guid Guid;
         public Guid? GuidNullable;
         public string GuidString;
+        public Guid OtherGuid;
     }
 
     [Fact]
     public void ShouldReUseDatetime()
     {
+        #region Date
+
         var dateTime = DateTime.Now;
         var dateTimeOffset = DateTimeOffset.Now;
         var target = new DateTimeTarget
@@ -226,6 +234,8 @@ public class ObjectApproverTests
         };
 
         ObjectApprover.VerifyWithJson(target);
+
+        #endregion
     }
 
     [Fact]

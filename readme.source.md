@@ -23,7 +23,7 @@ Then you attempt to verify this
 
 snippet: after
 
-The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
+The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
 
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
 
@@ -33,6 +33,70 @@ The serialized json version of these will then be compared and you will be displ
 `SerializerBuilder` is used to build the Json.net `JsonSerializerSettings`. This is done for every verification run by calling `SerializerBuilder.BuildSettings()`.
 
 All modifications of `SerializerBuilder` behavior is global for all verifications and should be done once at assembly load time.
+
+
+### Default settings
+
+The default serialization settings are:
+
+snippet: defaultSerialization
+
+
+### Empty collections are ignored
+
+By default empty collections are ignored during verification.
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.IgnoreEmptyCollections = false;
+```
+
+
+### Guids are scrubbed
+
+By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
+
+snippet: guid
+
+```json
+{
+  "Guid": "Guid 1",
+  "GuidNullable": "Guid 1",
+  "GuidString": "Guid 1",
+  "OtherGuid": "Guid 2"
+}
+```
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.ScrubGuids = false;
+```
+
+
+### Dates are scrubbed
+
+By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
+
+snippet: Date
+
+```json
+{
+  "DateTime": "DateTime 1",
+  "DateTimeNullable": "DateTime 1",
+  "DateTimeOffset": "DateTimeOffset 1",
+  "DateTimeOffsetNullable": "DateTimeOffset 1",
+  "DateTimeString": "DateTimeOffset 2",
+  "DateTimeOffsetString": "DateTimeOffset 2"
+}
+```
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.ScrubDateTimes = false;
+```
 
 ### Changing settings globally
 

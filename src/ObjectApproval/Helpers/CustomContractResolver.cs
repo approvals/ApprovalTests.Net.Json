@@ -35,7 +35,6 @@ namespace ObjectApproval
                 property.SkipEmptyCollections(member);
             }
 
-
             if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
             {
                 property.Ignored = true;

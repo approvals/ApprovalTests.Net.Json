@@ -53,11 +53,19 @@ namespace ObjectApproval
             ignoredTypes.Add(typeof(T));
         }
 
+        public static bool IgnoreEmptyCollections { get; set; } = true;
+        public static bool ScrubGuids { get; set;} = true;
+        public static bool ScrubDateTimes { get; set;} = true;
+
         public static JsonSerializerSettings BuildSettings(
-            bool ignoreEmptyCollections = true,
-            bool scrubGuids = true,
-            bool scrubDateTimes = true)
+            bool? ignoreEmptyCollections = true,
+            bool? scrubGuids = true,
+            bool? scrubDateTimes = true)
         {
+            var ignoreEmptyCollectionsVal = ignoreEmptyCollections.GetValueOrDefault(IgnoreEmptyCollections);
+            var scrubGuidsVal = scrubGuids.GetValueOrDefault(ScrubGuids);
+            var scrubDateTimesVal = scrubDateTimes.GetValueOrDefault(ScrubDateTimes);
+
             #region defaultSerialization
 
             var settings = new JsonSerializerSettings
@@ -69,8 +77,8 @@ namespace ObjectApproval
 
             #endregion
             settings.SerializationBinder = new ShortNameBinder();
-            settings.ContractResolver = new CustomContractResolver(ignoreEmptyCollections, ignoredMembers, ignoredTypes);
-            AddConverters(scrubGuids, scrubDateTimes, settings);
+            settings.ContractResolver = new CustomContractResolver(ignoreEmptyCollectionsVal, ignoredMembers, ignoredTypes);
+            AddConverters(scrubGuidsVal, scrubDateTimesVal, settings);
             ExtraSettings(settings);
             return settings;
         }
