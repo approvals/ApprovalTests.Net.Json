@@ -1,8 +1,41 @@
 ﻿using Newtonsoft.Json;
 using ObjectApproval;
+using Xunit;
 
 public class Samples
 {
+    [Fact]
+    public void Scrubber()
+    {
+        #region Scrubber
+
+        var target = new ToBeScrubbed
+        {
+            RowVersion = "0x00000000000007D3"
+        };
+
+        ObjectApprover.VerifyWithJson(target,
+            scrubber: s => s.Replace("0x00000000000007D3", "ThRowVersion"));
+
+        #endregion
+    }
+    void ChangeDefaultsPerVerification(object target)
+    {
+        #region ChangeDefaultsPerVerification
+
+        ObjectApprover.VerifyWithJson(target,
+            ignoreEmptyCollections:false,
+            scrubGuids:false,
+            scrubDateTimes:false);
+
+        #endregion
+    }
+
+    class ToBeScrubbed
+    {
+        public string RowVersion;
+    }
+
     void Before()
     {
         #region Before

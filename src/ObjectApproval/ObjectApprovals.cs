@@ -11,6 +11,11 @@ namespace ObjectApproval
             VerifyWithJson(target, null);
         }
 
+        public static void VerifyWithJson(object target, Func<string, string> scrubber = null)
+        {
+            VerifyWithJson(target, scrubber, null);
+        }
+
         public static void VerifyWithJson(object target, Func<string, string> scrubber = null, JsonSerializerSettings jsonSerializerSettings = null)
         {
             var formatJson = AsFormattedJson(target, jsonSerializerSettings);

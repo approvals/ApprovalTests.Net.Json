@@ -33,7 +33,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L8-L24)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L41-L57)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -55,10 +55,10 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L43-L60)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L76-L93)</sup>
 <!-- endsnippet -->
 
-The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
+The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
 
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
 
@@ -134,6 +134,21 @@ SerializerBuilder.ScrubGuids = false;
 ```
 
 
+### Change defaults at the verification level
+
+DateTime, Guid, and empty collection behavior can also be controlled at the verification level: 
+
+<!-- snippet: ChangeDefaultsPerVerification -->
+```cs
+ObjectApprover.VerifyWithJson(target,
+    ignoreEmptyCollections:false,
+    scrubGuids:false,
+    scrubDateTimes:false);
+```
+<sup>[snippet source](/src/Tests/Samples.cs#L24-L31)</sup>
+<!-- endsnippet -->
+
+
 ### Dates are scrubbed
 
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
@@ -174,6 +189,9 @@ To disable this behavior use:
 SerializerBuilder.ScrubDateTimes = false;
 ```
 
+
+
+
 ### Changing settings globally
 
 To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
@@ -187,7 +205,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L29-L38)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L62-L71)</sup>
 <!-- endsnippet -->
 
 
@@ -256,6 +274,27 @@ ObjectApprover.VerifyWithJson(target);
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L83-L98)</sup>
 <!-- endsnippet -->
 
+
+### Scrubber
+
+<!-- snippet: Scrubber -->
+```cs
+var target = new ToBeScrubbed
+{
+    RowVersion = "0x00000000000007D3"
+};
+
+ObjectApprover.VerifyWithJson(target,
+    scrubber: s => s.Replace("0x00000000000007D3", "ThRowVersion"));
+```
+<sup>[snippet source](/src/Tests/Samples.cs#L10-L20)</sup>
+<!-- endsnippet -->
+
+```json
+{
+  "RowVersion": "ThRowVersion"
+}
+```
 
 
 ## Icon
