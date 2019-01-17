@@ -215,7 +215,7 @@ To ignore all members that match a certain type:
 
 <!-- snippet: AddIgnore -->
 ```cs
-// Done one static startup
+// Done on static startup
 SerializerBuilder.AddIgnore<ToIgnore>();
 
 var target = new IgnoreTypeTarget

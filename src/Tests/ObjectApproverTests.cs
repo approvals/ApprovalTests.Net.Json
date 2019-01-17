@@ -35,7 +35,7 @@ public class ObjectApproverTests
     {
         #region AddIgnore
 
-        // Done one static startup
+        // Done on static startup
         SerializerBuilder.AddIgnore<ToIgnore>();
 
         var target = new IgnoreTypeTarget
