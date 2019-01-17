@@ -28,15 +28,20 @@ public class ObjectApproverTests
     [Fact]
     public void IgnoreType()
     {
+        #region AddIgnore
+
         var target = new IgnoreTypeTarget
         {
             ToIgnore = new ToIgnore
             {
-                Property="Value"
+                Property = "Value"
             }
         };
         SerializerBuilder.AddIgnore<ToIgnore>();
+
         ObjectApprover.VerifyWithJson(target);
+
+        #endregion
     }
 
     class IgnoreTypeTarget
@@ -50,19 +55,42 @@ public class ObjectApproverTests
     }
 
     [Fact]
-    public void IgnoreExplicit()
+    public void IgnoreMemberByExpression()
     {
+        #region IgnoreMemberByExpression
         var target = new IgnoreExplicitTarget
         {
+            Include = "Value",
             Field = "Value",
-            Property = "Value",
-            Include = "Value"
+            Property = "Value"
         };
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.Property);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.Field);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.GetOnlyProperty);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x=>x.PropertyThatThrows);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Property);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Field);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
         ObjectApprover.VerifyWithJson(target);
+        #endregion
+    }
+
+    [Fact]
+    public void IgnoreMemberByName()
+    {
+        #region IgnoreMemberByName
+
+        var target = new IgnoreExplicitTarget
+        {
+            Include = "Value",
+            Field = "Value",
+            Property = "Value"
+        };
+        var type = typeof(IgnoreExplicitTarget);
+        SerializerBuilder.AddIgnore(type, "Property");
+        SerializerBuilder.AddIgnore(type, "Field");
+        SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
+        SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
+        ObjectApprover.VerifyWithJson(target);
+
+        #endregion
     }
 
     class IgnoreExplicitTarget

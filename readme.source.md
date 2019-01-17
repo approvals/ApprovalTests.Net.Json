@@ -28,6 +28,41 @@ The serialized json version of these will then be compared and you will be displ
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
 
 
+## Serializer settings
+
+`SerializerBuilder` is used to build the Json.net `JsonSerializerSettings`. This is done for every verification run by calling `SerializerBuilder.BuildSettings()`.
+
+All modifications of `SerializerBuilder` behavior is global for all verifications and should be done once at assembly load time.
+
+### Changing settings globally
+
+To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
+
+snippet: ExtraSettings
+
+
+### Ignoring a type
+
+To ignore all members that match a certain type:
+
+snippet: AddIgnore
+
+
+### Ignore member by expressions
+
+To ignore members of a certain type using an expression:
+
+snippet: IgnoreMemberByExpression
+
+
+### Ignore member by name
+
+To ignore members of a certain type using type and name:
+
+snippet: IgnoreMemberByName
+
+
+
 ## Icon
 
 <a href="http://thenounproject.com/term/helmet/9554/" target="_blank">Helmet</a> designed by <a href="http://thenounproject.com/alterego" target="_blank">Leonidas Ikonomou</a> from The Noun Project

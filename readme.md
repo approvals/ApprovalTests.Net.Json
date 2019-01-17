@@ -33,7 +33,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests - Copy.cs#L7-L23)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L8-L24)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -55,12 +55,102 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests - Copy.cs#L28-L45)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L43-L60)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
 
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
+
+
+## Serializer settings
+
+`SerializerBuilder` is used to build the Json.net `JsonSerializerSettings`. This is done for every verification run by calling `SerializerBuilder.BuildSettings()`.
+
+All modifications of `SerializerBuilder` behavior is global for all verifications and should be done once at assembly load time.
+
+### Changing settings globally
+
+To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
+
+<!-- snippet: ExtraSettings -->
+```cs
+SerializerBuilder.ExtraSettings =
+    jsonSerializerSettings =>
+    {
+        jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+        jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+    };
+```
+<sup>[snippet source](/src/Tests/Samples.cs#L29-L38)</sup>
+<!-- endsnippet -->
+
+
+### Ignoring a type
+
+To ignore all members that match a certain type:
+
+<!-- snippet: AddIgnore -->
+```cs
+var target = new IgnoreTypeTarget
+{
+    ToIgnore = new ToIgnore
+    {
+        Property = "Value"
+    }
+};
+SerializerBuilder.AddIgnore<ToIgnore>();
+
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L31-L44)</sup>
+<!-- endsnippet -->
+
+
+### Ignore member by expressions
+
+To ignore members of a certain type using an expression:
+
+<!-- snippet: IgnoreMemberByExpression -->
+```cs
+var target = new IgnoreExplicitTarget
+{
+    Include = "Value",
+    Field = "Value",
+    Property = "Value"
+};
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Property);
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Field);
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L60-L72)</sup>
+<!-- endsnippet -->
+
+
+### Ignore member by name
+
+To ignore members of a certain type using type and name:
+
+<!-- snippet: IgnoreMemberByName -->
+```cs
+var target = new IgnoreExplicitTarget
+{
+    Include = "Value",
+    Field = "Value",
+    Property = "Value"
+};
+var type = typeof(IgnoreExplicitTarget);
+SerializerBuilder.AddIgnore(type, "Property");
+SerializerBuilder.AddIgnore(type, "Field");
+SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
+SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L78-L93)</sup>
+<!-- endsnippet -->
+
 
 
 ## Icon

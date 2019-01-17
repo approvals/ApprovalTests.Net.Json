@@ -1,4 +1,5 @@
-﻿using ObjectApproval;
+﻿using Newtonsoft.Json;
+using ObjectApproval;
 
 public class Samples
 {
@@ -19,6 +20,20 @@ public class Samples
         };
 
         ObjectApprover.VerifyWithJson(person);
+
+        #endregion
+    }
+
+    void ExtraSettings()
+    {
+        #region ExtraSettings
+
+        SerializerBuilder.ExtraSettings =
+            jsonSerializerSettings =>
+            {
+                jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+                jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+            };
 
         #endregion
     }
