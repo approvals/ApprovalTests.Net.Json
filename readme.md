@@ -169,7 +169,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L222-L238)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L231-L247)</sup>
 <!-- endsnippet -->
 
 ```json
@@ -215,6 +215,9 @@ To ignore all members that match a certain type:
 
 <!-- snippet: AddIgnore -->
 ```cs
+// Done one static startup
+SerializerBuilder.AddIgnore<ToIgnore>();
+
 var target = new IgnoreTypeTarget
 {
     ToIgnore = new ToIgnore
@@ -222,11 +225,10 @@ var target = new IgnoreTypeTarget
         Property = "Value"
     }
 };
-SerializerBuilder.AddIgnore<ToIgnore>();
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L36-L49)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L36-L51)</sup>
 <!-- endsnippet -->
 
 
@@ -236,19 +238,22 @@ To ignore members of a certain type using an expression:
 
 <!-- snippet: IgnoreMemberByExpression -->
 ```cs
+// Done on static startup
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Property);
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Field);
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+
+
 var target = new IgnoreExplicitTarget
 {
     Include = "Value",
     Field = "Value",
     Property = "Value"
 };
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Property);
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Field);
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L65-L77)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L67-L83)</sup>
 <!-- endsnippet -->
 
 
@@ -258,20 +263,23 @@ To ignore members of a certain type using type and name:
 
 <!-- snippet: IgnoreMemberByName -->
 ```cs
+// Done on static startup
+var type = typeof(IgnoreExplicitTarget);
+SerializerBuilder.AddIgnore(type, "Property");
+SerializerBuilder.AddIgnore(type, "Field");
+SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
+SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
+
+
 var target = new IgnoreExplicitTarget
 {
     Include = "Value",
     Field = "Value",
     Property = "Value"
 };
-var type = typeof(IgnoreExplicitTarget);
-SerializerBuilder.AddIgnore(type, "Property");
-SerializerBuilder.AddIgnore(type, "Field");
-SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
-SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L83-L98)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L89-L107)</sup>
 <!-- endsnippet -->
 
 
