@@ -17,46 +17,11 @@ https://nuget.org/packages/ObjectApproval/
 
 Assuming you have previously verified and approved using this. 
 
-<!-- snippet: before -->
-```cs
-var person = new Person
-{
-    GivenNames = "John",
-    FamilyName = "Smith",
-    Spouse = "Jill",
-    Address = new Address
-    {
-        Street = "1 Puddle Lane",
-        Country = "USA"
-    }
-};
-
-ObjectApprover.VerifyWithJson(person);
-```
-<sup>[snippet source](/src/Tests/ObjectApproverTests - Copy.cs#L7-L23)</sup>
-<!-- endsnippet -->
+snippet: before
 
 Then you attempt to verify this 
 
-<!-- snippet: after -->
-```cs
-var person = new Person
-{
-    GivenNames = "John",
-    FamilyName = "Smith",
-    Spouse = "Jill",
-    Address = new Address
-    {
-        Street = "1 Puddle Lane",
-        Suburb = "Gotham",
-        Country = "USA"
-    }
-};
-
-ObjectApprover.VerifyWithJson(person);
-```
-<sup>[snippet source](/src/Tests/ObjectApproverTests - Copy.cs#L28-L45)</sup>
-<!-- endsnippet -->
+snippet: after
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example
 
