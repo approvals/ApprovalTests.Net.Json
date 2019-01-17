@@ -1,15 +1,15 @@
 ﻿{
-  "GivenNames": "John",
-  "FamilyName": "Smith",
-  "Spouse": "Jill",
-  "Address": {
-    "Street": "1 Puddle Lane",
-    "Country": "USA"
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Spouse: 'Jill',
+  Address: {
+    Street: '1 Puddle Lane',
+    Country: 'USA'
   },
-  "Children": [
-    "Sam",
-    "Mary"
+  Children: [
+    'Sam',
+    'Mary'
   ],
-  "Dob": "DateTime 1",
-  "Id": "Guid 1"
+  Dob: 'DateTime 1',
+  Id: 'Guid 1'
 }

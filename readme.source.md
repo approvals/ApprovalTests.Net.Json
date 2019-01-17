@@ -28,6 +28,28 @@ The serialized json version of these will then be compared and you will be displ
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
 
 
+### Validating multiple instances
+
+When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verifciation
+
+snippet: anon
+
+Results in the following:
+
+```graphql
+{
+  person1: {
+    GivenNames: 'John',
+    FamilyName: 'Smith'
+  },
+  person2: {
+    GivenNames: 'Marianne',
+    FamilyName: 'Aguirre'
+  }
+}
+```
+
+
 ## Serializer settings
 
 `SerializerBuilder` is used to build the Json.net `JsonSerializerSettings`. This is done for every verification run by calling `SerializerBuilder.BuildSettings()`.
@@ -41,6 +63,26 @@ The default serialization settings are:
 
 snippet: defaultSerialization
 
+
+### Single quotes used
+
+[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+
+To change this behavior use:
+
+```cs
+SerializerBuilder.UseDoubleQuotes = true;
+```
+
+### QuoteName is false
+
+[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+
+To change this behavior use:
+
+```cs
+SerializerBuilder.QuoteNames = true;
+```
 
 ### Empty collections are ignored
 
@@ -61,12 +103,12 @@ snippet: guid
 
 Results in the following:
 
-```json
+```graphql
 {
-  "Guid": "Guid 1",
-  "GuidNullable": "Guid 1",
-  "GuidString": "Guid 1",
-  "OtherGuid": "Guid 2"
+  Guid: 'Guid 1',
+  GuidNullable: 'Guid 1',
+  GuidString: 'Guid 1',
+  OtherGuid: 'Guid 2'
 }
 ```
 
@@ -92,14 +134,14 @@ snippet: Date
 
 Results in the following:
 
-```json
+```graphql
 {
-  "DateTime": "DateTime 1",
-  "DateTimeNullable": "DateTime 1",
-  "DateTimeOffset": "DateTimeOffset 1",
-  "DateTimeOffsetNullable": "DateTimeOffset 1",
-  "DateTimeString": "DateTimeOffset 2",
-  "DateTimeOffsetString": "DateTimeOffset 2"
+  DateTime: 'DateTime 1',
+  DateTimeNullable: 'DateTime 1',
+  DateTimeOffset: 'DateTimeOffset 1',
+  DateTimeOffsetNullable: 'DateTimeOffset 1',
+  DateTimeString: 'DateTimeOffset 2',
+  DateTimeOffsetString: 'DateTimeOffset 2'
 }
 ```
 
@@ -146,9 +188,9 @@ snippet: Scrubber
 
 Results in the following:
 
-```json
+```graphql
 {
-  "RowVersion": "ThRowVersion"
+  RowVersion: 'ThRowVersion'
 }
 ```
 

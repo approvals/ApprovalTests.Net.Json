@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ApprovalTests;
 using Newtonsoft.Json;
 
@@ -46,8 +47,18 @@ namespace ObjectApproval
 
         public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
         {
-            var jsonSerializer = GetJsonSerializer(jsonSerializerSettings);
-            return jsonSerializer.Serialize(target);
+            var serializer = GetJsonSerializer(jsonSerializerSettings);
+            var stringWriter = new StringWriter();
+            using (var writer = new JsonTextWriter(stringWriter))
+            {
+                if (!SerializerBuilder.UseDoubleQuotes)
+                {
+                    writer.QuoteChar = '\'';
+                }
+                writer.QuoteName = SerializerBuilder.QuoteNames;
+                serializer.Serialize(writer, target);
+            }
+            return stringWriter.ToString();
         }
 
         static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)

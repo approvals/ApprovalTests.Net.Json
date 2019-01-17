@@ -57,6 +57,32 @@ public class Samples
         #endregion
     }
 
+    [Fact]
+   public void Anon()
+    {
+        #region Anon
+
+        var person1 = new Person
+        {
+            GivenNames = "John",
+            FamilyName = "Smith"
+        };
+        var person2 = new Person
+        {
+            GivenNames = "Marianne",
+            FamilyName = "Aguirre"
+        };
+
+        ObjectApprover.VerifyWithJson(
+            new
+            {
+                person1,
+                person2
+            });
+
+        #endregion
+    }
+
     void ExtraSettings()
     {
         #region ExtraSettings

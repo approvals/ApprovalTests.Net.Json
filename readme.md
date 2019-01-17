@@ -55,12 +55,55 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L76-L93)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L102-L119)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
 
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
+
+
+### Validating multiple instances
+
+When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verifciation
+
+<!-- snippet: anon -->
+```cs
+var person1 = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith"
+};
+var person2 = new Person
+{
+    GivenNames = "Marianne",
+    FamilyName = "Aguirre"
+};
+
+ObjectApprover.VerifyWithJson(
+    new
+    {
+        person1,
+        person2
+    });
+```
+<sup>[snippet source](/src/Tests/Samples.cs#L63-L83)</sup>
+<!-- endsnippet -->
+
+Results in the following:
+
+```graphql
+{
+  person1: {
+    GivenNames: "John",
+    FamilyName: "Smith"
+  },
+  person2: {
+    GivenNames: "Marianne",
+    FamilyName: "Aguirre"
+  }
+}
+```
 
 
 ## Serializer settings
@@ -83,9 +126,19 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L69-L78)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L71-L80)</sup>
 <!-- endsnippet -->
 
+
+### QuoteName is false
+
+[JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+
+To change this behavior use:
+
+```cs
+SerializerBuilder.QuoteNames = true;
+```
 
 ### Empty collections are ignored
 
@@ -120,12 +173,12 @@ ObjectApprover.VerifyWithJson(target);
 
 Results in the following:
 
-```json
+```graphql
 {
-  "Guid": "Guid 1",
-  "GuidNullable": "Guid 1",
-  "GuidString": "Guid 1",
-  "OtherGuid": "Guid 2"
+  Guid: "Guid 1",
+  GuidNullable: "Guid 1",
+  GuidString: "Guid 1",
+  OtherGuid: "Guid 2"
 }
 ```
 
@@ -176,14 +229,14 @@ ObjectApprover.VerifyWithJson(target);
 
 Results in the following:
 
-```json
+```graphql
 {
-  "DateTime": "DateTime 1",
-  "DateTimeNullable": "DateTime 1",
-  "DateTimeOffset": "DateTimeOffset 1",
-  "DateTimeOffsetNullable": "DateTimeOffset 1",
-  "DateTimeString": "DateTimeOffset 2",
-  "DateTimeOffsetString": "DateTimeOffset 2"
+  DateTime: "DateTime 1",
+  DateTimeNullable: "DateTime 1",
+  DateTimeOffset: "DateTimeOffset 1",
+  DateTimeOffsetNullable: "DateTimeOffset 1",
+  DateTimeString: "DateTimeOffset 2",
+  DateTimeOffsetString: "DateTimeOffset 2"
 }
 ```
 
@@ -207,7 +260,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L62-L71)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L88-L97)</sup>
 <!-- endsnippet -->
 
 
@@ -304,9 +357,9 @@ ObjectApprover.VerifyWithJson(target,
 
 Results in the following:
 
-```json
+```graphql
 {
-  "RowVersion": "ThRowVersion"
+  RowVersion: "ThRowVersion"
 }
 ```
 

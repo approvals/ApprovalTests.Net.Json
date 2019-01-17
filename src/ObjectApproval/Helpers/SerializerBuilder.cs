@@ -56,6 +56,8 @@ namespace ObjectApproval
         public static bool IgnoreEmptyCollections { get; set; } = true;
         public static bool ScrubGuids { get; set;} = true;
         public static bool ScrubDateTimes { get; set;} = true;
+        public static bool QuoteNames { get; set;} = false;
+        public static bool UseDoubleQuotes { get; set;} = false;
 
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = true,
