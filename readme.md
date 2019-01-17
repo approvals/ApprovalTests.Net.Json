@@ -95,12 +95,12 @@ Results in the following:
 ```graphql
 {
   person1: {
-    GivenNames: "John",
-    FamilyName: "Smith"
+    GivenNames: 'John',
+    FamilyName: 'Smith'
   },
   person2: {
-    GivenNames: "Marianne",
-    FamilyName: "Aguirre"
+    GivenNames: 'Marianne',
+    FamilyName: 'Aguirre'
   }
 }
 ```
@@ -129,6 +129,16 @@ var settings = new JsonSerializerSettings
 <sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L71-L80)</sup>
 <!-- endsnippet -->
 
+
+### Single quotes used
+
+[JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
+
+To change this behavior use:
+
+```cs
+SerializerBuilder.UseDoubleQuotes = true;
+```
 
 ### QuoteName is false
 
@@ -175,10 +185,10 @@ Results in the following:
 
 ```graphql
 {
-  Guid: "Guid 1",
-  GuidNullable: "Guid 1",
-  GuidString: "Guid 1",
-  OtherGuid: "Guid 2"
+  Guid: 'Guid 1',
+  GuidNullable: 'Guid 1',
+  GuidString: 'Guid 1',
+  OtherGuid: 'Guid 2'
 }
 ```
 
@@ -231,12 +241,12 @@ Results in the following:
 
 ```graphql
 {
-  DateTime: "DateTime 1",
-  DateTimeNullable: "DateTime 1",
-  DateTimeOffset: "DateTimeOffset 1",
-  DateTimeOffsetNullable: "DateTimeOffset 1",
-  DateTimeString: "DateTimeOffset 2",
-  DateTimeOffsetString: "DateTimeOffset 2"
+  DateTime: 'DateTime 1',
+  DateTimeNullable: 'DateTime 1',
+  DateTimeOffset: 'DateTimeOffset 1',
+  DateTimeOffsetNullable: 'DateTimeOffset 1',
+  DateTimeString: 'DateTimeOffset 2',
+  DateTimeOffsetString: 'DateTimeOffset 2'
 }
 ```
 
@@ -359,7 +369,7 @@ Results in the following:
 
 ```graphql
 {
-  RowVersion: "ThRowVersion"
+  RowVersion: 'ThRowVersion'
 }
 ```
 
