@@ -11,7 +11,7 @@ namespace ObjectApproval
             {
                 return;
             }
-            var multicastDelegate = (MulticastDelegate)value;
+            var multicastDelegate = (Delegate)value;
 
             writer.WriteStartObject();
             writer.WritePropertyName("Type");
@@ -30,7 +30,7 @@ namespace ObjectApproval
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(MulticastDelegate).IsAssignableFrom(objectType);
+            return typeof(Delegate).IsAssignableFrom(objectType);
         }
     }
 }
