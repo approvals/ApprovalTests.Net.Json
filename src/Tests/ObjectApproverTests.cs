@@ -208,6 +208,18 @@ public class ObjectApproverTests
     }
 
     [Fact]
+    public void DelegateProp()
+    {
+        var target = new WithDelegate();
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    class WithDelegate
+    {
+        public Action DelegateProperty => () => { };
+    }
+
+    [Fact]
     public void NotSupportedExceptionProp()
     {
         var target = new WithNotSupportedException();
