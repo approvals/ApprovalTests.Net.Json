@@ -68,6 +68,11 @@ namespace ObjectApproval
             ignoreMembersThatThrow.Add(x => x is T);
         }
 
+        public static void IgnoreMembersThatThrow(Func<Exception, bool> item)
+        {
+            IgnoreMembersThatThrow<Exception>(item);
+        }
+
         public static void IgnoreMembersThatThrow<T>(Func<T, bool> item)
             where T : Exception
         {
