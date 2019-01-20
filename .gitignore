@@ -40,7 +40,7 @@
 ##  If you have NuGet Package Restore enabled, uncomment this
 packages/
 ForSample/
-NugetBuild/
+Nugets/
 
 # Visual Studio profiler
 *.psess

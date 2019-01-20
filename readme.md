@@ -32,7 +32,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L41-L57)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L42-L58)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -54,7 +54,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L102-L119)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L103-L120)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -88,7 +88,7 @@ ObjectApprover.VerifyWithJson(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L63-L83)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L64-L84)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -127,7 +127,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L107-L116)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L106-L115)</sup>
 <!-- endsnippet -->
 
 
@@ -141,6 +141,7 @@ To change this behavior use:
 SerializerBuilder.UseDoubleQuotes = true;
 ```
 
+
 ### QuoteName is false
 
 [JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
@@ -151,6 +152,7 @@ To change this behavior use:
 SerializerBuilder.QuoteNames = true;
 ```
 
+
 ### Empty collections are ignored
 
 By default empty collections are ignored during verification.
@@ -160,11 +162,6 @@ To disable this behavior use:
 ```cs
 SerializerBuilder.IgnoreEmptyCollections = false;
 ```
-
-
-### Delegates are ignored
-
-By default delegates, eg `Action` and `Func`, are ignored.
 
 
 ### Guids are scrubbed
@@ -212,11 +209,11 @@ DateTime, Guid, and empty collection behavior can also be controlled at the veri
 <!-- snippet: ChangeDefaultsPerVerification -->
 ```cs
 ObjectApprover.VerifyWithJson(target,
-    ignoreEmptyCollections:false,
-    scrubGuids:false,
-    scrubDateTimes:false);
+    ignoreEmptyCollections: false,
+    scrubGuids: false,
+    scrubDateTimes: false);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L24-L31)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L25-L32)</sup>
 <!-- endsnippet -->
 
 
@@ -276,7 +273,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L88-L97)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L89-L98)</sup>
 <!-- endsnippet -->
 
 

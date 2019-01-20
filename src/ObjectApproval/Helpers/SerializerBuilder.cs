@@ -12,7 +12,6 @@ namespace ObjectApproval
         {
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
-            IgnoreMembersWithType<MulticastDelegate>();
         }
 
         static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
@@ -132,6 +131,7 @@ namespace ObjectApproval
         {
             var converters = settings.Converters;
             converters.Add(new StringEnumConverter());
+            converters.Add(new DelegateConverter());
             if (scrubGuids && scrubDateTimes)
             {
                 var guidScrubbingConverter = new Scrubber<Guid>();
