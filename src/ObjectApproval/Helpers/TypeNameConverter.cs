@@ -25,7 +25,6 @@ namespace ObjectApproval
                 return "dynamic";
             }
 
-
             if (type.Name.StartsWith("<")
                 || (type.IsNested && type.DeclaringType == typeof(Enumerable)))
             {

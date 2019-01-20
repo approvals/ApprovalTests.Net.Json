@@ -37,6 +37,7 @@ namespace ObjectApproval
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
+
             if (ignoreEmptyCollections)
             {
                 property.SkipEmptyCollections(member);

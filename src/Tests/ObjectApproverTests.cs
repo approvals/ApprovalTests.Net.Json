@@ -122,7 +122,6 @@ public class ObjectApproverTests
     public void NotImplementedExceptionProp()
     {
         var target = new WithNotImplementedException();
-
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -150,6 +149,7 @@ public class ObjectApproverTests
     {
         public Guid CustomExceptionProperty => throw new CustomException();
     }
+
     [Fact]
     public void ExceptionProp()
     {
@@ -211,7 +211,6 @@ public class ObjectApproverTests
     public void NotSupportedExceptionProp()
     {
         var target = new WithNotSupportedException();
-
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -224,7 +223,6 @@ public class ObjectApproverTests
     public void WithObsoleteProp()
     {
         var target = new WithObsolete();
-
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -247,7 +245,6 @@ public class ObjectApproverTests
         {
             NotDate = "1.2.3"
         };
-
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -265,7 +262,6 @@ public class ObjectApproverTests
             GuidNullable = Guid.NewGuid(),
             GuidString = Guid.NewGuid().ToString(),
         };
-
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -277,7 +273,6 @@ public class ObjectApproverTests
             DictionaryProperty = new Dictionary<int, string>(),
             ListProperty = new List<string>()
         };
-
         ObjectApprover.VerifyWithJson(target);
     }
 
@@ -291,7 +286,6 @@ public class ObjectApproverTests
     public void ShouldIgnoreGuidDefaults()
     {
         var target = new GuidTarget();
-
         ObjectApprover.VerifyWithJson(target);
     }
 
