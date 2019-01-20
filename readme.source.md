@@ -75,6 +75,7 @@ To change this behavior use:
 SerializerBuilder.UseDoubleQuotes = true;
 ```
 
+
 ### QuoteName is false
 
 [JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
@@ -84,6 +85,7 @@ To change this behavior use:
 ```cs
 SerializerBuilder.QuoteNames = true;
 ```
+
 
 ### Empty collections are ignored
 

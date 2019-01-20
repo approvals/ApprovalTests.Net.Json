@@ -19,14 +19,15 @@ public class Samples
 
         #endregion
     }
+
     void ChangeDefaultsPerVerification(object target)
     {
         #region ChangeDefaultsPerVerification
 
         ObjectApprover.VerifyWithJson(target,
-            ignoreEmptyCollections:false,
-            scrubGuids:false,
-            scrubDateTimes:false);
+            ignoreEmptyCollections: false,
+            scrubGuids: false,
+            scrubDateTimes: false);
 
         #endregion
     }
