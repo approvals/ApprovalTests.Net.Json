@@ -8,10 +8,9 @@ namespace ObjectApproval
 {
     public static class SerializerBuilder
     {
-        static Dictionary<Type, List<string>> ignoredMembers = new Dictionary<Type, List<string>>();
-        static List<Type> ignoredTypes = new List<Type>();
+        static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
 
-        public static void AddIgnore<T>(Expression<Func<T, object>> expression)
+        public static void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
             Guard.AgainstNull(expression, nameof(expression));
             if (expression.Body is UnaryExpression unary)
@@ -20,7 +19,7 @@ namespace ObjectApproval
                 {
                     var declaringType = unaryMember.Member.DeclaringType;
                     var memberName = unaryMember.Member.Name;
-                    AddIgnore(declaringType, memberName);
+                    IgnoreMember(declaringType, memberName);
                     return;
                 }
             }
@@ -29,28 +28,29 @@ namespace ObjectApproval
             {
                 var declaringType = member.Member.DeclaringType;
                 var memberName = member.Member.Name;
-                AddIgnore(declaringType, memberName);
+                IgnoreMember(declaringType, memberName);
                 return;
             }
 
             throw new ArgumentException("expression");
         }
 
-        public static void AddIgnore(Type declaringType, string memberName)
+        public static void IgnoreMember(Type declaringType, string name)
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
-            Guard.AgainstNullOrEmpty(memberName, nameof(memberName));
-            if (!ignoredMembers.TryGetValue(declaringType, out var list))
+            Guard.AgainstNullOrEmpty(name, nameof(name));
+            if (!ignoreMembersByName.TryGetValue(declaringType, out var list))
             {
-                ignoredMembers[declaringType] = list = new List<string>();
+                ignoreMembersByName[declaringType] = list = new List<string>();
             }
 
-            list.Add(memberName);
+            list.Add(name);
         }
 
-        public static void AddIgnore<T>()
+        static List<Type> ignoreMembersWithType = new List<Type>();
+        public static void IgnoreMembersWithType<T>()
         {
-            ignoredTypes.Add(typeof(T));
+            ignoreMembersWithType.Add(typeof(T));
         }
 
         public static bool IgnoreEmptyCollections { get; set; } = true;
@@ -79,7 +79,10 @@ namespace ObjectApproval
 
             #endregion
             settings.SerializationBinder = new ShortNameBinder();
-            settings.ContractResolver = new CustomContractResolver(ignoreEmptyCollectionsVal, ignoredMembers, ignoredTypes);
+            settings.ContractResolver = new CustomContractResolver(
+                ignoreEmptyCollectionsVal,
+                ignoreMembersByName,
+                ignoreMembersWithType);
             AddConverters(scrubGuidsVal, scrubDateTimesVal, settings);
             ExtraSettings(settings);
             return settings;

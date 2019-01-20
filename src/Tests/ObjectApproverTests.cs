@@ -36,7 +36,7 @@ public class ObjectApproverTests
         #region AddIgnore
 
         // Done on static startup
-        SerializerBuilder.AddIgnore<ToIgnore>();
+        SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
 
         var target = new IgnoreTypeTarget
         {
@@ -67,10 +67,10 @@ public class ObjectApproverTests
         #region IgnoreMemberByExpression
 
         // Done on static startup
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Property);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Field);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-        SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+        SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+        SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+        SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+        SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 
 
         var target = new IgnoreExplicitTarget
@@ -90,10 +90,10 @@ public class ObjectApproverTests
 
         // Done on static startup
         var type = typeof(IgnoreExplicitTarget);
-        SerializerBuilder.AddIgnore(type, "Property");
-        SerializerBuilder.AddIgnore(type, "Field");
-        SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
-        SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
+        SerializerBuilder.IgnoreMember(type, "Property");
+        SerializerBuilder.IgnoreMember(type, "Field");
+        SerializerBuilder.IgnoreMember(type, "GetOnlyProperty");
+        SerializerBuilder.IgnoreMember(type, "PropertyThatThrows");
 
 
         var target = new IgnoreExplicitTarget

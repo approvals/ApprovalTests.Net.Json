@@ -1,7 +1,6 @@
+# <img src="https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png" height="40px"> ObjectApproval
 
-![Icon](https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png)
-
-Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models.
+Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
 **This project is supported by the community via [Patreon sponsorship](https://www.patreon.com/join/simoncropp). If you are using this project to deliver business value or build commercial software it is expected that you will provide support [via Patreon](https://www.patreon.com/join/simoncropp).**
 
@@ -65,7 +64,7 @@ The serialized json version of these will then be compared and you will be displ
 
 ### Validating multiple instances
 
-When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verifciation
+When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
 
 <!-- snippet: anon -->
 ```cs
@@ -234,7 +233,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L231-L247)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L261-L277)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -281,7 +280,7 @@ To ignore all members that match a certain type:
 <!-- snippet: AddIgnore -->
 ```cs
 // Done on static startup
-SerializerBuilder.AddIgnore<ToIgnore>();
+SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
 
 var target = new IgnoreTypeTarget
 {
@@ -304,10 +303,10 @@ To ignore members of a certain type using an expression:
 <!-- snippet: IgnoreMemberByExpression -->
 ```cs
 // Done on static startup
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Property);
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.Field);
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
-SerializerBuilder.AddIgnore<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
+SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
+SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
+SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
+SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 
 
 var target = new IgnoreExplicitTarget
@@ -330,10 +329,10 @@ To ignore members of a certain type using type and name:
 ```cs
 // Done on static startup
 var type = typeof(IgnoreExplicitTarget);
-SerializerBuilder.AddIgnore(type, "Property");
-SerializerBuilder.AddIgnore(type, "Field");
-SerializerBuilder.AddIgnore(type, "GetOnlyProperty");
-SerializerBuilder.AddIgnore(type, "PropertyThatThrows");
+SerializerBuilder.IgnoreMember(type, "Property");
+SerializerBuilder.IgnoreMember(type, "Field");
+SerializerBuilder.IgnoreMember(type, "GetOnlyProperty");
+SerializerBuilder.IgnoreMember(type, "PropertyThatThrows");
 
 
 var target = new IgnoreExplicitTarget
