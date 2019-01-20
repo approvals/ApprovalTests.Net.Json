@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using ObjectApproval;
 using Xunit;
 
@@ -38,6 +39,7 @@ public class ObjectApproverTests
         // Done on static startup
         SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
 
+        // Done as part of test
         var target = new IgnoreTypeTarget
         {
             ToIgnore = new ToIgnore
@@ -72,7 +74,7 @@ public class ObjectApproverTests
         SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
         SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 
-
+        // Done as part of test
         var target = new IgnoreExplicitTarget
         {
             Include = "Value",
@@ -80,6 +82,7 @@ public class ObjectApproverTests
             Property = "Value"
         };
         ObjectApprover.VerifyWithJson(target);
+
         #endregion
     }
 
@@ -95,7 +98,7 @@ public class ObjectApproverTests
         SerializerBuilder.IgnoreMember(type, "GetOnlyProperty");
         SerializerBuilder.IgnoreMember(type, "PropertyThatThrows");
 
-
+        // Done as part of test
         var target = new IgnoreExplicitTarget
         {
             Include = "Value",
@@ -126,7 +129,84 @@ public class ObjectApproverTests
 
     class WithNotImplementedException
     {
-        public Guid NotImplementedExceptionObsoleteProperty => throw new NotImplementedException();
+        public Guid NotImplementedExceptionProperty => throw new NotImplementedException();
+    }
+
+    [Fact]
+    public void CustomExceptionProp()
+    {
+        #region IgnoreMembersThatThrow
+
+        // Done on static startup
+        SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
+
+        // Done as part of test
+        var target = new WithCustomException();
+        ObjectApprover.VerifyWithJson(target);
+
+        #endregion
+    }
+
+    class WithCustomException
+    {
+        public Guid CustomExceptionProperty => throw new CustomException();
+    }
+    [Fact]
+    public void ExceptionProp()
+    {
+        SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
+
+        var target = new WithException();
+
+        Assert.Throws<JsonSerializationException>(() => ObjectApprover.VerifyWithJson(target));
+    }
+
+    class WithException
+    {
+        public Guid ExceptionProperty => throw new Exception();
+    }
+
+    internal class CustomException : Exception
+    {
+    }
+
+    [Fact]
+    public void ExceptionMessageProp()
+    {
+        #region IgnoreMembersThatThrowExpression
+
+        // Done on static startup
+        SerializerBuilder.IgnoreMembersThatThrow<Exception>(
+            x =>
+            {
+                return x.Message == "Ignore";
+            });
+
+        // Done as part of test
+        var target = new WithExceptionIgnoreMessage();
+
+        ObjectApprover.VerifyWithJson(target);
+
+        #endregion
+    }
+
+    class WithExceptionIgnoreMessage
+    {
+        public Guid ExceptionMessageProperty => throw new Exception("Ignore");
+    }
+
+    [Fact]
+    public void ExceptionNotIgnoreMessageProp()
+    {
+        SerializerBuilder.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
+        var target = new WithExceptionNotIgnoreMessage();
+
+        Assert.Throws<JsonSerializationException>(() => ObjectApprover.VerifyWithJson(target));
+    }
+
+    class WithExceptionNotIgnoreMessage
+    {
+        public Guid ExceptionMessageProperty => throw new Exception("NotIgnore");
     }
 
     [Fact]
