@@ -26,6 +26,8 @@ The serialized json version of these will then be compared and you will be displ
 
 ![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
 
+Note that the output is technically not valid json. [Single quotes are used](#single-quotes-used) and [names are not quoted](#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
+
 
 ### Validating multiple instances
 
