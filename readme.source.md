@@ -96,6 +96,11 @@ SerializerBuilder.IgnoreEmptyCollections = false;
 ```
 
 
+### Delegates are ignored
+
+By default delegates, eg `Action` and `Func`, are ignored.
+
+
 ### Guids are scrubbed
 
 By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
