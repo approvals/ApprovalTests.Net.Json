@@ -179,6 +179,24 @@ To ignore members of a certain type using type and name:
 snippet: IgnoreMemberByName
 
 
+### Members that throw
+
+Members that throw exceptions can be excluded from serialization based on the exception type or properties.
+
+By default members that throw `NotImplementedException` or `NotSupportedException` are ignored.
+
+Note that this is global for all members on all types.
+
+Ignore by exception type:
+
+snippet: IgnoreMembersThatThrow
+
+
+Ignore by exception type and expression:
+
+snippet: IgnoreMembersThatThrowExpression
+
+
 ### Scrubber
 
 A scrubber can be used to cleanup or sanitize the resultant serialized string prior to verification.

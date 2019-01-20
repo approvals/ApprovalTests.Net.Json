@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 using Newtonsoft.Json.Serialization;
 
 namespace ObjectApproval
@@ -8,11 +8,16 @@ namespace ObjectApproval
     {
         IValueProvider inner;
         Type propertyType;
+        List<Func<Exception, bool>> ignoreMembersThatThrow;
 
-        public CustomValueProvider(IValueProvider inner, Type propertyType)
+        public CustomValueProvider(IValueProvider inner, Type propertyType, List<Func<Exception, bool>> ignoreMembersThatThrow)
         {
+            Guard.AgainstNull(inner,nameof(inner));
+            Guard.AgainstNull(propertyType,nameof(propertyType));
+            Guard.AgainstNull(ignoreMembersThatThrow,nameof(ignoreMembersThatThrow));
             this.inner = inner;
             this.propertyType = propertyType;
+            this.ignoreMembersThatThrow = ignoreMembersThatThrow;
         }
 
         public void SetValue(object target, object value)
@@ -26,12 +31,19 @@ namespace ObjectApproval
             {
                 return inner.GetValue(target);
             }
-            catch (JsonSerializationException exception)
+            catch (Exception exception)
             {
-                if (exception.InnerException is NotImplementedException ||
-                    exception.InnerException is NotSupportedException)
+                var innerException = exception.InnerException;
+                if (innerException == null)
                 {
-                    return GetDefault();
+                    throw;
+                }
+                foreach (var func in ignoreMembersThatThrow)
+                {
+                    if (func(innerException))
+                    {
+                        return GetDefault();
+                    }
                 }
 
                 throw;

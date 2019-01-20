@@ -125,7 +125,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L71-L80)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L104-L113)</sup>
 <!-- endsnippet -->
 
 
@@ -177,7 +177,7 @@ var target = new GuidTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L17-L30)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L18-L31)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -233,7 +233,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L261-L277)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L311-L327)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -282,6 +282,7 @@ To ignore all members that match a certain type:
 // Done on static startup
 SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
 
+// Done as part of test
 var target = new IgnoreTypeTarget
 {
     ToIgnore = new ToIgnore
@@ -292,7 +293,7 @@ var target = new IgnoreTypeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L36-L51)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L37-L53)</sup>
 <!-- endsnippet -->
 
 
@@ -308,7 +309,7 @@ SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.Field);
 SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.GetOnlyProperty);
 SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.PropertyThatThrows);
 
-
+// Done as part of test
 var target = new IgnoreExplicitTarget
 {
     Include = "Value",
@@ -317,7 +318,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L67-L83)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L69-L86)</sup>
 <!-- endsnippet -->
 
 
@@ -334,7 +335,7 @@ SerializerBuilder.IgnoreMember(type, "Field");
 SerializerBuilder.IgnoreMember(type, "GetOnlyProperty");
 SerializerBuilder.IgnoreMember(type, "PropertyThatThrows");
 
-
+// Done as part of test
 var target = new IgnoreExplicitTarget
 {
     Include = "Value",
@@ -343,7 +344,50 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L89-L107)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L110)</sup>
+<!-- endsnippet -->
+
+
+### Members that throw
+
+Members that throw exceptions can be excluded from serialization based on the exception type or properties.
+
+By default members that throw `NotImplementedException` or `NotSupportedException` are ignored.
+
+Note that this is global for all members on all types.
+
+Ignore by exception type:
+
+<!-- snippet: IgnoreMembersThatThrow -->
+```cs
+// Done on static startup
+SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
+
+// Done as part of test
+var target = new WithCustomException();
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L138-L147)</sup>
+<!-- endsnippet -->
+
+
+Ignore by exception type and expression:
+
+<!-- snippet: IgnoreMembersThatThrowExpression -->
+```cs
+// Done on static startup
+SerializerBuilder.IgnoreMembersThatThrow<Exception>(
+    x =>
+    {
+        return x.Message == "Ignore";
+    });
+
+// Done as part of test
+var target = new WithExceptionIgnoreMessage();
+
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L176-L190)</sup>
 <!-- endsnippet -->
 
 

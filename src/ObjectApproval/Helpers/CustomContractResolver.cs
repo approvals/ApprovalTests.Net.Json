@@ -12,19 +12,26 @@ namespace ObjectApproval
         bool ignoreEmptyCollections;
         IReadOnlyDictionary<Type, List<string>> ignored;
         IReadOnlyList<Type> ignoredTypes;
+        List<Func<Exception, bool>> ignoreMembersThatThrow;
 
         public CustomContractResolver(bool ignoreEmptyCollections) :
-            this(ignoreEmptyCollections, new Dictionary<Type, List<string>>(), new List<Type>())
+            this(ignoreEmptyCollections, new Dictionary<Type, List<string>>(), new List<Type>(), new List<Func<Exception, bool>>())
         {
         }
 
-        public CustomContractResolver(bool ignoreEmptyCollections, IReadOnlyDictionary<Type, List<string>> ignored, IReadOnlyList<Type> ignoredTypes)
+        public CustomContractResolver(
+            bool ignoreEmptyCollections,
+            IReadOnlyDictionary<Type, List<string>> ignored,
+            IReadOnlyList<Type> ignoredTypes,
+            List<Func<Exception, bool>> ignoreMembersThatThrow)
         {
             Guard.AgainstNull(ignored, nameof(ignored));
             Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
+            Guard.AgainstNull(ignoreMembersThatThrow, nameof(ignoreMembersThatThrow));
             this.ignoreEmptyCollections = ignoreEmptyCollections;
             this.ignored = ignored;
             this.ignoredTypes = ignoredTypes;
+            this.ignoreMembersThatThrow = ignoreMembersThatThrow;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
@@ -59,7 +66,7 @@ namespace ObjectApproval
                 }
             }
 
-            property.ValueProvider = new CustomValueProvider(property.ValueProvider, property.PropertyType);
+            property.ValueProvider = new CustomValueProvider(property.ValueProvider, property.PropertyType,ignoreMembersThatThrow);
 
             return property;
         }

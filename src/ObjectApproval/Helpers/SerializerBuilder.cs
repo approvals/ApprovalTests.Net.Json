@@ -8,6 +8,12 @@ namespace ObjectApproval
 {
     public static class SerializerBuilder
     {
+        static SerializerBuilder()
+        {
+            IgnoreMembersThatThrow<NotImplementedException>();
+            IgnoreMembersThatThrow<NotSupportedException>();
+        }
+
         static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
 
         public static void IgnoreMember<T>(Expression<Func<T, object>> expression)
@@ -48,16 +54,43 @@ namespace ObjectApproval
         }
 
         static List<Type> ignoreMembersWithType = new List<Type>();
+
         public static void IgnoreMembersWithType<T>()
         {
             ignoreMembersWithType.Add(typeof(T));
         }
 
+        static List<Func<Exception, bool>> ignoreMembersThatThrow = new List<Func<Exception, bool>>();
+
+        public static void IgnoreMembersThatThrow<T>()
+            where T : Exception
+        {
+            ignoreMembersThatThrow.Add(x =>
+            {
+                var type = typeof(T);
+                return x is T;
+            });
+        }
+
+        public static void IgnoreMembersThatThrow<T>(Func<T, bool> item)
+            where T : Exception
+        {
+            ignoreMembersThatThrow.Add(x =>
+            {
+                if (x is T exception)
+                {
+                    return item(exception);
+                }
+
+                return false;
+            });
+        }
+
         public static bool IgnoreEmptyCollections { get; set; } = true;
-        public static bool ScrubGuids { get; set;} = true;
-        public static bool ScrubDateTimes { get; set;} = true;
-        public static bool QuoteNames { get; set;} = false;
-        public static bool UseDoubleQuotes { get; set;} = false;
+        public static bool ScrubGuids { get; set; } = true;
+        public static bool ScrubDateTimes { get; set; } = true;
+        public static bool QuoteNames { get; set; } = false;
+        public static bool UseDoubleQuotes { get; set; } = false;
 
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = true,
@@ -78,17 +111,19 @@ namespace ObjectApproval
             };
 
             #endregion
+
             settings.SerializationBinder = new ShortNameBinder();
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollectionsVal,
                 ignoreMembersByName,
-                ignoreMembersWithType);
+                ignoreMembersWithType,
+                ignoreMembersThatThrow);
             AddConverters(scrubGuidsVal, scrubDateTimesVal, settings);
             ExtraSettings(settings);
             return settings;
         }
 
-        public static Action<JsonSerializerSettings> ExtraSettings = settings => {};
+        public static Action<JsonSerializerSettings> ExtraSettings = settings => { };
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {
