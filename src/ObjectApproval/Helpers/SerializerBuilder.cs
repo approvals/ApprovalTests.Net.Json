@@ -65,16 +65,13 @@ namespace ObjectApproval
         public static void IgnoreMembersThatThrow<T>()
             where T : Exception
         {
-            ignoreMembersThatThrow.Add(x =>
-            {
-                var type = typeof(T);
-                return x is T;
-            });
+            ignoreMembersThatThrow.Add(x => x is T);
         }
 
         public static void IgnoreMembersThatThrow<T>(Func<T, bool> item)
             where T : Exception
         {
+            Guard.AgainstNull(item, nameof(item));
             ignoreMembersThatThrow.Add(x =>
             {
                 if (x is T exception)
