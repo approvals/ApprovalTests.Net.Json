@@ -233,7 +233,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L311-L327)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L309-L325)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -290,10 +290,9 @@ var target = new IgnoreTypeTarget
         Property = "Value"
     }
 };
-
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L37-L53)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L37-L52)</sup>
 <!-- endsnippet -->
 
 
@@ -318,7 +317,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L69-L86)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L68-L85)</sup>
 <!-- endsnippet -->
 
 
@@ -344,7 +343,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L110)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L91-L109)</sup>
 <!-- endsnippet -->
 
 
@@ -367,7 +366,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L138-L147)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L137-L146)</sup>
 <!-- endsnippet -->
 
 
@@ -384,10 +383,9 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 
 // Done as part of test
 var target = new WithExceptionIgnoreMessage();
-
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L176-L190)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L175-L188)</sup>
 <!-- endsnippet -->
 
 

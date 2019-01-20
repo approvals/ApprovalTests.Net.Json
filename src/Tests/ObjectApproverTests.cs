@@ -47,7 +47,6 @@ public class ObjectApproverTests
                 Property = "Value"
             }
         };
-
         ObjectApprover.VerifyWithJson(target);
 
         #endregion
@@ -184,7 +183,6 @@ public class ObjectApproverTests
 
         // Done as part of test
         var target = new WithExceptionIgnoreMessage();
-
         ObjectApprover.VerifyWithJson(target);
 
         #endregion
