@@ -237,7 +237,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L315-L331)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L330-L346)</sup>
 <!-- endsnippet -->
 
 Results in the following:

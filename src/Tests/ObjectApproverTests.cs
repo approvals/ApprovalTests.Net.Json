@@ -251,6 +251,21 @@ public class ObjectApproverTests
     }
 
     [Fact]
+    public void Escaping()
+    {
+        var target = new EscapeTarget
+        {
+            Property = @"\"
+        };
+        ObjectApprover.VerifyWithJson(target);
+    }
+
+    public class EscapeTarget
+    {
+        public string Property;
+    }
+
+    [Fact]
     public void OnlySpecificDates()
     {
         var target = new NotDatesTarget
