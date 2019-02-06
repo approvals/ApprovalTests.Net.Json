@@ -1,8 +1,12 @@
+<!--
+This file was generate by the CaptureSnippets.
+Source File: \readme.source.md
+To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/CaptureSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/CaptureSnippets#running-as-a-unit-test).
+-->
+
 # <img src="https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png" height="40px"> ObjectApproval
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
-
-**This project is supported by the community via [Patreon sponsorship](https://www.patreon.com/join/simoncropp). If you are using this project to deliver business value or build commercial software it is expected that you will provide support [via Patreon](https://www.patreon.com/join/simoncropp).**
 
 
 ## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg?style=flat)](https://www.nuget.org/packages/ObjectApproval/)
