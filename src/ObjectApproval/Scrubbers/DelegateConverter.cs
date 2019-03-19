@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace ObjectApproval
@@ -25,9 +26,17 @@ namespace ObjectApproval
             writer.WriteEndObject();
         }
 
-        public static string CleanMethodName(string s)
+        public static string CleanMethodName(string name)
         {
-            return s;
+            var split = name.Split('<','>','(');
+            if (split.Length > 2)
+            {
+                var list = split.ToList();
+                list[2] = "(";
+                return string.Concat(list);
+            }
+
+            return name;
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
