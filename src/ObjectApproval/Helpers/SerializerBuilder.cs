@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+// ReSharper disable UseObjectOrCollectionInitializer
 
 namespace ObjectApproval
 {
