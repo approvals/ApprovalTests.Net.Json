@@ -1,9 +1,8 @@
 <!--
-This file was generate by the CaptureSnippets.
-Source File: \readme.source.md
-To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/CaptureSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/CaptureSnippets#running-as-a-unit-test).
+This file was generate by MarkdownSnippets.
+Source File: /readme.source.md
+To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
 -->
-
 # <img src="https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png" height="40px"> ObjectApproval
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
@@ -131,7 +130,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L106-L115)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L107-L116)</sup>
 <!-- endsnippet -->
 
 
