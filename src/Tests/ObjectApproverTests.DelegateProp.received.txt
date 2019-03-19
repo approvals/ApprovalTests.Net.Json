@@ -1,7 +1,0 @@
-﻿{
-  DelegateProperty: {
-    Type: 'Action',
-    Target: 'ObjectApproverTests.WithDelegate.<>c',
-    Method: 'Void get_DelegateProperty()'
-  }
-}
