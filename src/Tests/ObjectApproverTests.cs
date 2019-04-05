@@ -151,6 +151,19 @@ public class ObjectApproverTests
     }
 
     [Fact]
+    public void ExceptionProps()
+    {
+        try
+        {
+            throw new Exception();
+        }
+        catch (Exception exception)
+        {
+            ObjectApprover.VerifyWithJson(exception);
+        }
+    }
+
+    [Fact]
     public void ExceptionProp()
     {
         SerializerBuilder.IgnoreMembersThatThrow<CustomException>();

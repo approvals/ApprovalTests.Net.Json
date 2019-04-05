@@ -13,6 +13,8 @@ namespace ObjectApproval
         {
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
+            IgnoreMember<Exception>(x => x.HResult);
+            IgnoreMember<Exception>(x => x.StackTrace);
         }
 
         static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
