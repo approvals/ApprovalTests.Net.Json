@@ -32,6 +32,7 @@ namespace ObjectApproval
             this.ignored = ignored;
             this.ignoredTypes = ignoredTypes;
             this.ignoreMembersThatThrow = ignoreMembersThatThrow;
+            base.IgnoreSerializableInterface = true;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)

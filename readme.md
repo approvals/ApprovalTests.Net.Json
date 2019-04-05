@@ -130,7 +130,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L107-L116)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L109-L118)</sup>
 <!-- endsnippet -->
 
 
@@ -240,7 +240,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L330-L346)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L343-L359)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -392,7 +392,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L175-L188)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L188-L201)</sup>
 <!-- endsnippet -->
 
 
