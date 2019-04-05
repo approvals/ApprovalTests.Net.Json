@@ -14,18 +14,19 @@ namespace ObjectApproval
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    var lineContains =line.LineContains(stringToMatch);
+                    var lineContains = line.LineContains(stringToMatch);
 
                     if (!lineContains)
                     {
                         builder.AppendLine(line);
                     }
                 }
+
                 return builder.ToString();
             }
         }
 
-        static bool LineContains(this  string line, string[] stringToMatch)
+        static bool LineContains(this string line, string[] stringToMatch)
         {
             var lineContains = false;
             foreach (var toMatch in stringToMatch)
