@@ -51,16 +51,15 @@ namespace ObjectApproval
             var serializer = GetJsonSerializer(jsonSerializerSettings);
             var builder = new StringBuilder();
             using (var stringWriter = new StringWriter(builder))
+            using (var writer = new JsonTextWriter(stringWriter))
             {
-                using (var writer = new JsonTextWriter(stringWriter))
+                if (!SerializerBuilder.UseDoubleQuotes)
                 {
-                    if (!SerializerBuilder.UseDoubleQuotes)
-                    {
-                        writer.QuoteChar = '\'';
-                    }
-                    writer.QuoteName = SerializerBuilder.QuoteNames;
-                    serializer.Serialize(writer, target);
+                    writer.QuoteChar = '\'';
                 }
+
+                writer.QuoteName = SerializerBuilder.QuoteNames;
+                serializer.Serialize(writer, target);
             }
 
             builder.Replace(@"\\", @"\");
