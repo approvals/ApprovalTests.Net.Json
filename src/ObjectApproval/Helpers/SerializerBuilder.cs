@@ -99,10 +99,10 @@ namespace ObjectApproval
         public static bool UseDoubleQuotes { get; set; } = false;
 
         public static JsonSerializerSettings BuildSettings(
-            bool? ignoreEmptyCollections = true,
-            bool? scrubGuids = true,
-            bool? scrubDateTimes = true,
-            bool? ignoreFalse = true)
+            bool? ignoreEmptyCollections = null,
+            bool? scrubGuids = null,
+            bool? scrubDateTimes = null,
+            bool? ignoreFalse = null)
         {
             var ignoreEmptyCollectionsVal = ignoreEmptyCollections.GetValueOrDefault(IgnoreEmptyCollections);
             var ignoreFalseVal = ignoreFalse.GetValueOrDefault(IgnoreFalse);
