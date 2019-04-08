@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-static class CollectionHelpers
+static class ReflectionHelpers
 {
     public static bool IsCollection(this Type type)
     {
@@ -14,17 +13,17 @@ static class CollectionHelpers
                       x.GetGenericTypeDefinition() == typeof(ICollection<>));
     }
 
-    public static IEnumerable GetCollection(this MemberInfo member, object instance)
+    public static T GetValue<T>(this MemberInfo member, object instance)
     {
         // this value could be in a public field or public property
         if (member is PropertyInfo propertyInfo)
         {
-            return (IEnumerable) propertyInfo.GetValue(instance, null);
+            return (T) propertyInfo.GetValue(instance, null);
         }
 
         if (member is FieldInfo fieldInfo)
         {
-            return (IEnumerable) fieldInfo.GetValue(instance);
+            return (T) fieldInfo.GetValue(instance);
         }
 
         throw new Exception($"No supported MemberType: {member.MemberType}");

@@ -27,7 +27,8 @@ public class Samples
         ObjectApprover.VerifyWithJson(target,
             ignoreEmptyCollections: false,
             scrubGuids: false,
-            scrubDateTimes: false);
+            scrubDateTimes: false,
+            ignoreFalse: false);
 
         #endregion
     }

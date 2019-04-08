@@ -92,6 +92,7 @@ namespace ObjectApproval
         }
 
         public static bool IgnoreEmptyCollections { get; set; } = true;
+        public static bool IgnoreFalse { get; set; } = true;
         public static bool ScrubGuids { get; set; } = true;
         public static bool ScrubDateTimes { get; set; } = true;
         public static bool QuoteNames { get; set; } = false;
@@ -100,9 +101,11 @@ namespace ObjectApproval
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = true,
             bool? scrubGuids = true,
-            bool? scrubDateTimes = true)
+            bool? scrubDateTimes = true,
+            bool? ignoreFalse = true)
         {
             var ignoreEmptyCollectionsVal = ignoreEmptyCollections.GetValueOrDefault(IgnoreEmptyCollections);
+            var ignoreFalseVal = ignoreFalse.GetValueOrDefault(IgnoreFalse);
             var scrubGuidsVal = scrubGuids.GetValueOrDefault(ScrubGuids);
             var scrubDateTimesVal = scrubDateTimes.GetValueOrDefault(ScrubDateTimes);
 
@@ -120,6 +123,7 @@ namespace ObjectApproval
             settings.SerializationBinder = new ShortNameBinder();
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollectionsVal,
+                ignoreFalseVal,
                 ignoreMembersByName,
                 ignoreMembersWithType,
                 ignoreMembersThatThrow);

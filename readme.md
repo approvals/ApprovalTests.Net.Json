@@ -35,7 +35,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L42-L58)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L43-L59)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -57,7 +57,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L103-L120)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L104-L121)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -91,7 +91,7 @@ ObjectApprover.VerifyWithJson(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L64-L84)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L65-L85)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -130,7 +130,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L109-L118)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L112-L121)</sup>
 <!-- endsnippet -->
 
 
@@ -205,21 +205,6 @@ SerializerBuilder.ScrubGuids = false;
 ```
 
 
-### Change defaults at the verification level
-
-DateTime, Guid, and empty collection behavior can also be controlled at the verification level: 
-
-<!-- snippet: ChangeDefaultsPerVerification -->
-```cs
-ObjectApprover.VerifyWithJson(target,
-    ignoreEmptyCollections: false,
-    scrubGuids: false,
-    scrubDateTimes: false);
-```
-<sup>[snippet source](/src/Tests/Samples.cs#L25-L32)</sup>
-<!-- endsnippet -->
-
-
 ### Dates are scrubbed
 
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
@@ -263,6 +248,33 @@ SerializerBuilder.ScrubDateTimes = false;
 ```
 
 
+### Defalt Booleans are ignored
+
+By default dates (`bool` and `bool?`) are ignored during verification.
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.IgnoreFalse = false;
+```
+
+
+### Change defaults at the verification level
+
+`DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
+
+<!-- snippet: ChangeDefaultsPerVerification -->
+```cs
+ObjectApprover.VerifyWithJson(target,
+    ignoreEmptyCollections: false,
+    scrubGuids: false,
+    scrubDateTimes: false,
+    ignoreFalse: false);
+```
+<sup>[snippet source](/src/Tests/Samples.cs#L25-L33)</sup>
+<!-- endsnippet -->
+
+
 ### Changing settings globally
 
 To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
@@ -276,7 +288,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L89-L98)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L90-L99)</sup>
 <!-- endsnippet -->
 
 

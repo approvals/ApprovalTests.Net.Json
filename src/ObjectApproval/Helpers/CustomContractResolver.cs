@@ -10,17 +10,14 @@ namespace ObjectApproval
     public class CustomContractResolver : DefaultContractResolver
     {
         bool ignoreEmptyCollections;
+        bool ignoreFalse;
         IReadOnlyDictionary<Type, List<string>> ignored;
         IReadOnlyList<Type> ignoredTypes;
         List<Func<Exception, bool>> ignoreMembersThatThrow;
 
-        public CustomContractResolver(bool ignoreEmptyCollections) :
-            this(ignoreEmptyCollections, new Dictionary<Type, List<string>>(), new List<Type>(), new List<Func<Exception, bool>>())
-        {
-        }
-
         public CustomContractResolver(
             bool ignoreEmptyCollections,
+            bool ignoreFalse,
             IReadOnlyDictionary<Type, List<string>> ignored,
             IReadOnlyList<Type> ignoredTypes,
             List<Func<Exception, bool>> ignoreMembersThatThrow)
@@ -29,6 +26,7 @@ namespace ObjectApproval
             Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
             Guard.AgainstNull(ignoreMembersThatThrow, nameof(ignoreMembersThatThrow));
             this.ignoreEmptyCollections = ignoreEmptyCollections;
+            this.ignoreFalse = ignoreFalse;
             this.ignored = ignored;
             this.ignoredTypes = ignoredTypes;
             this.ignoreMembersThatThrow = ignoreMembersThatThrow;
@@ -43,6 +41,7 @@ namespace ObjectApproval
             {
                 property.SkipEmptyCollections(member);
             }
+            property.ConfigureIfBool(member,ignoreFalse);
 
             if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
             {

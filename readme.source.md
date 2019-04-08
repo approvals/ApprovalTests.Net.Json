@@ -120,13 +120,6 @@ SerializerBuilder.ScrubGuids = false;
 ```
 
 
-### Change defaults at the verification level
-
-DateTime, Guid, and empty collection behavior can also be controlled at the verification level: 
-
-snippet: ChangeDefaultsPerVerification
-
-
 ### Dates are scrubbed
 
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
@@ -151,6 +144,24 @@ To disable this behavior use:
 ```cs
 SerializerBuilder.ScrubDateTimes = false;
 ```
+
+
+### Defalt Booleans are ignored
+
+By default dates (`bool` and `bool?`) are ignored during verification.
+
+To disable this behavior use:
+
+```cs
+SerializerBuilder.IgnoreFalse = false;
+```
+
+
+### Change defaults at the verification level
+
+`DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
+
+snippet: ChangeDefaultsPerVerification
 
 
 ### Changing settings globally

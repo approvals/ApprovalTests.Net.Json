@@ -407,6 +407,8 @@ public class ObjectApproverTests
             Dob = DateTime.MaxValue,
             Spouse = "Jill",
             Children = new List<string> {"Sam", "Mary"},
+            Dead = false,
+            UnDead = null,
             Address = new Address
             {
                 Street = "1 Puddle Lane",
@@ -414,7 +416,13 @@ public class ObjectApproverTests
             }
         };
 
-        ObjectApprover.VerifyWithJson(person, false, false, false, s => s.Replace("Lane", "Street"));
+        ObjectApprover.VerifyWithJson(
+            person,
+            ignoreEmptyCollections: false,
+            scrubGuids: false,
+            scrubDateTimes: false,
+            ignoreFalse: false,
+            scrubber: s => s.Replace("Lane", "Street"));
     }
 
     [Fact]
@@ -449,6 +457,8 @@ public class ObjectApproverTests
         public Title Title;
         public DateTime Dob;
         public Guid Id;
+        public bool Dead;
+        public bool? UnDead;
     }
 
     class Address

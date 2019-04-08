@@ -34,9 +34,10 @@ namespace ObjectApproval
             bool ignoreEmptyCollections = true,
             bool scrubGuids = true,
             bool scrubDateTimes = true,
+            bool ignoreFalse = true,
             Func<string, string> scrubber = null)
         {
-            var settings = SerializerBuilder.BuildSettings(ignoreEmptyCollections, scrubGuids, scrubDateTimes);
+            var settings = SerializerBuilder.BuildSettings(ignoreEmptyCollections, scrubGuids, scrubDateTimes, ignoreFalse);
             var formatJson = AsFormattedJson(target, settings);
             if (scrubber == null)
             {
