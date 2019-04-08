@@ -250,7 +250,7 @@ SerializerBuilder.ScrubDateTimes = false;
 
 ### Defalt Booleans are ignored
 
-By default dates (`bool` and `bool?`) are ignored during verification.
+By default values of `bool` and `bool?` are ignored during verification. So properties that equate to 'false' will not be written,
 
 To disable this behavior use:
 
