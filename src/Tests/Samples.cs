@@ -60,7 +60,7 @@ public class Samples
     }
 
     [Fact]
-   public void Anon()
+    public void Anon()
     {
         #region Anon
 
