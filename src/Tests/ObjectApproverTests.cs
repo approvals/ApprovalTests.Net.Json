@@ -4,7 +4,8 @@ using Newtonsoft.Json;
 using ObjectApproval;
 using Xunit;
 
-public class ObjectApproverTests
+public class ObjectApproverTests :
+    XunitLoggingBase
 {
     static ObjectApproverTests()
     {

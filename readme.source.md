@@ -12,7 +12,7 @@ https://nuget.org/packages/ObjectApproval/
 
 ## Usage
 
-Assuming you have previously verified and approved using this. 
+Assuming you have previously verified and approved using this.
 
 snippet: before
 

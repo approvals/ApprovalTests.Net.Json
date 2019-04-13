@@ -5,7 +5,8 @@ using MyNamespace;
 using ObjectApproval;
 using Xunit;
 
-public class TypeNameConverterTests
+public class TypeNameConverterTests :
+    XunitLoggingBase
 {
     [Fact]
     public void Simple()

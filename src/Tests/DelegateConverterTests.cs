@@ -1,7 +1,8 @@
 ﻿using ObjectApproval;
 using Xunit;
 
-public class DelegateConverterTests
+public class DelegateConverterTests :
+    XunitLoggingBase
 {
     [Fact]
     public void Simple()
