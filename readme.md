@@ -17,7 +17,7 @@ https://nuget.org/packages/ObjectApproval/
 
 ## Usage
 
-Assuming you have previously verified and approved using this. 
+Assuming you have previously verified and approved using this.
 
 <!-- snippet: before -->
 ```cs
@@ -184,7 +184,7 @@ var target = new GuidTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L18-L31)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L20-L33)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -225,7 +225,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L343-L359)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L345-L361)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -311,7 +311,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L37-L52)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L39-L54)</sup>
 <!-- endsnippet -->
 
 
@@ -336,7 +336,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L68-L85)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L70-L87)</sup>
 <!-- endsnippet -->
 
 
@@ -362,7 +362,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L91-L109)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L93-L111)</sup>
 <!-- endsnippet -->
 
 
@@ -385,7 +385,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L136-L145)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L138-L147)</sup>
 <!-- endsnippet -->
 
 
@@ -404,7 +404,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L188-L201)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L190-L203)</sup>
 <!-- endsnippet -->
 
 
