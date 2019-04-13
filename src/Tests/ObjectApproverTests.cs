@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ObjectApproval;
 using Xunit;
+using Xunit.Abstractions;
 
 public class ObjectApproverTests :
     XunitLoggingBase
@@ -472,5 +473,10 @@ public class ObjectApproverTests :
     enum Title
     {
         Mr
+    }
+
+    public ObjectApproverTests(ITestOutputHelper output) : 
+        base(output)
+    {
     }
 }

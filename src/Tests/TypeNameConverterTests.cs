@@ -4,6 +4,7 @@ using ApprovalTests;
 using MyNamespace;
 using ObjectApproval;
 using Xunit;
+using Xunit.Abstractions;
 
 public class TypeNameConverterTests :
     XunitLoggingBase
@@ -108,6 +109,11 @@ public class TypeNameConverterTests :
     }
 
     public class TargetWithNested{}
+
+    public TypeNameConverterTests(ITestOutputHelper output) :
+        base(output)
+    {
+    }
 }
 
 namespace MyNamespace

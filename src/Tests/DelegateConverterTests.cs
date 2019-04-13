@@ -1,5 +1,6 @@
 ﻿using ObjectApproval;
 using Xunit;
+using Xunit.Abstractions;
 
 public class DelegateConverterTests :
     XunitLoggingBase
@@ -11,5 +12,10 @@ public class DelegateConverterTests :
         Assert.Equal("Void SetProperties(System.String, Message.Importance)", cleaned1);
         var cleaned2 = DelegateConverter.CleanMethodName("Void SetProperties(System.String, Message.Importance)");
         Assert.Equal("Void SetProperties(System.String, Message.Importance)", cleaned2);
+    }
+
+    public DelegateConverterTests(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }
