@@ -98,6 +98,10 @@ public class ObjectApproverTests :
             ToIgnore = new ToIgnore
             {
                 Property = "Value"
+            },
+            ToInclude = new ToInclude
+            {
+                Property = "Value"
             }
         };
         ObjectApprover.VerifyWithJson(target);
@@ -108,6 +112,11 @@ public class ObjectApproverTests :
     class IgnoreTypeTarget
     {
         public ToIgnore ToIgnore { get; set; }
+        public ToInclude ToInclude { get; set; }
+    }
+    class ToInclude
+    {
+        public string Property { get; set; }
     }
     class ToIgnore
     {

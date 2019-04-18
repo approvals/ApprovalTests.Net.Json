@@ -177,6 +177,8 @@ To ignore all members that match a certain type:
 
 snippet: AddIgnoreType
 
+Result:
+
 snippet: ObjectApproverTests.IgnoreType.approved.txt
 
 
