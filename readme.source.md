@@ -175,7 +175,20 @@ snippet: ExtraSettings
 
 To ignore all members that match a certain type:
 
-snippet: AddIgnore
+snippet: AddIgnoreType
+
+snippet: ObjectApproverTests.IgnoreType.approved.txt
+
+
+### Ignoring a instance
+
+To ignore instances of a type based on delegate:
+
+snippet: AddIgnoreInstance
+
+Result:
+
+snippet: ObjectApproverTests.IgnoreInstance.approved.txt
 
 
 ### Ignore member by expressions
@@ -184,12 +197,20 @@ To ignore members of a certain type using an expression:
 
 snippet: IgnoreMemberByExpression
 
+Result:
+
+snippet: ObjectApproverTests.IgnoreMemberByExpression.approved.txt
+
 
 ### Ignore member by name
 
 To ignore members of a certain type using type and name:
 
 snippet: IgnoreMemberByName
+
+Result:
+
+snippet: ObjectApproverTests.IgnoreMemberByName.approved.txt
 
 
 ### Members that throw
@@ -204,10 +225,17 @@ Ignore by exception type:
 
 snippet: IgnoreMembersThatThrow
 
+Result:
+
+snippet: ObjectApproverTests.CustomExceptionProp.approved.txt
 
 Ignore by exception type and expression:
 
 snippet: IgnoreMembersThatThrowExpression
+
+Result:
+
+snippet: ObjectApproverTests.ExceptionMessageProp.approved.txt
 
 
 ### Scrubber

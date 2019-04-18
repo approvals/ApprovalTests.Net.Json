@@ -130,7 +130,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L112-L121)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L136-L145)</sup>
 <!-- endsnippet -->
 
 
@@ -225,7 +225,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L365-L381)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L401-L417)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -296,7 +296,7 @@ SerializerBuilder.ExtraSettings =
 
 To ignore all members that match a certain type:
 
-<!-- snippet: AddIgnore -->
+<!-- snippet: AddIgnoreType -->
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
@@ -311,7 +311,54 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L54-L69)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L90-L105)</sup>
+<!-- endsnippet -->
+
+<!-- snippet: ObjectApproverTests.IgnoreType.approved.txt -->
+```txt
+{}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreType.approved.txt#L1-L1)</sup>
+<!-- endsnippet -->
+
+
+### Ignoring a instance
+
+To ignore instances of a type based on delegate:
+
+<!-- snippet: AddIgnoreInstance -->
+```cs
+// Done on static startup
+SerializerBuilder.IgnoreInstance<Instance>(x=>x.Property == "Ignore");
+
+// Done as part of test
+var target = new IgnoreInstanceTarget
+{
+    ToIgnore = new Instance
+    {
+        Property = "Ignore"
+    },
+    ToInclude = new Instance
+    {
+        Property = "Include"
+    },
+};
+ObjectApprover.VerifyWithJson(target);
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L56-L75)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: ObjectApproverTests.IgnoreInstance.approved.txt -->
+```txt
+{
+  ToInclude: {
+    Property: 'Include'
+  }
+}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreInstance.approved.txt#L1-L5)</sup>
 <!-- endsnippet -->
 
 
@@ -336,7 +383,18 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L85-L102)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L120-L137)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: ObjectApproverTests.IgnoreMemberByExpression.approved.txt -->
+```txt
+{
+  Include: 'Value'
+}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByExpression.approved.txt#L1-L3)</sup>
 <!-- endsnippet -->
 
 
@@ -362,7 +420,18 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L108-L126)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L143-L161)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: ObjectApproverTests.IgnoreMemberByName.approved.txt -->
+```txt
+{
+  Include: 'Value'
+}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByName.approved.txt#L1-L3)</sup>
 <!-- endsnippet -->
 
 
@@ -385,9 +454,17 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L153-L162)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L188-L197)</sup>
 <!-- endsnippet -->
 
+Result:
+
+<!-- snippet: ObjectApproverTests.CustomExceptionProp.approved.txt -->
+```txt
+{}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.CustomExceptionProp.approved.txt#L1-L1)</sup>
+<!-- endsnippet -->
 
 Ignore by exception type and expression:
 
@@ -404,7 +481,16 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L205-L218)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L240-L253)</sup>
+<!-- endsnippet -->
+
+Result:
+
+<!-- snippet: ObjectApproverTests.ExceptionMessageProp.approved.txt -->
+```txt
+{}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.ExceptionMessageProp.approved.txt#L1-L1)</sup>
 <!-- endsnippet -->
 
 

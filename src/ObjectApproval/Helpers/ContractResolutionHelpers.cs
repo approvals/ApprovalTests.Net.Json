@@ -16,11 +16,13 @@ namespace ObjectApproval
             {
                 return;
             }
+
             if (property.PropertyType == typeof(bool))
             {
                 property.DefaultValueHandling = DefaultValueHandling.Include;
                 return;
             }
+
             if (property.PropertyType == typeof(bool?))
             {
                 property.DefaultValueHandling = DefaultValueHandling.Include;
@@ -31,33 +33,31 @@ namespace ObjectApproval
                 };
             }
         }
+
         public static void SkipEmptyCollections(this JsonProperty property, MemberInfo member)
         {
             Guard.AgainstNull(property, nameof(property));
             Guard.AgainstNull(member, nameof(member));
-            if (property.PropertyType == typeof(string))
+            var type = property.PropertyType;
+            if (type != typeof(string))
             {
-                return;
-            }
-
-            if (!property.PropertyType.IsCollection())
-            {
-                return;
-            }
-
-            property.ShouldSerialize = instance =>
-            {
-                var collection = member.GetValue<IEnumerable>(instance);
-
-                if (collection == null)
+                if (type.IsCollection())
                 {
-                    // if the list is null, we defer the decision to NullValueHandling
-                    return true;
-                }
+                    property.ShouldSerialize = instance =>
+                    {
+                        var collection = member.GetValue<IEnumerable>(instance);
 
-                // check to see if there is at least one item in the Enumerable
-                return collection.GetEnumerator().MoveNext();
-            };
+                        if (collection == null)
+                        {
+                            // if the list is null, we defer the decision to NullValueHandling
+                            return true;
+                        }
+
+                        // check to see if there is at least one item in the Enumerable
+                        return collection.GetEnumerator().MoveNext();
+                    };
+                }
+            }
         }
     }
 }

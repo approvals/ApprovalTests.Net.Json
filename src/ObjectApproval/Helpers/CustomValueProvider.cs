@@ -8,13 +8,13 @@ namespace ObjectApproval
     {
         IValueProvider inner;
         Type propertyType;
-        List<Func<Exception, bool>> ignoreMembersThatThrow;
+        IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
 
-        public CustomValueProvider(IValueProvider inner, Type propertyType, List<Func<Exception, bool>> ignoreMembersThatThrow)
+        public CustomValueProvider(IValueProvider inner, Type propertyType, IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow)
         {
-            Guard.AgainstNull(inner,nameof(inner));
-            Guard.AgainstNull(propertyType,nameof(propertyType));
-            Guard.AgainstNull(ignoreMembersThatThrow,nameof(ignoreMembersThatThrow));
+            Guard.AgainstNull(inner, nameof(inner));
+            Guard.AgainstNull(propertyType, nameof(propertyType));
+            Guard.AgainstNull(ignoreMembersThatThrow, nameof(ignoreMembersThatThrow));
             this.inner = inner;
             this.propertyType = propertyType;
             this.ignoreMembersThatThrow = ignoreMembersThatThrow;
@@ -38,6 +38,7 @@ namespace ObjectApproval
                 {
                     throw;
                 }
+
                 foreach (var func in ignoreMembersThatThrow)
                 {
                     if (func(innerException))

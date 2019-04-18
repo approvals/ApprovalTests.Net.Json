@@ -13,14 +13,16 @@ namespace ObjectApproval
         bool ignoreFalse;
         IReadOnlyDictionary<Type, List<string>> ignored;
         IReadOnlyList<Type> ignoredTypes;
-        List<Func<Exception, bool>> ignoreMembersThatThrow;
+        IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
+        IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
 
         public CustomContractResolver(
             bool ignoreEmptyCollections,
             bool ignoreFalse,
             IReadOnlyDictionary<Type, List<string>> ignored,
             IReadOnlyList<Type> ignoredTypes,
-            List<Func<Exception, bool>> ignoreMembersThatThrow)
+            IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
+            IReadOnlyDictionary<Type, List<Func<object,bool>>> ignoredInstances)
         {
             Guard.AgainstNull(ignored, nameof(ignored));
             Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));
@@ -30,7 +32,8 @@ namespace ObjectApproval
             this.ignored = ignored;
             this.ignoredTypes = ignoredTypes;
             this.ignoreMembersThatThrow = ignoreMembersThatThrow;
-            base.IgnoreSerializableInterface = true;
+            this.ignoredInstances = ignoredInstances;
+            IgnoreSerializableInterface = true;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
@@ -41,7 +44,8 @@ namespace ObjectApproval
             {
                 property.SkipEmptyCollections(member);
             }
-            property.ConfigureIfBool(member,ignoreFalse);
+
+            property.ConfigureIfBool(member, ignoreFalse);
 
             if (member.GetCustomAttribute<ObsoleteAttribute>(true) != null)
             {
@@ -67,7 +71,25 @@ namespace ObjectApproval
                 }
             }
 
-            property.ValueProvider = new CustomValueProvider(property.ValueProvider, property.PropertyType,ignoreMembersThatThrow);
+            if (ignoredInstances.TryGetValue(property.PropertyType, out var funcs))
+            {
+                property.ShouldSerialize = declaringInstance =>
+                {
+                    var instance = property.ValueProvider.GetValue(declaringInstance);
+
+                    foreach (var func in funcs)
+                    {
+                        if (func(instance))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                };
+            }
+
+            property.ValueProvider = new CustomValueProvider(property.ValueProvider, property.PropertyType, ignoreMembersThatThrow);
 
             return property;
         }

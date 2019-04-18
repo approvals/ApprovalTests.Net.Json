@@ -51,9 +51,43 @@ public class ObjectApproverTests :
     }
 
     [Fact]
+    public void IgnoreInstance()
+    {
+        #region AddIgnoreInstance
+
+        // Done on static startup
+        SerializerBuilder.IgnoreInstance<Instance>(x=>x.Property == "Ignore");
+
+        // Done as part of test
+        var target = new IgnoreInstanceTarget
+        {
+            ToIgnore = new Instance
+            {
+                Property = "Ignore"
+            },
+            ToInclude = new Instance
+            {
+                Property = "Include"
+            },
+        };
+        ObjectApprover.VerifyWithJson(target);
+
+        #endregion
+    }
+    class IgnoreInstanceTarget
+    {
+        public Instance ToIgnore { get; set; }
+        public Instance ToInclude { get; set; }
+    }
+
+    class Instance
+    {
+        public string Property { get; set; }
+    }
+    [Fact]
     public void IgnoreType()
     {
-        #region AddIgnore
+        #region AddIgnoreType
 
         // Done on static startup
         SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
@@ -75,7 +109,6 @@ public class ObjectApproverTests :
     {
         public ToIgnore ToIgnore { get; set; }
     }
-
     class ToIgnore
     {
         public string Property { get; set; }

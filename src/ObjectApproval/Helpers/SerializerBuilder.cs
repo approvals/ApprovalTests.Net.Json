@@ -18,6 +18,7 @@ namespace ObjectApproval
         }
 
         static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
+        static Dictionary<Type, List<Func<object,bool>>> ignoredInstances = new Dictionary<Type, List<Func<object,bool>>>();
 
         public static void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
@@ -54,6 +55,29 @@ namespace ObjectApproval
             }
 
             list.Add(name);
+        }
+
+        public static void IgnoreInstance<T>(Func<T,bool> shouldIgnore)
+        {
+            Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
+            var type = typeof(T);
+            IgnoreInstance(
+                type,
+                target =>
+                {
+                    var arg = (T)target;
+                    return shouldIgnore(arg);
+                });
+        }
+
+        public static void IgnoreInstance(Type type, Func<object,bool> shouldIgnore)
+        {
+            Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
+            if (!ignoredInstances.TryGetValue(type, out var list))
+            {
+                ignoredInstances[type] = list = new List<Func<object,bool>>();
+            }
+            list.Add(shouldIgnore);
         }
 
         static List<Type> ignoreMembersWithType = new List<Type>();
@@ -126,7 +150,8 @@ namespace ObjectApproval
                 ignoreFalseVal,
                 ignoreMembersByName,
                 ignoreMembersWithType,
-                ignoreMembersThatThrow);
+                ignoreMembersThatThrow,
+                ignoredInstances);
             AddConverters(scrubGuidsVal, scrubDateTimesVal, settings);
             ExtraSettings(settings);
             return settings;
