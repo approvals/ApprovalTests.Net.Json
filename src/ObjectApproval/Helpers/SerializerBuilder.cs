@@ -139,6 +139,7 @@ namespace ObjectApproval
             var converters = settings.Converters;
             converters.Add(new StringEnumConverter());
             converters.Add(new DelegateConverter());
+            converters.Add(new TypeConverter());
             if (scrubGuids && scrubDateTimes)
             {
                 var guidScrubbingConverter = new Scrubber<Guid>();

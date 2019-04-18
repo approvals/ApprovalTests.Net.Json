@@ -34,6 +34,23 @@ public class ObjectApproverTests :
     }
 
     [Fact]
+    public void ShouldUseShortTypeName()
+    {
+        #region type
+
+        var foo = new {x=1};
+        var target = new TypeTarget
+        {
+            Type = GetType(),
+            Dynamic = foo.GetType(),
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+
+        #endregion
+    }
+
+    [Fact]
     public void IgnoreType()
     {
         #region AddIgnore
@@ -339,6 +356,12 @@ public class ObjectApproverTests :
         public Guid OtherGuid;
     }
 
+    public class TypeTarget
+    {
+        public Type Type;
+        public Type Dynamic;
+    }
+
     [Fact]
     public void ShouldReUseDatetime()
     {
@@ -475,7 +498,7 @@ public class ObjectApproverTests :
         Mr
     }
 
-    public ObjectApproverTests(ITestOutputHelper output) : 
+    public ObjectApproverTests(ITestOutputHelper output) :
         base(output)
     {
     }
