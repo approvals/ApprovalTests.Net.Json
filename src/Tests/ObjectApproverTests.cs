@@ -38,7 +38,7 @@ public class ObjectApproverTests :
     {
         #region type
 
-        var foo = new {x=1};
+        var foo = new {x = 1};
         var target = new TypeTarget
         {
             Type = GetType(),
@@ -56,7 +56,7 @@ public class ObjectApproverTests :
         #region AddIgnoreInstance
 
         // Done on static startup
-        SerializerBuilder.IgnoreInstance<Instance>(x=>x.Property == "Ignore");
+        SerializerBuilder.IgnoreInstance<Instance>(x => x.Property == "Ignore");
 
         // Done as part of test
         var target = new IgnoreInstanceTarget
@@ -74,16 +74,18 @@ public class ObjectApproverTests :
 
         #endregion
     }
+
     class IgnoreInstanceTarget
     {
-        public Instance ToIgnore { get; set; }
-        public Instance ToInclude { get; set; }
+        public Instance ToIgnore;
+        public Instance ToInclude;
     }
 
     class Instance
     {
-        public string Property { get; set; }
+        public string Property;
     }
+
     [Fact]
     public void IgnoreType()
     {
@@ -111,16 +113,18 @@ public class ObjectApproverTests :
 
     class IgnoreTypeTarget
     {
-        public ToIgnore ToIgnore { get; set; }
-        public ToInclude ToInclude { get; set; }
+        public ToIgnore ToIgnore;
+        public ToInclude ToInclude;
     }
+
     class ToInclude
     {
-        public string Property { get; set; }
+        public string Property;
     }
+
     class ToIgnore
     {
-        public string Property { get; set; }
+        public string Property;
     }
 
     [Fact]
@@ -172,7 +176,7 @@ public class ObjectApproverTests :
 
     class IgnoreExplicitTarget
     {
-        public string Include { get; set; }
+        public string Include;
         public string Property { get; set; }
         public string GetOnlyProperty => "asd";
         public string PropertyThatThrows => throw new Exception();
@@ -250,10 +254,7 @@ public class ObjectApproverTests :
 
         // Done on static startup
         SerializerBuilder.IgnoreMembersThatThrow<Exception>(
-            x =>
-            {
-                return x.Message == "Ignore";
-            });
+            x => { return x.Message == "Ignore"; });
 
         // Done as part of test
         var target = new WithExceptionIgnoreMessage();

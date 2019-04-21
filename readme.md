@@ -1,7 +1,7 @@
 <!--
 This file was generate by MarkdownSnippets.
 Source File: /readme.source.md
-To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#githubmarkdownsnippets) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
+To change this file edit the source file and then re-run the generation using either the dotnet global tool (https://github.com/SimonCropp/MarkdownSnippets#markdownsnippetstool) or using the api (https://github.com/SimonCropp/MarkdownSnippets#running-as-a-unit-test).
 -->
 # <img src="https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png" height="40px"> ObjectApproval
 
@@ -225,7 +225,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L410-L426)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L411-L427)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -315,7 +315,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L90-L109)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L111)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -339,7 +339,7 @@ To ignore instances of a type based on delegate:
 <!-- snippet: AddIgnoreInstance -->
 ```cs
 // Done on static startup
-SerializerBuilder.IgnoreInstance<Instance>(x=>x.Property == "Ignore");
+SerializerBuilder.IgnoreInstance<Instance>(x => x.Property == "Ignore");
 
 // Done as part of test
 var target = new IgnoreInstanceTarget
@@ -393,7 +393,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L129-L146)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L133-L150)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -430,7 +430,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L152-L170)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L156-L174)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -464,7 +464,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L197-L206)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L201-L210)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -482,16 +482,13 @@ Ignore by exception type and expression:
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMembersThatThrow<Exception>(
-    x =>
-    {
-        return x.Message == "Ignore";
-    });
+    x => { return x.Message == "Ignore"; });
 
 // Done as part of test
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L249-L262)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L253-L263)</sup>
 <!-- endsnippet -->
 
 Result:
