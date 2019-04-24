@@ -11,10 +11,29 @@ namespace ObjectApproval
     {
         static SerializerBuilder()
         {
+            Reset();
+        }
+
+        public static void Reset()
+        {
+            ignoreMembersByName.Clear();
+            ignoredInstances.Clear();
+            ignoreMembersWithType.Clear();
+            ignoreMembersThatThrow.Clear();
+
+            IgnoreEmptyCollections = true;
+            IgnoreFalse = true;
+            ScrubGuids = true;
+            ScrubDateTimes = true;
+            QuoteNames = false;
+            UseDoubleQuotes = false;
+
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
             IgnoreMember<Exception>(x => x.HResult);
             IgnoreMember<Exception>(x => x.StackTrace);
+
+            ExtraSettings = settings => { };
         }
 
         static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
@@ -115,12 +134,12 @@ namespace ObjectApproval
             });
         }
 
-        public static bool IgnoreEmptyCollections { get; set; } = true;
-        public static bool IgnoreFalse { get; set; } = true;
-        public static bool ScrubGuids { get; set; } = true;
-        public static bool ScrubDateTimes { get; set; } = true;
-        public static bool QuoteNames { get; set; } = false;
-        public static bool UseDoubleQuotes { get; set; } = false;
+        public static bool IgnoreEmptyCollections { get; set; }
+        public static bool IgnoreFalse { get; set; }
+        public static bool ScrubGuids { get; set; }
+        public static bool ScrubDateTimes { get; set; }
+        public static bool QuoteNames { get; set; }
+        public static bool UseDoubleQuotes { get; set; }
 
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = null,
@@ -157,7 +176,7 @@ namespace ObjectApproval
             return settings;
         }
 
-        public static Action<JsonSerializerSettings> ExtraSettings = settings => { };
+        public static Action<JsonSerializerSettings> ExtraSettings;
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {

@@ -1,0 +1,8 @@
+﻿{
+  ToIgnore: {
+    Property: 'Ignore'
+  },
+  ToInclude: {
+    Property: 'Include'
+  }
+}

@@ -114,7 +114,7 @@ Results in the following:
 
 `SerializerBuilder` is used to build the Json.net `JsonSerializerSettings`. This is done for every verification run by calling `SerializerBuilder.BuildSettings()`.
 
-All modifications of `SerializerBuilder` behavior is global for all verifications and should be done once at assembly load time.
+All modifications of `SerializerBuilder` behavior is global for all verifications and will persist until `SerializerBuilder.Reset()` is called.
 
 
 ### Default settings
@@ -130,7 +130,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L136-L145)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L155-L164)</sup>
 <!-- endsnippet -->
 
 
@@ -225,7 +225,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L411-L427)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L481-L497)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -344,7 +344,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L111)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L114-L133)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -384,7 +384,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L56-L75)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L58-L77)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -422,7 +422,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L133-L150)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L173-L190)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -459,7 +459,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L156-L174)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L196-L214)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -493,7 +493,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L201-L210)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L259-L268)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -517,7 +517,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L253-L263)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L323-L333)</sup>
 <!-- endsnippet -->
 
 Result:
