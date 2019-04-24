@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using ObjectApproval;
 using Xunit;
 
@@ -36,6 +37,24 @@ public class Samples
     class ToBeScrubbed
     {
         public string RowVersion;
+    }
+
+    [Fact]
+    public void ScopedSerializer()
+    {
+        #region ScopedSerializer
+
+        var person = new Person
+        {
+            GivenNames = "John",
+            FamilyName = "Smith",
+            Dob = new DateTime(2000, 10, 1),
+        };
+        var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
+        serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+        ObjectApprover.VerifyWithJson(person, jsonSerializerSettings: serializerSettings);
+
+        #endregion
     }
 
     void Before()
@@ -127,6 +146,7 @@ public class Samples
         public string FamilyName;
         public string Spouse;
         public Address Address;
+        public DateTime Dob;
     }
 
     class Address

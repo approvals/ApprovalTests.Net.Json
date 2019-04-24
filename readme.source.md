@@ -171,6 +171,15 @@ To change the serialization settings for all verifications use `SerializerBuilde
 snippet: ExtraSettings
 
 
+### Scoped settings
+
+snippet: ScopedSerializer
+
+Result:
+
+snippet: Samples.ScopedSerializer.approved.txt
+
+
 ### Ignoring a type
 
 To ignore all members that match a certain type:

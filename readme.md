@@ -35,7 +35,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L43-L59)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L62-L78)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -57,7 +57,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L104-L121)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L123-L140)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -91,7 +91,7 @@ ObjectApprover.VerifyWithJson(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L65-L85)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L84-L104)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -271,7 +271,7 @@ ObjectApprover.VerifyWithJson(target,
     scrubDateTimes: false,
     ignoreFalse: false);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L25-L33)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L26-L34)</sup>
 <!-- endsnippet -->
 
 
@@ -288,7 +288,36 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L90-L99)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L109-L118)</sup>
+<!-- endsnippet -->
+
+
+### Scoped settings
+
+<!-- snippet: ScopedSerializer -->
+```cs
+var person = new Person
+{
+    GivenNames = "John",
+    FamilyName = "Smith",
+    Dob = new DateTime(2000, 10, 1),
+};
+var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
+serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+ObjectApprover.VerifyWithJson(person, jsonSerializerSettings: serializerSettings);
+```
+<sup>[snippet source](/src/Tests/Samples.cs#L45-L57)</sup>
+<!-- endsnippet -->
+
+<!-- snippet: Samples.ScopedSerializer.approved.txt -->
+```txt
+{
+  GivenNames: 'John',
+  FamilyName: 'Smith',
+  Dob: '\/Date(970322400000+1000)\/'
+}
+```
+<sup>[snippet source](/src/Tests/Samples.ScopedSerializer.approved.txt#L1-L5)</sup>
 <!-- endsnippet -->
 
 
@@ -515,7 +544,7 @@ var target = new ToBeScrubbed
 ObjectApprover.VerifyWithJson(target,
     scrubber: s => s.Replace("0x00000000000007D3", "ThRowVersion"));
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L10-L20)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L11-L21)</sup>
 <!-- endsnippet -->
 
 Results in the following:

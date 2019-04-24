@@ -9,7 +9,7 @@
     <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageTags>Json, ApprovalTests</PackageTags>
     <PackageIconUrl>https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png</PackageIconUrl>
-    <PackageProjectUrl>http://github.com/SimonCropp/ObjectApproval</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/SimonCropp/ObjectApproval</PackageProjectUrl>
     <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <Description>Extends ApprovalTests to allow simple approval of complex models.</Description>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
