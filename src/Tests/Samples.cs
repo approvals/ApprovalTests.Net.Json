@@ -2,8 +2,10 @@
 using Newtonsoft.Json;
 using ObjectApproval;
 using Xunit;
+using Xunit.Abstractions;
 
-public class Samples
+public class Samples:
+    XunitLoggingBase
 {
     [Fact]
     public void Scrubber()
@@ -154,5 +156,10 @@ public class Samples
         public string Street;
         public string Country;
         public string Suburb;
+    }
+
+    public Samples(ITestOutputHelper output) :
+        base(output)
+    {
     }
 }
