@@ -40,8 +40,8 @@ public class Samples:
     {
         public string RowVersion;
     }
-
-    [Fact]
+    
+    [Fact(Skip = "explicit")]
     public void ScopedSerializer()
     {
         #region ScopedSerializer
