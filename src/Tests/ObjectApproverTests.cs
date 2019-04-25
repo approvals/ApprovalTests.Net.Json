@@ -593,7 +593,7 @@ public class ObjectApproverTests :
         public Address Address;
         public List<string> Children;
         public Title Title;
-        public DateTimeOffset Dob;
+        public DateTime Dob;
         public Guid Id;
         public bool Dead;
         public bool? UnDead;
@@ -611,7 +611,7 @@ public class ObjectApproverTests :
         Mr
     }
 
-    [Fact]
+    [Fact(Skip = "explicit")]
     public void ShouldUseExtraSettings()
     {
         SerializerBuilder.ExtraSettings =
@@ -622,13 +622,13 @@ public class ObjectApproverTests :
 
         var person = new Person
         {
-            Dob = new DateTimeOffset(1980, 5, 5, 1, 1, 1, TimeSpan.Zero)
+            Dob = new DateTime(1980, 5, 5, 1, 1, 1)
         };
 
         ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
     }
 
-    [Fact]
+    [Fact(Skip = "explicit")]
     public void ShouldUseExtraSettingsReset()
     {
         SerializerBuilder.ExtraSettings =
@@ -641,7 +641,7 @@ public class ObjectApproverTests :
 
         var person = new Person
         {
-            Dob = new DateTimeOffset(1980, 5, 5, 1, 1, 1, TimeSpan.Zero)
+            Dob = new DateTime(1980, 5, 5, 1, 1, 1)
         };
 
         ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
