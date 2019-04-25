@@ -622,7 +622,7 @@ public class ObjectApproverTests :
 
         var person = new Person
         {
-            Dob = new DateTime(1980, 5, 5)
+            Dob = new DateTime(1980, 5, 5, 1, 1, 1, DateTimeKind.Utc)
         };
 
         ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
@@ -632,16 +632,16 @@ public class ObjectApproverTests :
     public void ShouldUseExtraSettingsReset()
     {
         SerializerBuilder.ExtraSettings =
-            jsonSerializerSettings =>
+            settings =>
             {
-                jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+                settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
             };
 
         SerializerBuilder.Reset();
 
         var person = new Person
         {
-            Dob = new DateTime(1980, 5, 5)
+            Dob = new DateTime(1980, 5, 5, 1, 1, 1, DateTimeKind.Utc)
         };
 
         ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);

@@ -35,7 +35,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L62-L78)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L64-L80)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -57,7 +57,7 @@ var person = new Person
 
 ObjectApprover.VerifyWithJson(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L123-L140)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L125-L142)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -91,7 +91,7 @@ ObjectApprover.VerifyWithJson(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L84-L104)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L86-L106)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -114,7 +114,7 @@ Results in the following:
 
 `SerializerBuilder` is used to build the Json.net `JsonSerializerSettings`. This is done for every verification run by calling `SerializerBuilder.BuildSettings()`.
 
-All modifications of `SerializerBuilder` behavior is global for all verifications and will persist until `SerializerBuilder.Reset()` is called.
+All modifications of `SerializerBuilder` behavior is global for all verifications and should be done once at assembly load time.
 
 
 ### Default settings
@@ -271,7 +271,7 @@ ObjectApprover.VerifyWithJson(target,
     scrubDateTimes: false,
     ignoreFalse: false);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L26-L34)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L28-L36)</sup>
 <!-- endsnippet -->
 
 
@@ -288,7 +288,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L109-L118)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L111-L120)</sup>
 <!-- endsnippet -->
 
 
@@ -306,8 +306,10 @@ var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
 ObjectApprover.VerifyWithJson(person, jsonSerializerSettings: serializerSettings);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L45-L57)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L47-L59)</sup>
 <!-- endsnippet -->
+
+Result:
 
 <!-- snippet: Samples.ScopedSerializer.approved.txt -->
 ```txt
@@ -384,7 +386,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L58-L77)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L56-L75)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -544,7 +546,7 @@ var target = new ToBeScrubbed
 ObjectApprover.VerifyWithJson(target,
     scrubber: s => s.Replace("0x00000000000007D3", "ThRowVersion"));
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L11-L21)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L13-L23)</sup>
 <!-- endsnippet -->
 
 Results in the following:
