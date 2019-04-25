@@ -75,6 +75,28 @@ public class ObjectApproverTests :
         #endregion
     }
 
+    [Fact]
+    public void IgnoreInstanceReset()
+    {
+        SerializerBuilder.IgnoreInstance<Instance>(x => x.Property == "Ignore");
+
+        SerializerBuilder.Reset();
+
+        var target = new IgnoreInstanceTarget
+        {
+            ToIgnore = new Instance
+            {
+                Property = "Ignore"
+            },
+            ToInclude = new Instance
+            {
+              Property = "Include"
+            }
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
     class IgnoreInstanceTarget
     {
         public Instance ToIgnore;
@@ -109,6 +131,24 @@ public class ObjectApproverTests :
         ObjectApprover.VerifyWithJson(target);
 
         #endregion
+    }
+
+    [Fact]
+    public void IgnoreTypeReset()
+    {
+        SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
+
+        SerializerBuilder.Reset();
+
+        var target = new IgnoreTypeTarget
+        {
+            ToIgnore = new ToIgnore
+            {
+                Property = "Value"
+            }
+        };
+
+        ObjectApprover.VerifyWithJson(target);
     }
 
     class IgnoreTypeTarget
@@ -174,6 +214,24 @@ public class ObjectApproverTests :
         #endregion
     }
 
+    [Fact]
+    public void IgnoreMemberReset()
+    { 
+        var type = typeof(IgnoreExplicitTarget);
+        SerializerBuilder.IgnoreMember(type, "Property");
+
+        SerializerBuilder.Reset();
+
+        SerializerBuilder.IgnoreMember(type, "PropertyThatThrows");
+
+        var target = new IgnoreExplicitTarget
+        {
+            Property = "Value"
+        };
+
+        ObjectApprover.VerifyWithJson(target);
+    }
+
     class IgnoreExplicitTarget
     {
         public string Include;
@@ -208,6 +266,18 @@ public class ObjectApproverTests :
         ObjectApprover.VerifyWithJson(target);
 
         #endregion
+    }
+
+    [Fact]
+    public void IgnoreMembersThatThrowReset()
+    {
+        SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
+        SerializerBuilder.Reset();
+
+        var target = new WithCustomException();
+
+        // not ignoring the thrown exception will cause the serialization to fail
+        Assert.Throws<JsonSerializationException>(() => ObjectApprover.VerifyWithJson(target));
     }
 
     class WithCustomException
@@ -541,8 +611,46 @@ public class ObjectApproverTests :
         Mr
     }
 
+    [Fact]
+    public void ShouldUseExtraSettings()
+    {
+        SerializerBuilder.ExtraSettings =
+            jsonSerializerSettings =>
+            {
+                jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            };
+
+        var person = new Person
+        {
+            Dob = new DateTime(1980, 5, 5)
+        };
+
+        ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
+    }
+
+    [Fact]
+    public void ShouldUseExtraSettingsReset()
+    {
+        SerializerBuilder.ExtraSettings =
+            jsonSerializerSettings =>
+            {
+                jsonSerializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
+            };
+
+        SerializerBuilder.Reset();
+
+        var person = new Person
+        {
+            Dob = new DateTime(1980, 5, 5)
+        };
+
+        ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
+    }
+
+
     public ObjectApproverTests(ITestOutputHelper output) :
         base(output)
     {
+        SerializerBuilder.Reset(); // reset builder for a clean slate each run
     }
 }
