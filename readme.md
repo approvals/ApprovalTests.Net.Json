@@ -130,7 +130,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L155-L164)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L151-L160)</sup>
 <!-- endsnippet -->
 
 
@@ -138,22 +138,10 @@ var settings = new JsonSerializerSettings
 
 [JsonTextWriter.QuoteChar](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteChar.htm) is set to single quotes `'`. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
 
-To change this behavior use:
-
-```cs
-SerializerBuilder.UseDoubleQuotes = true;
-```
-
 
 ### QuoteName is false
 
 [JsonTextWriter.QuoteName](https://www.newtonsoft.com/json/help/html/P_Newtonsoft_Json_JsonTextWriter_QuoteName.htm) is set to false. The reason for this is that it makes approval files cleaner and easier to read and visualize/understand differences
-
-To change this behavior use:
-
-```cs
-SerializerBuilder.QuoteNames = true;
-```
 
 
 ### Empty collections are ignored

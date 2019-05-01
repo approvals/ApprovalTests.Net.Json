@@ -54,12 +54,8 @@ namespace ObjectApproval
             using (var stringWriter = new StringWriter(builder))
             using (var writer = new JsonTextWriter(stringWriter))
             {
-                if (!SerializerBuilder.UseDoubleQuotes)
-                {
-                    writer.QuoteChar = '\'';
-                }
-
-                writer.QuoteName = SerializerBuilder.QuoteNames;
+                writer.QuoteChar = '\'';
+                writer.QuoteName = false;
                 serializer.Serialize(writer, target);
             }
 

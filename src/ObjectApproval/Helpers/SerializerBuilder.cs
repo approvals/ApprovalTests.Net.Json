@@ -25,8 +25,6 @@ namespace ObjectApproval
             IgnoreFalse = true;
             ScrubGuids = true;
             ScrubDateTimes = true;
-            QuoteNames = false;
-            UseDoubleQuotes = false;
 
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
@@ -138,8 +136,6 @@ namespace ObjectApproval
         public static bool IgnoreFalse { get; set; }
         public static bool ScrubGuids { get; set; }
         public static bool ScrubDateTimes { get; set; }
-        public static bool QuoteNames { get; set; }
-        public static bool UseDoubleQuotes { get; set; }
 
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = null,
