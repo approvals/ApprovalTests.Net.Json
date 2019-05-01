@@ -35,18 +35,7 @@ snippet: anon
 
 Results in the following:
 
-```graphql
-{
-  person1: {
-    GivenNames: 'John',
-    FamilyName: 'Smith'
-  },
-  person2: {
-    GivenNames: 'Marianne',
-    FamilyName: 'Aguirre'
-  }
-}
-```
+snippet: Samples.Anon.approved.txt
 
 
 ## Serializer settings
@@ -118,7 +107,7 @@ SerializerBuilder.ScrubDateTimes = false;
 ```
 
 
-### Defalt Booleans are ignored
+### Default Booleans are ignored
 
 By default values of `bool` and `bool?` are ignored during verification. So properties that equate to 'false' will not be written,
 

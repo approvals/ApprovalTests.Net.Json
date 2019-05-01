@@ -96,7 +96,8 @@ ObjectApprover.VerifyWithJson(
 
 Results in the following:
 
-```graphql
+<!-- snippet: Samples.Anon.approved.txt -->
+```txt
 {
   person1: {
     GivenNames: 'John',
@@ -108,6 +109,8 @@ Results in the following:
   }
 }
 ```
+<sup>[snippet source](/src/Tests/Samples.Anon.approved.txt#L1-L10)</sup>
+<!-- endsnippet -->
 
 
 ## Serializer settings
@@ -242,7 +245,7 @@ SerializerBuilder.ScrubDateTimes = false;
 ```
 
 
-### Defalt Booleans are ignored
+### Default Booleans are ignored
 
 By default values of `bool` and `bool?` are ignored during verification. So properties that equate to 'false' will not be written,
 
