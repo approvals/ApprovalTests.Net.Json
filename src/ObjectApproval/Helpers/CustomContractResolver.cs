@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,18 +12,18 @@ namespace ObjectApproval
     {
         bool ignoreEmptyCollections;
         bool ignoreFalse;
-        IReadOnlyDictionary<Type, List<string>> ignored;
+        IReadOnlyDictionary<Type, ConcurrentBag<string>> ignored;
         IReadOnlyList<Type> ignoredTypes;
         IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow;
-        IReadOnlyDictionary<Type, List<Func<object, bool>>> ignoredInstances;
+        IReadOnlyDictionary<Type, ConcurrentBag<Func<object, bool>>> ignoredInstances;
 
         public CustomContractResolver(
             bool ignoreEmptyCollections,
             bool ignoreFalse,
-            IReadOnlyDictionary<Type, List<string>> ignored,
+            IReadOnlyDictionary<Type, ConcurrentBag<string>> ignored,
             IReadOnlyList<Type> ignoredTypes,
             IReadOnlyList<Func<Exception, bool>> ignoreMembersThatThrow,
-            IReadOnlyDictionary<Type, List<Func<object,bool>>> ignoredInstances)
+            IReadOnlyDictionary<Type, ConcurrentBag<Func<object,bool>>> ignoredInstances)
         {
             Guard.AgainstNull(ignored, nameof(ignored));
             Guard.AgainstNull(ignoredTypes, nameof(ignoredTypes));

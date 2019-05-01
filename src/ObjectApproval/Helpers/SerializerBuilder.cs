@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
@@ -34,8 +35,8 @@ namespace ObjectApproval
             ExtraSettings = settings => { };
         }
 
-        static Dictionary<Type, List<string>> ignoreMembersByName = new Dictionary<Type, List<string>>();
-        static Dictionary<Type, List<Func<object,bool>>> ignoredInstances = new Dictionary<Type, List<Func<object,bool>>>();
+        static ConcurrentDictionary<Type, ConcurrentBag<string>> ignoreMembersByName = new ConcurrentDictionary<Type, ConcurrentBag<string>>();
+        static ConcurrentDictionary<Type, ConcurrentBag<Func<object,bool>>> ignoredInstances = new ConcurrentDictionary<Type, ConcurrentBag<Func<object,bool>>>();
 
         public static void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
@@ -66,11 +67,7 @@ namespace ObjectApproval
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            if (!ignoreMembersByName.TryGetValue(declaringType, out var list))
-            {
-                ignoreMembersByName[declaringType] = list = new List<string>();
-            }
-
+            var list = ignoreMembersByName.GetOrAdd(declaringType, _ => new ConcurrentBag<string>());
             list.Add(name);
         }
 
@@ -90,10 +87,7 @@ namespace ObjectApproval
         public static void IgnoreInstance(Type type, Func<object,bool> shouldIgnore)
         {
             Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
-            if (!ignoredInstances.TryGetValue(type, out var list))
-            {
-                ignoredInstances[type] = list = new List<Func<object,bool>>();
-            }
+            var list = ignoredInstances.GetOrAdd(type, _ => new ConcurrentBag<Func<object,bool>>());
             list.Add(shouldIgnore);
         }
 
