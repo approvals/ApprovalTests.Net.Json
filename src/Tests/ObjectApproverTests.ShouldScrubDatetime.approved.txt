@@ -1,8 +1,8 @@
 ﻿{
-  DateTime: 'DateTime 1',
-  DateTimeNullable: 'DateTime 2',
-  DateTimeOffset: 'DateTimeOffset 1',
-  DateTimeOffsetNullable: 'DateTimeOffset 2',
-  DateTimeString: 'DateTimeOffset 3',
-  DateTimeOffsetString: 'DateTimeOffset 3'
+  DateTime: DateTime_1,
+  DateTimeNullable: DateTime_2,
+  DateTimeOffset: DateTimeOffset_1,
+  DateTimeOffsetNullable: DateTimeOffset_2,
+  DateTimeString: DateTimeOffset_3,
+  DateTimeOffsetString: DateTimeOffset_3
 }

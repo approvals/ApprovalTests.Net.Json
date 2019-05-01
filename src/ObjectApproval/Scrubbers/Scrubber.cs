@@ -23,12 +23,12 @@ namespace ObjectApproval
         {
             if (cache.TryGetValue(value, out var cachedCount))
             {
-                writer.WriteValue($"{name} {cachedCount}");
+                writer.WriteRawValue($"{name}_{cachedCount}");
                 return;
             }
             count++;
             cache[value] = count;
-            writer.WriteValue($"{name} {count}");
+            writer.WriteRawValue($"{name}_{count}");
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

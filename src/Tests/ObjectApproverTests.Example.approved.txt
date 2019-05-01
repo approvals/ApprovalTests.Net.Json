@@ -10,6 +10,6 @@
     'Sam',
     'Mary'
   ],
-  Dob: 'DateTime 1',
-  Id: 'Guid 1'
+  Dob: DateTime_1,
+  Id: Guid_1
 }

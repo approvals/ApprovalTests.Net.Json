@@ -177,14 +177,17 @@ ObjectApprover.VerifyWithJson(target);
 
 Results in the following:
 
-```graphql
+<!-- snippet: ObjectApproverTests.ShouldReUseGuid.approved.txt -->
+```txt
 {
-  Guid: 'Guid 1',
-  GuidNullable: 'Guid 1',
-  GuidString: 'Guid 1',
-  OtherGuid: 'Guid 2'
+  Guid: Guid_1,
+  GuidNullable: Guid_1,
+  GuidString: Guid_1,
+  OtherGuid: Guid_2
 }
 ```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseGuid.approved.txt#L1-L6)</sup>
+<!-- endsnippet -->
 
 To disable this behavior use:
 
@@ -218,16 +221,19 @@ ObjectApprover.VerifyWithJson(target);
 
 Results in the following:
 
-```graphql
+<!-- snippet: ObjectApproverTests.ShouldReUseDatetime.approved.txt -->
+```txt
 {
-  DateTime: 'DateTime 1',
-  DateTimeNullable: 'DateTime 1',
-  DateTimeOffset: 'DateTimeOffset 1',
-  DateTimeOffsetNullable: 'DateTimeOffset 1',
-  DateTimeString: 'DateTimeOffset 2',
-  DateTimeOffsetString: 'DateTimeOffset 2'
+  DateTime: DateTime_1,
+  DateTimeNullable: DateTime_1,
+  DateTimeOffset: DateTimeOffset_1,
+  DateTimeOffsetNullable: DateTimeOffset_1,
+  DateTimeString: DateTimeOffset_2,
+  DateTimeOffsetString: DateTimeOffset_2
 }
 ```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseDatetime.approved.txt#L1-L8)</sup>
+<!-- endsnippet -->
 
 To disable this behavior use:
 

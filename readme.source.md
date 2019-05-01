@@ -92,14 +92,7 @@ snippet: guid
 
 Results in the following:
 
-```graphql
-{
-  Guid: 'Guid 1',
-  GuidNullable: 'Guid 1',
-  GuidString: 'Guid 1',
-  OtherGuid: 'Guid 2'
-}
-```
+snippet: ObjectApproverTests.ShouldReUseGuid.approved.txt
 
 To disable this behavior use:
 
@@ -116,16 +109,7 @@ snippet: Date
 
 Results in the following:
 
-```graphql
-{
-  DateTime: 'DateTime 1',
-  DateTimeNullable: 'DateTime 1',
-  DateTimeOffset: 'DateTimeOffset 1',
-  DateTimeOffsetNullable: 'DateTimeOffset 1',
-  DateTimeString: 'DateTimeOffset 2',
-  DateTimeOffsetString: 'DateTimeOffset 2'
-}
-```
+snippet: ObjectApproverTests.ShouldReUseDatetime.approved.txt
 
 To disable this behavior use:
 

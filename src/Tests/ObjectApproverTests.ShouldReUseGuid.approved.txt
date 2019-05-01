@@ -1,6 +1,6 @@
 ﻿{
-  Guid: 'Guid 1',
-  GuidNullable: 'Guid 1',
-  GuidString: 'Guid 1',
-  OtherGuid: 'Guid 2'
+  Guid: Guid_1,
+  GuidNullable: Guid_1,
+  GuidString: Guid_1,
+  OtherGuid: Guid_2
 }
