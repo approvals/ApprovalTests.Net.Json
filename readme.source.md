@@ -3,7 +3,7 @@
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
 
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg?style=flat)](https://www.nuget.org/packages/ObjectApproval/)
+## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg)](https://www.nuget.org/packages/ObjectApproval/)
 
 https://nuget.org/packages/ObjectApproval/
 
