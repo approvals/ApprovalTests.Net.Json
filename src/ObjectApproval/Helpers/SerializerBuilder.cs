@@ -1,42 +1,43 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+
 // ReSharper disable UseObjectOrCollectionInitializer
 
 namespace ObjectApproval
 {
     public static class SerializerBuilder
     {
+        private static ISerializerSettingsStore _storage;
+
         static SerializerBuilder()
         {
-            Reset();
+            _storage = SerializerSettingsStorageFactory.Create();
+            SetupDefaultIgnores();
         }
 
         public static void Reset()
         {
-            ignoreMembersByName.Clear();
-            ignoredInstances.Clear();
-            ignoreMembersWithType.Clear();
-            ignoreMembersThatThrow.Clear();
+            _storage.Reset();
+            SetupDefaultIgnores();
+        }
 
-            IgnoreEmptyCollections = true;
-            IgnoreFalse = true;
-            ScrubGuids = true;
-            ScrubDateTimes = true;
-
+        private static void SetupDefaultIgnores()
+        {
             IgnoreMembersThatThrow<NotImplementedException>();
             IgnoreMembersThatThrow<NotSupportedException>();
             IgnoreMember<Exception>(x => x.HResult);
             IgnoreMember<Exception>(x => x.StackTrace);
-
-            ExtraSettings = settings => { };
         }
 
-        static ConcurrentDictionary<Type, ConcurrentBag<string>> ignoreMembersByName = new ConcurrentDictionary<Type, ConcurrentBag<string>>();
-        static ConcurrentDictionary<Type, ConcurrentBag<Func<object,bool>>> ignoredInstances = new ConcurrentDictionary<Type, ConcurrentBag<Func<object,bool>>>();
+        public static bool IgnoreEmptyCollections { get => _storage.IgnoreEmptyCollections; set => _storage.IgnoreEmptyCollections = value; }
+        public static bool IgnoreFalse { get => _storage.IgnoreFalse; set => _storage.IgnoreFalse = value; }
+        public static bool ScrubGuids { get => _storage.ScrubGuids; set => _storage.ScrubGuids = value; }
+        public static bool ScrubDateTimes { get => _storage.ScrubDateTimes; set => _storage.ScrubDateTimes = value; }
+
+        public static Action<JsonSerializerSettings> ExtraSettings { get => _storage.ExtraSettings; set => _storage.ExtraSettings = value; }
 
         public static void IgnoreMember<T>(Expression<Func<T, object>> expression)
         {
@@ -67,7 +68,7 @@ namespace ObjectApproval
         {
             Guard.AgainstNull(declaringType, nameof(declaringType));
             Guard.AgainstNullOrEmpty(name, nameof(name));
-            var list = ignoreMembersByName.GetOrAdd(declaringType, _ => new ConcurrentBag<string>());
+            var list = _storage.IgnoreMembersByName.GetOrAdd(declaringType, _ => new ConcurrentBag<string>());
             list.Add(name);
         }
 
@@ -87,23 +88,19 @@ namespace ObjectApproval
         public static void IgnoreInstance(Type type, Func<object,bool> shouldIgnore)
         {
             Guard.AgainstNull(shouldIgnore, nameof(shouldIgnore));
-            var list = ignoredInstances.GetOrAdd(type, _ => new ConcurrentBag<Func<object,bool>>());
+            var list = _storage.IgnoredInstances.GetOrAdd(type, _ => new ConcurrentBag<Func<object,bool>>());
             list.Add(shouldIgnore);
         }
 
-        static List<Type> ignoreMembersWithType = new List<Type>();
-
         public static void IgnoreMembersWithType<T>()
         {
-            ignoreMembersWithType.Add(typeof(T));
+            _storage.IgnoreMembersWithType.Add(typeof(T));
         }
-
-        static List<Func<Exception, bool>> ignoreMembersThatThrow = new List<Func<Exception, bool>>();
 
         public static void IgnoreMembersThatThrow<T>()
             where T : Exception
         {
-            ignoreMembersThatThrow.Add(x => x is T);
+            _storage.IgnoreMembersThatThrow.Add(x => x is T);
         }
 
         public static void IgnoreMembersThatThrow(Func<Exception, bool> item)
@@ -115,7 +112,7 @@ namespace ObjectApproval
             where T : Exception
         {
             Guard.AgainstNull(item, nameof(item));
-            ignoreMembersThatThrow.Add(x =>
+            _storage.IgnoreMembersThatThrow.Add(x =>
             {
                 if (x is T exception)
                 {
@@ -125,11 +122,6 @@ namespace ObjectApproval
                 return false;
             });
         }
-
-        public static bool IgnoreEmptyCollections { get; set; }
-        public static bool IgnoreFalse { get; set; }
-        public static bool ScrubGuids { get; set; }
-        public static bool ScrubDateTimes { get; set; }
 
         public static JsonSerializerSettings BuildSettings(
             bool? ignoreEmptyCollections = null,
@@ -157,16 +149,14 @@ namespace ObjectApproval
             settings.ContractResolver = new CustomContractResolver(
                 ignoreEmptyCollectionsVal,
                 ignoreFalseVal,
-                ignoreMembersByName,
-                ignoreMembersWithType,
-                ignoreMembersThatThrow,
-                ignoredInstances);
+                _storage.IgnoreMembersByName,
+                _storage.IgnoreMembersWithType,
+                _storage.IgnoreMembersThatThrow,
+                _storage.IgnoredInstances);
             AddConverters(scrubGuidsVal, scrubDateTimesVal, settings);
             ExtraSettings(settings);
             return settings;
         }
-
-        public static Action<JsonSerializerSettings> ExtraSettings;
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {
