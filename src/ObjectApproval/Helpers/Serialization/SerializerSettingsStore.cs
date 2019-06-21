@@ -1,9 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Threading;
-using System.Reflection;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
+using ApprovalUtilities.CallStack;
 
 namespace ObjectApproval
 {
@@ -11,13 +11,8 @@ namespace ObjectApproval
     {
         public static ISerializerSettingsStore Create()
         {
-            var mode = SerializerThreadingMode.SingleThreaded;
-
-            var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(ObjectApprovalBehaviorAttribute), false);
-            if (attributes.Length != 0 && attributes[0] is ObjectApprovalBehaviorAttribute objectApprovalAttribute)
-            {
-                mode = objectApprovalAttribute.SerializerThreadingMode;
-            }
+            var behaviorAttribute = new Caller().GetFirstFrameForAttribute<ObjectApprovalBehaviorAttribute>();
+            var mode = behaviorAttribute == null ? SerializerThreadingMode.SingleThreaded : behaviorAttribute.SerializerThreadingMode;
 
             switch(mode)
             {
