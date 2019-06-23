@@ -542,7 +542,7 @@ var target = new ToBeScrubbed
 };
 
 ObjectApprover.VerifyWithJson(target,
-    scrubber: s => s.Replace("0x00000000000007D3", "ThRowVersion"));
+    scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 ```
 <sup>[snippet source](/src/Tests/Samples.cs#L13-L23)</sup>
 <!-- endsnippet -->

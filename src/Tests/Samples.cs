@@ -18,7 +18,7 @@ public class Samples:
         };
 
         ObjectApprover.VerifyWithJson(target,
-            scrubber: s => s.Replace("0x00000000000007D3", "ThRowVersion"));
+            scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 
         #endregion
     }
