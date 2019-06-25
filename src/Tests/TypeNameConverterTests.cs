@@ -66,19 +66,19 @@ public class TypeNameConverterTests :
     [Fact]
     public void RuntimeEnumerableWithSelect()
     {
-        Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x=>x!=null).GetType()));
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => x!=null).GetType()));
     }
 
     [Fact]
     public void RuntimeEnumerableDynamicWithSelect()
     {
-        Approvals.Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x=>x!=null).GetType()));
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYieldDynamic().Select(x => x!=null).GetType()));
     }
 
     [Fact]
     public void RuntimeEnumerableDynamicWithInnerSelect()
     {
-        Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x=>new {X=x.ToString()}).GetType()));
+        Approvals.Verify(TypeNameConverter.GetName(MethodWithYield().Select(x => new {X=x.ToString()}).GetType()));
     }
 
     [Fact]
