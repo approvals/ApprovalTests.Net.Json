@@ -13,8 +13,6 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 
 https://nuget.org/packages/ObjectApproval/
 
-    PM> Install-Package ObjectApproval
-
 
 ## Usage
 
@@ -220,7 +218,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.VerifyWithJson(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L481-L497)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L484-L500)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -558,4 +556,4 @@ Results in the following:
 
 ## Icon
 
-<a href="http://thenounproject.com/term/helmet/9554/" target="_blank">Helmet</a> designed by <a href="http://thenounproject.com/alterego" target="_blank">Leonidas Ikonomou</a> from The Noun Project
+<a href="http://thenounproject.com/term/helmet/9554/">Helmet</a> designed by <a href="http://thenounproject.com/alterego">Leonidas Ikonomou</a> from The Noun Project

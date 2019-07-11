@@ -7,8 +7,6 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 
 https://nuget.org/packages/ObjectApproval/
 
-    PM> Install-Package ObjectApproval
-
 
 ## Usage
 
@@ -227,4 +225,4 @@ Results in the following:
 
 ## Icon
 
-<a href="http://thenounproject.com/term/helmet/9554/" target="_blank">Helmet</a> designed by <a href="http://thenounproject.com/alterego" target="_blank">Leonidas Ikonomou</a> from The Noun Project
+<a href="http://thenounproject.com/term/helmet/9554/">Helmet</a> designed by <a href="http://thenounproject.com/alterego">Leonidas Ikonomou</a> from The Noun Project
