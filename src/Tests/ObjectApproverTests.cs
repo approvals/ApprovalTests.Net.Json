@@ -216,7 +216,7 @@ public class ObjectApproverTests :
 
     [Fact]
     public void IgnoreMemberReset()
-    { 
+    {
         var type = typeof(IgnoreExplicitTarget);
         SerializerBuilder.IgnoreMember(type, "Property");
 

@@ -40,7 +40,7 @@ public class Samples:
     {
         public string RowVersion;
     }
-    
+
     [Fact(Skip = "explicit")]
     public void ScopedSerializer()
     {
