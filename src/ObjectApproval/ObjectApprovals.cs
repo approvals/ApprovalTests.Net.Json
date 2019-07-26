@@ -6,19 +6,19 @@ using Newtonsoft.Json;
 
 namespace ObjectApproval
 {
-    public static class ObjectApprover
+    public static partial class ObjectApprover
     {
-        public static void VerifyWithJson(object target)
+        public static void Verify(object target)
         {
-            VerifyWithJson(target, null);
+            Verify(target, null);
         }
 
-        public static void VerifyWithJson(object target, Func<string, string> scrubber = null)
+        public static void Verify(object target, Func<string, string> scrubber = null)
         {
-            VerifyWithJson(target, scrubber, null);
+            Verify(target, scrubber, null);
         }
 
-        public static void VerifyWithJson(object target, Func<string, string> scrubber = null, JsonSerializerSettings jsonSerializerSettings = null)
+        public static void Verify(object target, Func<string, string> scrubber = null, JsonSerializerSettings jsonSerializerSettings = null)
         {
             var formatJson = AsFormattedJson(target, jsonSerializerSettings);
             if (scrubber == null)
@@ -29,7 +29,7 @@ namespace ObjectApproval
             Approvals.Verify(formatJson, scrubber);
         }
 
-        public static void VerifyWithJson(
+        public static void Verify(
             object target,
             bool ignoreEmptyCollections = true,
             bool scrubGuids = true,

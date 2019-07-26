@@ -17,7 +17,7 @@ public class Samples:
             RowVersion = "0x00000000000007D3"
         };
 
-        ObjectApprover.VerifyWithJson(target,
+        ObjectApprover.Verify(target,
             scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 
         #endregion
@@ -27,7 +27,7 @@ public class Samples:
     {
         #region ChangeDefaultsPerVerification
 
-        ObjectApprover.VerifyWithJson(target,
+        ObjectApprover.Verify(target,
             ignoreEmptyCollections: false,
             scrubGuids: false,
             scrubDateTimes: false,
@@ -54,7 +54,7 @@ public class Samples:
         };
         var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
         serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-        ObjectApprover.VerifyWithJson(person, jsonSerializerSettings: serializerSettings);
+        ObjectApprover.Verify(person, jsonSerializerSettings: serializerSettings);
 
         #endregion
     }
@@ -75,7 +75,7 @@ public class Samples:
             }
         };
 
-        ObjectApprover.VerifyWithJson(person);
+        ObjectApprover.Verify(person);
 
         #endregion
     }
@@ -96,7 +96,7 @@ public class Samples:
             FamilyName = "Aguirre"
         };
 
-        ObjectApprover.VerifyWithJson(
+        ObjectApprover.Verify(
             new
             {
                 person1,
@@ -137,7 +137,7 @@ public class Samples:
             }
         };
 
-        ObjectApprover.VerifyWithJson(person);
+        ObjectApprover.Verify(person);
 
         #endregion
     }

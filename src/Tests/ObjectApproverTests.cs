@@ -28,7 +28,7 @@ public class ObjectApproverTests :
             OtherGuid = Guid.NewGuid(),
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -45,7 +45,7 @@ public class ObjectApproverTests :
             Dynamic = foo.GetType(),
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -70,7 +70,7 @@ public class ObjectApproverTests :
                 Property = "Include"
             },
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -94,7 +94,7 @@ public class ObjectApproverTests :
             }
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class IgnoreInstanceTarget
@@ -128,7 +128,7 @@ public class ObjectApproverTests :
                 Property = "Value"
             }
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -148,7 +148,7 @@ public class ObjectApproverTests :
             }
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class IgnoreTypeTarget
@@ -185,7 +185,7 @@ public class ObjectApproverTests :
             Field = "Value",
             Property = "Value"
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -209,7 +209,7 @@ public class ObjectApproverTests :
             Field = "Value",
             Property = "Value"
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -229,7 +229,7 @@ public class ObjectApproverTests :
             Property = "Value"
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class IgnoreExplicitTarget
@@ -245,7 +245,7 @@ public class ObjectApproverTests :
     public void NotImplementedExceptionProp()
     {
         var target = new WithNotImplementedException();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class WithNotImplementedException
@@ -263,7 +263,7 @@ public class ObjectApproverTests :
 
         // Done as part of test
         var target = new WithCustomException();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -277,7 +277,7 @@ public class ObjectApproverTests :
         var target = new WithCustomException();
 
         // not ignoring the thrown exception will cause the serialization to fail
-        Assert.Throws<JsonSerializationException>(() => ObjectApprover.VerifyWithJson(target));
+        Assert.Throws<JsonSerializationException>(() => ObjectApprover.Verify(target));
     }
 
     class WithCustomException
@@ -294,7 +294,7 @@ public class ObjectApproverTests :
         }
         catch (Exception exception)
         {
-            ObjectApprover.VerifyWithJson(exception);
+            ObjectApprover.Verify(exception);
         }
     }
 
@@ -305,7 +305,7 @@ public class ObjectApproverTests :
 
         var target = new WithException();
 
-        Assert.Throws<JsonSerializationException>(() => ObjectApprover.VerifyWithJson(target));
+        Assert.Throws<JsonSerializationException>(() => ObjectApprover.Verify(target));
     }
 
     class WithException
@@ -328,7 +328,7 @@ public class ObjectApproverTests :
 
         // Done as part of test
         var target = new WithExceptionIgnoreMessage();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -344,7 +344,7 @@ public class ObjectApproverTests :
         SerializerBuilder.IgnoreMembersThatThrow<Exception>(x => x.Message == "Ignore");
         var target = new WithExceptionNotIgnoreMessage();
 
-        Assert.Throws<JsonSerializationException>(() => ObjectApprover.VerifyWithJson(target));
+        Assert.Throws<JsonSerializationException>(() => ObjectApprover.Verify(target));
     }
 
     class WithExceptionNotIgnoreMessage
@@ -356,7 +356,7 @@ public class ObjectApproverTests :
     public void DelegateProp()
     {
         var target = new WithDelegate();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class WithDelegate
@@ -368,7 +368,7 @@ public class ObjectApproverTests :
     public void NotSupportedExceptionProp()
     {
         var target = new WithNotSupportedException();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class WithNotSupportedException
@@ -380,7 +380,7 @@ public class ObjectApproverTests :
     public void WithObsoleteProp()
     {
         var target = new WithObsolete();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     class WithObsolete
@@ -402,7 +402,7 @@ public class ObjectApproverTests :
         {
             Property = @"\"
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     public class EscapeTarget
@@ -417,7 +417,7 @@ public class ObjectApproverTests :
         {
             NotDate = "1.2.3"
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     public class NotDatesTarget
@@ -434,7 +434,7 @@ public class ObjectApproverTests :
             GuidNullable = Guid.NewGuid(),
             GuidString = Guid.NewGuid().ToString(),
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     [Fact]
@@ -445,7 +445,7 @@ public class ObjectApproverTests :
             DictionaryProperty = new Dictionary<int, string>(),
             ListProperty = new List<string>()
         };
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     public class CollectionTarget
@@ -458,7 +458,7 @@ public class ObjectApproverTests :
     public void ShouldIgnoreGuidDefaults()
     {
         var target = new GuidTarget();
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     public class GuidTarget
@@ -492,7 +492,7 @@ public class ObjectApproverTests :
             DateTimeOffsetString = dateTimeOffset.ToString("F"),
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
 
         #endregion
     }
@@ -512,7 +512,7 @@ public class ObjectApproverTests :
             DateTimeOffsetString = dateTimeOffset.AddDays(2).ToString("F"),
         };
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     [Fact]
@@ -520,7 +520,7 @@ public class ObjectApproverTests :
     {
         var target = new DateTimeTarget();
 
-        ObjectApprover.VerifyWithJson(target);
+        ObjectApprover.Verify(target);
     }
 
     public class DateTimeTarget
@@ -554,7 +554,7 @@ public class ObjectApproverTests :
             }
         };
 
-        ObjectApprover.VerifyWithJson(
+        ObjectApprover.Verify(
             person,
             ignoreEmptyCollections: false,
             scrubGuids: false,
@@ -582,7 +582,7 @@ public class ObjectApproverTests :
             }
         };
 
-        ObjectApprover.VerifyWithJson(person);
+        ObjectApprover.Verify(person);
     }
 
     class Person
@@ -625,7 +625,7 @@ public class ObjectApproverTests :
             Dob = new DateTime(1980, 5, 5, 1, 1, 1)
         };
 
-        ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
+        ObjectApprover.Verify(person, scrubDateTimes: false);
     }
 
     [Fact(Skip = "explicit")]
@@ -644,7 +644,7 @@ public class ObjectApproverTests :
             Dob = new DateTime(1980, 5, 5, 1, 1, 1)
         };
 
-        ObjectApprover.VerifyWithJson(person, scrubDateTimes: false);
+        ObjectApprover.Verify(person, scrubDateTimes: false);
     }
 
 

@@ -32,7 +32,7 @@ var person = new Person
     }
 };
 
-ObjectApprover.VerifyWithJson(person);
+ObjectApprover.Verify(person);
 ```
 <sup>[snippet source](/src/Tests/Samples.cs#L64-L80)</sup>
 <!-- endsnippet -->
@@ -54,7 +54,7 @@ var person = new Person
     }
 };
 
-ObjectApprover.VerifyWithJson(person);
+ObjectApprover.Verify(person);
 ```
 <sup>[snippet source](/src/Tests/Samples.cs#L125-L142)</sup>
 <!-- endsnippet -->
@@ -83,7 +83,7 @@ var person2 = new Person
     FamilyName = "Aguirre"
 };
 
-ObjectApprover.VerifyWithJson(
+ObjectApprover.Verify(
     new
     {
         person1,
@@ -172,7 +172,7 @@ var target = new GuidTarget
     OtherGuid = Guid.NewGuid(),
 };
 
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L20-L33)</sup>
 <!-- endsnippet -->
@@ -216,9 +216,9 @@ var target = new DateTimeTarget
     DateTimeOffsetString = dateTimeOffset.ToString("F"),
 };
 
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L484-L500)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L481-L497)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -261,7 +261,7 @@ SerializerBuilder.IgnoreFalse = false;
 
 <!-- snippet: ChangeDefaultsPerVerification -->
 ```cs
-ObjectApprover.VerifyWithJson(target,
+ObjectApprover.Verify(target,
     ignoreEmptyCollections: false,
     scrubGuids: false,
     scrubDateTimes: false,
@@ -300,7 +300,7 @@ var person = new Person
 };
 var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-ObjectApprover.VerifyWithJson(person, jsonSerializerSettings: serializerSettings);
+ObjectApprover.Verify(person, jsonSerializerSettings: serializerSettings);
 ```
 <sup>[snippet source](/src/Tests/Samples.cs#L47-L59)</sup>
 <!-- endsnippet -->
@@ -340,7 +340,7 @@ var target = new IgnoreTypeTarget
         Property = "Value"
     }
 };
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L114-L133)</sup>
 <!-- endsnippet -->
@@ -380,7 +380,7 @@ var target = new IgnoreInstanceTarget
         Property = "Include"
     },
 };
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L56-L75)</sup>
 <!-- endsnippet -->
@@ -418,7 +418,7 @@ var target = new IgnoreExplicitTarget
     Field = "Value",
     Property = "Value"
 };
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L173-L190)</sup>
 <!-- endsnippet -->
@@ -455,7 +455,7 @@ var target = new IgnoreExplicitTarget
     Field = "Value",
     Property = "Value"
 };
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L196-L214)</sup>
 <!-- endsnippet -->
@@ -489,7 +489,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 
 // Done as part of test
 var target = new WithCustomException();
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L259-L268)</sup>
 <!-- endsnippet -->
@@ -513,7 +513,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 
 // Done as part of test
 var target = new WithExceptionIgnoreMessage();
-ObjectApprover.VerifyWithJson(target);
+ObjectApprover.Verify(target);
 ```
 <sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L323-L333)</sup>
 <!-- endsnippet -->
@@ -539,7 +539,7 @@ var target = new ToBeScrubbed
     RowVersion = "0x00000000000007D3"
 };
 
-ObjectApprover.VerifyWithJson(target,
+ObjectApprover.Verify(target,
     scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 ```
 <sup>[snippet source](/src/Tests/Samples.cs#L13-L23)</sup>
