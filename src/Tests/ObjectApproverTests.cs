@@ -51,6 +51,12 @@ public class ObjectApproverTests :
     }
 
     [Fact]
+    public void Null()
+    {
+        ObjectApprover.Verify(null);
+    }
+
+    [Fact]
     public void IgnoreInstance()
     {
         #region AddIgnoreInstance
