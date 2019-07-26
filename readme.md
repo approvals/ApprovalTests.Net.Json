@@ -218,7 +218,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L481-L497)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L487-L503)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -342,7 +342,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L114-L133)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L120-L139)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -382,7 +382,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L56-L75)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L62-L81)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -420,7 +420,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L173-L190)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L179-L196)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -457,7 +457,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L196-L214)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L202-L220)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -491,7 +491,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L259-L268)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L265-L274)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -515,7 +515,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L323-L333)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L329-L339)</sup>
 <!-- endsnippet -->
 
 Result:

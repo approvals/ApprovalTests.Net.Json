@@ -87,11 +87,12 @@ public class TypeNameConverterTests :
         Approvals.Verify(TypeNameConverter.GetName(typeof(IEnumerable<TargetWithNamespace[]>)));
     }
 
-    IEnumerable<TargetWithNamespace> MethodWithYield()
+    static IEnumerable<TargetWithNamespace> MethodWithYield()
     {
         yield return new TargetWithNamespace();
     }
-    IEnumerable<dynamic> MethodWithYieldDynamic()
+
+    static IEnumerable<dynamic> MethodWithYieldDynamic()
     {
         yield return new {X="1"};
     }

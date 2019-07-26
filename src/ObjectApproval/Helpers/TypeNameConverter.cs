@@ -26,7 +26,7 @@ namespace ObjectApproval
             }
 
             if (type.Name.StartsWith("<")
-                || (type.IsNested && type.DeclaringType == typeof(Enumerable)))
+                || type.IsNested && type.DeclaringType == typeof(Enumerable))
             {
                 var singleOrDefault = type.GetInterfaces()
                     .SingleOrDefault(x =>
