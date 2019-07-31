@@ -51,6 +51,17 @@ public class ObjectApproverTests :
     }
 
     [Fact]
+    public void NamedTuple()
+    {
+        ObjectApprover.VerifyTuple(() => MethodWithNamedTuple());
+    }
+
+    static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
+    {
+        return (true, "A", "B");
+    }
+
+    [Fact]
     public void Null()
     {
         ObjectApprover.Verify(null);
