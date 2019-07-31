@@ -1,5 +1,4 @@
-﻿
-#if !NETSTANDARD
+﻿#if !NETSTANDARD
 using System.Reflection;
 using System;
 using System.Linq.Expressions;
