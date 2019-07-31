@@ -7,6 +7,8 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 
 https://nuget.org/packages/ObjectApproval/
 
+toc
+
 
 ## Usage
 
@@ -221,6 +223,22 @@ Results in the following:
   RowVersion: 'ThRowVersion'
 }
 ```
+
+## Named Tuples
+
+Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `ObjectApprover.VerifyTuple`.
+
+Given a method that returns a named tuple:
+
+snippet: MethodWithNamedTuple
+
+Can be verified:
+
+snippet: VerifyTuple
+
+Resulting in:
+
+snippet: ObjectApproverTests.NamedTuple.approved.txt
 
 
 ## Icon

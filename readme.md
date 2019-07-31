@@ -14,6 +14,32 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
 
 https://nuget.org/packages/ObjectApproval/
 
+<!-- toc -->
+## Contents
+
+  * [Usage](#usage)
+    * [Validating multiple instances](#validating-multiple-instances)
+  * [Serializer settings](#serializer-settings)
+    * [Default settings](#default-settings)
+    * [Single quotes used](#single-quotes-used)
+    * [QuoteName is false](#quotename-is-false)
+    * [Empty collections are ignored](#empty-collections-are-ignored)
+    * [Guids are scrubbed](#guids-are-scrubbed)
+    * [Dates are scrubbed](#dates-are-scrubbed)
+    * [Default Booleans are ignored](#default-booleans-are-ignored)
+    * [Change defaults at the verification level](#change-defaults-at-the-verification-level)
+    * [Changing settings globally](#changing-settings-globally)
+    * [Scoped settings](#scoped-settings)
+    * [Ignoring a type](#ignoring-a-type)
+    * [Ignoring a instance](#ignoring-a-instance)
+    * [Ignore member by expressions](#ignore-member-by-expressions)
+    * [Ignore member by name](#ignore-member-by-name)
+    * [Members that throw](#members-that-throw)
+    * [Scrubber](#scrubber)
+  * [Named Tuples](#named-tuples)
+<!-- endtoc -->
+
+
 
 ## Usage
 
@@ -219,7 +245,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L511-L527)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L517-L533)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -343,7 +369,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L144-L163)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L150-L169)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -383,7 +409,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L86-L105)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L111)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -421,7 +447,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L203-L220)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L209-L226)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -458,7 +484,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L226-L244)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L232-L250)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -492,7 +518,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L289-L298)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L295-L304)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -516,7 +542,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L353-L363)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L359-L369)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -553,6 +579,44 @@ Results in the following:
   RowVersion: 'ThRowVersion'
 }
 ```
+
+## Named Tuples
+
+Instances of [named tuples](https://docs.microsoft.com/en-us/dotnet/csharp/tuples#named-and-unnamed-tuples) can be verified using `ObjectApprover.VerifyTuple`.
+
+Given a method that returns a named tuple:
+
+<!-- snippet: MethodWithNamedTuple -->
+```cs
+static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
+{
+    return (true, "A", "B");
+}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L64-L69)</sup>
+<!-- endsnippet -->
+
+Can be verified:
+
+<!-- snippet: VerifyTuple -->
+```cs
+ObjectApprover.VerifyTuple(() => MethodWithNamedTuple());
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L57-L61)</sup>
+<!-- endsnippet -->
+
+Resulting in:
+
+<!-- snippet: ObjectApproverTests.NamedTuple.approved.txt -->
+```txt
+{
+  Member1: true,
+  Member2: 'A',
+  Member3: 'B'
+}
+```
+<sup>[snippet source](/src/Tests/ObjectApproverTests.NamedTuple.approved.txt#L1-L5)</sup>
+<!-- endsnippet -->
 
 
 ## Icon

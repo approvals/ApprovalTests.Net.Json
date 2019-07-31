@@ -54,13 +54,19 @@ public class ObjectApproverTests :
     [Fact]
     public void NamedTuple()
     {
+        #region VerifyTuple
+
         ObjectApprover.VerifyTuple(() => MethodWithNamedTuple());
+
+        #endregion
     }
 
+    #region MethodWithNamedTuple
     static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     {
         return (true, "A", "B");
     }
+    #endregion
 
     [Fact]
     public void Tuple()
