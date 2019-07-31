@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 using ApprovalTests;
 using Newtonsoft.Json;
+#if !NETSTANDARD
+using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Linq;
+#endif
 
 namespace ObjectApproval
 {
@@ -77,33 +76,5 @@ namespace ObjectApproval
 
             Approvals.Verify(formatJson, scrubber);
         }
-
-        public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
-        {
-            var type = target.GetType();
-            var serializer = GetJsonSerializer(jsonSerializerSettings);
-            var builder = new StringBuilder();
-            using (var stringWriter = new StringWriter(builder))
-            using (var writer = new JsonTextWriter(stringWriter))
-            {
-                writer.QuoteChar = '\'';
-                writer.QuoteName = false;
-                serializer.Serialize(writer, target);
-            }
-
-            builder.Replace(@"\\", @"\");
-            return builder.ToString();
-        }
-
-        static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)
-        {
-            if (jsonSerializerSettings == null)
-            {
-                return JsonSerializer.Create(SerializerBuilder.BuildSettings());
-            }
-
-            return JsonSerializer.Create(jsonSerializerSettings);
-        }
-
     }
 }
