@@ -16,10 +16,7 @@ namespace ObjectApproval
         {
             Verify(target, null);
         }
-        public static void Verify(Expression target)
-        {
-            Verify(target, null);
-        }
+
 #if !NETSTANDARD
         public static void VerifyTuple(Expression<Func<ITuple>> expression)
         {
@@ -41,8 +38,8 @@ namespace ObjectApproval
             }
             Verify(dictionary, null);
         }
-
 #endif
+
         public static void Verify(object target, Func<string, string> scrubber = null)
         {
             Verify(target, scrubber, null);
