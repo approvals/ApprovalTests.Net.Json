@@ -1,4 +1,6 @@
-﻿#if !NETSTANDARD
+﻿
+#if !NETSTANDARD
+using System.Reflection;
 using System;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
@@ -45,7 +47,7 @@ namespace ObjectApproval
             var unaryExpression = (UnaryExpression) expression.Body;
             var methodCallExpression = (MethodCallExpression) unaryExpression.Operand;
             var method = methodCallExpression.Method;
-            var attribute = (TupleElementNamesAttribute) method.ReturnTypeCustomAttributes.GetCustomAttributes(typeof(TupleElementNamesAttribute), false).Single();
+            var attribute = ReadTupleElementNamesAttribute(method);
             var dictionary = new Dictionary<string, object>();
             var result = expression.Compile().Invoke();
             for (var index = 0; index < attribute.TransformNames.Count; index++)
@@ -55,6 +57,17 @@ namespace ObjectApproval
             }
 
             return dictionary;
+        }
+
+        static TupleElementNamesAttribute ReadTupleElementNamesAttribute(MethodInfo method)
+        {
+            var attribute = (TupleElementNamesAttribute) method.ReturnTypeCustomAttributes.GetCustomAttributes(typeof(TupleElementNamesAttribute), false).SingleOrDefault();
+            if (attribute == null)
+            {
+                throw new Exception(nameof(VerifyTuple) + " is only to be used on methods that return a tuple.");
+            }
+
+            return attribute;
         }
     }
 }

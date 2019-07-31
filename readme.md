@@ -175,7 +175,7 @@ var target = new GuidTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L20-L33)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L21-L34)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -219,7 +219,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L498-L514)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L511-L527)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -343,7 +343,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L131-L150)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L144-L163)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -383,7 +383,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L73-L92)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L86-L105)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -421,7 +421,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L190-L207)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L203-L220)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -458,7 +458,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L213-L231)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L226-L244)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -492,7 +492,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L276-L285)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L289-L298)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -516,7 +516,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L340-L350)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L353-L363)</sup>
 <!-- endsnippet -->
 
 Result:

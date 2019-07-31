@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ApprovalTests;
 using Newtonsoft.Json;
 using ObjectApproval;
 using Xunit;
@@ -57,6 +58,18 @@ public class ObjectApproverTests :
     }
 
     static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
+    {
+        return (true, "A", "B");
+    }
+
+    [Fact]
+    public void Tuple()
+    {
+        var exception = Assert.Throws<Exception>(() => ObjectApprover.VerifyTuple(() => MethodWithTuple()));
+        Approvals.Verify(exception.Message);
+    }
+
+    static (bool, string, string) MethodWithTuple()
     {
         return (true, "A", "B");
     }
