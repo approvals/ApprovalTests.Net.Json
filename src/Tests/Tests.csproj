@@ -2,7 +2,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ApprovalTests" Version="4.0.0" />
@@ -14,5 +13,6 @@
     <PackageReference Include="XunitLogger" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <ProjectReference Include="..\ObjectApproval\ObjectApproval.csproj" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
 </Project>

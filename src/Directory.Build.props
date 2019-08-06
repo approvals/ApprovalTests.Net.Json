@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <LangVersion>latest</LangVersion>
     <NoWarn>CS1591;CS0649</NoWarn>
     <Version>10.0.0</Version>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>Copyright $([System.DateTime]::UtcNow.ToString(yyyy)). All rights reserved</Copyright>
     <PackageTags>Json, ApprovalTests</PackageTags>
-    <PackageIconUrl>https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png</PackageIconUrl>
-    <PackageProjectUrl>https://github.com/SimonCropp/ObjectApproval</PackageProjectUrl>
-    <PackageOutputPath>..\..\nugets</PackageOutputPath>
     <Description>Extends ApprovalTests to allow simple approval of complex models.</Description>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)Key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <DebugType>embedded</DebugType>
-    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 </Project>
