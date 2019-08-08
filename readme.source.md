@@ -1,13 +1,13 @@
-# <img src="https://raw.github.com/SimonCropp/ObjectApproval/master/icon.png" height="40px"> ObjectApproval
+# <img src="/src/icon.png" height="40px"> ObjectApproval
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
-
-## The NuGet package [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg)](https://www.nuget.org/packages/ObjectApproval/)
-
-https://nuget.org/packages/ObjectApproval/
-
 toc
+
+
+## NuGet package
+
+https://nuget.org/packages/ObjectApproval/ [![NuGet Status](http://img.shields.io/nuget/v/ObjectApproval.svg)](https://www.nuget.org/packages/ObjectApproval/)
 
 
 ## Usage
@@ -22,7 +22,7 @@ snippet: after
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
 
-![SampleDiff](https://raw.github.com/SimonCropp/ObjectApproval/master/src/SampleDiff.png)
+![SampleDiff](/src/SampleDiff.png)
 
 Note that the output is technically not valid json. [Single quotes are used](#single-quotes-used) and [names are not quoted](#quotename-is-false). The reason for this is to make the resulting output easier to read and understand.
 
@@ -245,4 +245,4 @@ snippet: ObjectApproverTests.NamedTuple.approved.txt
 
 ## Icon
 
-<a href="http://thenounproject.com/term/helmet/9554/">Helmet</a> designed by <a href="http://thenounproject.com/alterego">Leonidas Ikonomou</a> from The Noun Project
+[Helmet](https://thenounproject.com/term/helmet/9554/) designed by [Leonidas Ikonomou](https://thenounproject.com/alterego) from [The Noun Project](https://thenounproject.com).
