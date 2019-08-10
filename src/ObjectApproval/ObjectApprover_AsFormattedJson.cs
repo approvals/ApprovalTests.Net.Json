@@ -1,35 +1,33 @@
 ﻿using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using ObjectApproval;
 
-namespace ObjectApproval
+public static partial class ObjectApprover
 {
-    public static partial class ObjectApprover
+    public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
     {
-        public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
+        var serializer = GetJsonSerializer(jsonSerializerSettings);
+        var builder = new StringBuilder();
+        using (var stringWriter = new StringWriter(builder))
+        using (var writer = new JsonTextWriter(stringWriter))
         {
-            var serializer = GetJsonSerializer(jsonSerializerSettings);
-            var builder = new StringBuilder();
-            using (var stringWriter = new StringWriter(builder))
-            using (var writer = new JsonTextWriter(stringWriter))
-            {
-                writer.QuoteChar = '\'';
-                writer.QuoteName = false;
-                serializer.Serialize(writer, target);
-            }
-
-            builder.Replace(@"\\", @"\");
-            return builder.ToString();
+            writer.QuoteChar = '\'';
+            writer.QuoteName = false;
+            serializer.Serialize(writer, target);
         }
 
-        static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)
-        {
-            if (jsonSerializerSettings == null)
-            {
-                return JsonSerializer.Create(SerializerBuilder.BuildSettings());
-            }
+        builder.Replace(@"\\", @"\");
+        return builder.ToString();
+    }
 
-            return JsonSerializer.Create(jsonSerializerSettings);
+    static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)
+    {
+        if (jsonSerializerSettings == null)
+        {
+            return JsonSerializer.Create(SerializerBuilder.BuildSettings());
         }
+
+        return JsonSerializer.Create(jsonSerializerSettings);
     }
 }

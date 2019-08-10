@@ -126,7 +126,7 @@ public class ObjectApproverTests :
             },
             ToInclude = new Instance
             {
-              Property = "Include"
+                Property = "Include"
             }
         };
 
@@ -651,10 +651,7 @@ public class ObjectApproverTests :
     public void ShouldUseExtraSettings()
     {
         SerializerBuilder.ExtraSettings =
-            settings =>
-            {
-                settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            };
+            settings => { settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; };
 
         var person = new Person
         {
@@ -668,10 +665,7 @@ public class ObjectApproverTests :
     public void ShouldUseExtraSettingsReset()
     {
         SerializerBuilder.ExtraSettings =
-            settings =>
-            {
-                settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
-            };
+            settings => { settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat; };
 
         SerializerBuilder.Reset();
 
@@ -683,10 +677,10 @@ public class ObjectApproverTests :
         ObjectApprover.Verify(person, scrubDateTimes: false);
     }
 
-
     public ObjectApproverTests(ITestOutputHelper output) :
         base(output)
     {
-        SerializerBuilder.Reset(); // reset builder for a clean slate each run
+        // reset builder for a clean slate each run
+        SerializerBuilder.Reset();
     }
 }
