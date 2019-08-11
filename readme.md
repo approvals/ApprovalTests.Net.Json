@@ -47,6 +47,7 @@ https://nuget.org/packages/ObjectApproval/ [![NuGet Status](http://img.shields.i
 Assuming you have previously verified and approved using this.
 
 <!-- snippet: before -->
+<a id='snippet-before'/></a>
 ```cs
 var person = new Person
 {
@@ -62,12 +63,13 @@ var person = new Person
 
 ObjectApprover.Verify(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L64-L80)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L64-L80) / [anchor](#snippet-before)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
 
 <!-- snippet: after -->
+<a id='snippet-after'/></a>
 ```cs
 var person = new Person
 {
@@ -84,7 +86,7 @@ var person = new Person
 
 ObjectApprover.Verify(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L125-L142)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L125-L142) / [anchor](#snippet-after)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -99,6 +101,7 @@ Note that the output is technically not valid json. [Single quotes are used](#si
 When validating multiple instances, an [anonymous type](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/anonymous-types) can be used for verification
 
 <!-- snippet: anon -->
+<a id='snippet-anon'/></a>
 ```cs
 var person1 = new Person
 {
@@ -118,12 +121,13 @@ ObjectApprover.Verify(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L86-L106)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L86-L106) / [anchor](#snippet-anon)</sup>
 <!-- endsnippet -->
 
 Results in the following:
 
 <!-- snippet: Samples.Anon.approved.txt -->
+<a id='snippet-Samples.Anon.approved.txt'/></a>
 ```txt
 {
   person1: {
@@ -136,7 +140,7 @@ Results in the following:
   }
 }
 ```
-<sup>[snippet source](/src/Tests/Samples.Anon.approved.txt#L1-L10)</sup>
+<sup>[snippet source](/src/Tests/Samples.Anon.approved.txt#L1-L10) / [anchor](#snippet-Samples.Anon.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -152,6 +156,7 @@ All modifications of `SerializerBuilder` behavior is global for all verification
 The default serialization settings are:
 
 <!-- snippet: defaultSerialization -->
+<a id='snippet-defaultserialization'/></a>
 ```cs
 var settings = new JsonSerializerSettings
 {
@@ -160,7 +165,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L145-L154)</sup>
+<sup>[snippet source](/src/ObjectApproval/Helpers/SerializerBuilder.cs#L145-L154) / [anchor](#snippet-defaultserialization)</sup>
 <!-- endsnippet -->
 
 
@@ -190,6 +195,7 @@ SerializerBuilder.IgnoreEmptyCollections = false;
 By default guids are sanitized during verification. This is done by finding each guid and taking a counter based that that specific guid. That counter is then used replace the guid values. This allows for repeatable tests when guid values are changing.
 
 <!-- snippet: guid -->
+<a id='snippet-guid'/></a>
 ```cs
 var guid = Guid.NewGuid();
 var target = new GuidTarget
@@ -202,12 +208,13 @@ var target = new GuidTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L21-L34)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L21-L34) / [anchor](#snippet-guid)</sup>
 <!-- endsnippet -->
 
 Results in the following:
 
 <!-- snippet: ObjectApproverTests.ShouldReUseGuid.approved.txt -->
+<a id='snippet-ObjectApproverTests.ShouldReUseGuid.approved.txt'/></a>
 ```txt
 {
   Guid: Guid_1,
@@ -216,7 +223,7 @@ Results in the following:
   OtherGuid: Guid_2
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseGuid.approved.txt#L1-L6)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseGuid.approved.txt#L1-L6) / [anchor](#snippet-ObjectApproverTests.ShouldReUseGuid.approved.txt)</sup>
 <!-- endsnippet -->
 
 To disable this behavior use:
@@ -231,6 +238,7 @@ SerializerBuilder.ScrubGuids = false;
 By default dates (`DateTime` and `DateTimeOffset`) are sanitized during verification. This is done by finding each date and taking a counter based that that specific date. That counter is then used replace the date values. This allows for repeatable tests when date values are changing.
 
 <!-- snippet: Date -->
+<a id='snippet-date'/></a>
 ```cs
 var dateTime = DateTime.Now;
 var dateTimeOffset = DateTimeOffset.Now;
@@ -246,12 +254,13 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L517-L533)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L517-L533) / [anchor](#snippet-date)</sup>
 <!-- endsnippet -->
 
 Results in the following:
 
 <!-- snippet: ObjectApproverTests.ShouldReUseDatetime.approved.txt -->
+<a id='snippet-ObjectApproverTests.ShouldReUseDatetime.approved.txt'/></a>
 ```txt
 {
   DateTime: DateTime_1,
@@ -262,7 +271,7 @@ Results in the following:
   DateTimeOffsetString: DateTimeOffset_2
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseDatetime.approved.txt#L1-L8)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseDatetime.approved.txt#L1-L8) / [anchor](#snippet-ObjectApproverTests.ShouldReUseDatetime.approved.txt)</sup>
 <!-- endsnippet -->
 
 To disable this behavior use:
@@ -288,6 +297,7 @@ SerializerBuilder.IgnoreFalse = false;
 `DateTime`, `DateTimeOffset`, `Guid`, `bool`, and empty collection behavior can also be controlled at the verification level: 
 
 <!-- snippet: ChangeDefaultsPerVerification -->
+<a id='snippet-changedefaultsperverification'/></a>
 ```cs
 ObjectApprover.Verify(target,
     ignoreEmptyCollections: false,
@@ -295,7 +305,7 @@ ObjectApprover.Verify(target,
     scrubDateTimes: false,
     ignoreFalse: false);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L28-L36)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L28-L36) / [anchor](#snippet-changedefaultsperverification)</sup>
 <!-- endsnippet -->
 
 
@@ -304,6 +314,7 @@ ObjectApprover.Verify(target,
 To change the serialization settings for all verifications use `SerializerBuilder.ExtraSettings`:
 
 <!-- snippet: ExtraSettings -->
+<a id='snippet-extrasettings'/></a>
 ```cs
 SerializerBuilder.ExtraSettings =
     jsonSerializerSettings =>
@@ -312,13 +323,14 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L111-L120)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L111-L120) / [anchor](#snippet-extrasettings)</sup>
 <!-- endsnippet -->
 
 
 ### Scoped settings
 
 <!-- snippet: ScopedSerializer -->
+<a id='snippet-scopedserializer'/></a>
 ```cs
 var person = new Person
 {
@@ -330,12 +342,13 @@ var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
 ObjectApprover.Verify(person, jsonSerializerSettings: serializerSettings);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L47-L59)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L47-L59) / [anchor](#snippet-scopedserializer)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: Samples.ScopedSerializer.approved.txt -->
+<a id='snippet-Samples.ScopedSerializer.approved.txt'/></a>
 ```txt
 {
   GivenNames: 'John',
@@ -343,7 +356,7 @@ Result:
   Dob: '\/Date(970322400000+1000)\/'
 }
 ```
-<sup>[snippet source](/src/Tests/Samples.ScopedSerializer.approved.txt#L1-L5)</sup>
+<sup>[snippet source](/src/Tests/Samples.ScopedSerializer.approved.txt#L1-L5) / [anchor](#snippet-Samples.ScopedSerializer.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -352,6 +365,7 @@ Result:
 To ignore all members that match a certain type:
 
 <!-- snippet: AddIgnoreType -->
+<a id='snippet-addignoretype'/></a>
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMembersWithType<ToIgnore>();
@@ -370,12 +384,13 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L150-L169)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L150-L169) / [anchor](#snippet-addignoretype)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: ObjectApproverTests.IgnoreType.approved.txt -->
+<a id='snippet-ObjectApproverTests.IgnoreType.approved.txt'/></a>
 ```txt
 {
   ToInclude: {
@@ -383,7 +398,7 @@ Result:
   }
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreType.approved.txt#L1-L5)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreType.approved.txt#L1-L5) / [anchor](#snippet-ObjectApproverTests.IgnoreType.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -392,6 +407,7 @@ Result:
 To ignore instances of a type based on delegate:
 
 <!-- snippet: AddIgnoreInstance -->
+<a id='snippet-addignoreinstance'/></a>
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreInstance<Instance>(x => x.Property == "Ignore");
@@ -410,12 +426,13 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L111)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L111) / [anchor](#snippet-addignoreinstance)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: ObjectApproverTests.IgnoreInstance.approved.txt -->
+<a id='snippet-ObjectApproverTests.IgnoreInstance.approved.txt'/></a>
 ```txt
 {
   ToInclude: {
@@ -423,7 +440,7 @@ Result:
   }
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreInstance.approved.txt#L1-L5)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreInstance.approved.txt#L1-L5) / [anchor](#snippet-ObjectApproverTests.IgnoreInstance.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -432,6 +449,7 @@ Result:
 To ignore members of a certain type using an expression:
 
 <!-- snippet: IgnoreMemberByExpression -->
+<a id='snippet-ignorememberbyexpression'/></a>
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMember<IgnoreExplicitTarget>(x => x.Property);
@@ -448,18 +466,19 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L209-L226)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L209-L226) / [anchor](#snippet-ignorememberbyexpression)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: ObjectApproverTests.IgnoreMemberByExpression.approved.txt -->
+<a id='snippet-ObjectApproverTests.IgnoreMemberByExpression.approved.txt'/></a>
 ```txt
 {
   Include: 'Value'
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByExpression.approved.txt#L1-L3)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByExpression.approved.txt#L1-L3) / [anchor](#snippet-ObjectApproverTests.IgnoreMemberByExpression.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -468,6 +487,7 @@ Result:
 To ignore members of a certain type using type and name:
 
 <!-- snippet: IgnoreMemberByName -->
+<a id='snippet-ignorememberbyname'/></a>
 ```cs
 // Done on static startup
 var type = typeof(IgnoreExplicitTarget);
@@ -485,18 +505,19 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L232-L250)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L232-L250) / [anchor](#snippet-ignorememberbyname)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: ObjectApproverTests.IgnoreMemberByName.approved.txt -->
+<a id='snippet-ObjectApproverTests.IgnoreMemberByName.approved.txt'/></a>
 ```txt
 {
   Include: 'Value'
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByName.approved.txt#L1-L3)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByName.approved.txt#L1-L3) / [anchor](#snippet-ObjectApproverTests.IgnoreMemberByName.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -511,6 +532,7 @@ Note that this is global for all members on all types.
 Ignore by exception type:
 
 <!-- snippet: IgnoreMembersThatThrow -->
+<a id='snippet-ignoremembersthatthrow'/></a>
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
@@ -519,21 +541,23 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L295-L304)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L295-L304) / [anchor](#snippet-ignoremembersthatthrow)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: ObjectApproverTests.CustomExceptionProp.approved.txt -->
+<a id='snippet-ObjectApproverTests.CustomExceptionProp.approved.txt'/></a>
 ```txt
 {}
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.CustomExceptionProp.approved.txt#L1-L1)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.CustomExceptionProp.approved.txt#L1-L1) / [anchor](#snippet-ObjectApproverTests.CustomExceptionProp.approved.txt)</sup>
 <!-- endsnippet -->
 
 Ignore by exception type and expression:
 
 <!-- snippet: IgnoreMembersThatThrowExpression -->
+<a id='snippet-ignoremembersthatthrowexpression'/></a>
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMembersThatThrow<Exception>(
@@ -543,16 +567,17 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L359-L369)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L359-L369) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
 <!-- endsnippet -->
 
 Result:
 
 <!-- snippet: ObjectApproverTests.ExceptionMessageProp.approved.txt -->
+<a id='snippet-ObjectApproverTests.ExceptionMessageProp.approved.txt'/></a>
 ```txt
 {}
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.ExceptionMessageProp.approved.txt#L1-L1)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.ExceptionMessageProp.approved.txt#L1-L1) / [anchor](#snippet-ObjectApproverTests.ExceptionMessageProp.approved.txt)</sup>
 <!-- endsnippet -->
 
 
@@ -561,6 +586,7 @@ Result:
 A scrubber can be used to cleanup or sanitize the resultant serialized string prior to verification.
 
 <!-- snippet: Scrubber -->
+<a id='snippet-scrubber'/></a>
 ```cs
 var target = new ToBeScrubbed
 {
@@ -570,7 +596,7 @@ var target = new ToBeScrubbed
 ObjectApprover.Verify(target,
     scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L13-L23)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L13-L23) / [anchor](#snippet-scrubber)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -590,27 +616,30 @@ Due to the use of [ITuple](https://docs.microsoft.com/en-us/dotnet/api/system.ru
 Given a method that returns a named tuple:
 
 <!-- snippet: MethodWithNamedTuple -->
+<a id='snippet-methodwithnamedtuple'/></a>
 ```cs
 static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
 {
     return (true, "A", "B");
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L64-L69)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L64-L69) / [anchor](#snippet-methodwithnamedtuple)</sup>
 <!-- endsnippet -->
 
 Can be verified:
 
 <!-- snippet: VerifyTuple -->
+<a id='snippet-verifytuple'/></a>
 ```cs
 ObjectApprover.VerifyTuple(() => MethodWithNamedTuple());
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L57-L61)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L57-L61) / [anchor](#snippet-verifytuple)</sup>
 <!-- endsnippet -->
 
 Resulting in:
 
 <!-- snippet: ObjectApproverTests.NamedTuple.approved.txt -->
+<a id='snippet-ObjectApproverTests.NamedTuple.approved.txt'/></a>
 ```txt
 {
   Member1: true,
@@ -618,7 +647,7 @@ Resulting in:
   Member3: 'B'
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.NamedTuple.approved.txt#L1-L5)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.NamedTuple.approved.txt#L1-L5) / [anchor](#snippet-ObjectApproverTests.NamedTuple.approved.txt)</sup>
 <!-- endsnippet -->
 
 
