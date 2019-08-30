@@ -254,7 +254,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L517-L533) / [anchor](#snippet-date)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L525-L541) / [anchor](#snippet-date)</sup>
 <!-- endsnippet -->
 
 Results in the following:

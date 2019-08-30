@@ -8,9 +8,23 @@ static class ReflectionHelpers
     public static bool IsCollection(this Type type)
     {
         Guard.AgainstNull(type, nameof(type));
-        return type.GetInterfaces()
-            .Any(x => x.IsGenericType &&
-                      x.GetGenericTypeDefinition() == typeof(ICollection<>));
+        if (type.IsGenericList())
+        {
+            return true;
+        }
+        return type.GetInterfaces().Any(IsGenericList);
+    }
+
+    private static bool IsGenericList(this Type x)
+    {
+        if (!x.IsGenericType)
+        {
+            return false;
+        }
+
+        var definition = x.GetGenericTypeDefinition();
+        return definition == typeof(ICollection<>) ||
+               definition == typeof(IReadOnlyCollection<>);
     }
 
     public static T GetValue<T>(this MemberInfo member, object instance)

@@ -479,7 +479,11 @@ public class ObjectApproverTests :
         var target = new CollectionTarget
         {
             DictionaryProperty = new Dictionary<int, string>(),
-            ListProperty = new List<string>()
+            IReadOnlyDictionary = new Dictionary<int, string>(),
+            ReadOnlyList = new List<string>(),
+            ListProperty = new List<string>(),
+            ReadOnlyCollection = new List<string>(),
+            Array = new string[]{}
         };
         ObjectApprover.Verify(target);
     }
@@ -488,6 +492,10 @@ public class ObjectApproverTests :
     {
         public Dictionary<int, string> DictionaryProperty;
         public List<string> ListProperty;
+        public string[] Array;
+        public IReadOnlyList<string> ReadOnlyList;
+        public IReadOnlyCollection<string> ReadOnlyCollection;
+        public IReadOnlyDictionary<int, string> IReadOnlyDictionary;
     }
 
     [Fact]
