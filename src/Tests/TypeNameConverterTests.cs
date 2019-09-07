@@ -7,7 +7,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class TypeNameConverterTests :
-    XunitLoggingBase
+    XunitApprovalBase
 {
     [Fact]
     public void Simple()

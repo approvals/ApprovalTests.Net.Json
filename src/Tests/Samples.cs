@@ -5,7 +5,7 @@ using Xunit;
 using Xunit.Abstractions;
 
 public class Samples:
-    XunitLoggingBase
+    XunitApprovalBase
 {
     [Fact]
     public void Scrubber()
