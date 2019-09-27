@@ -15,13 +15,13 @@ public static partial class ObjectApprover
         Verify(dictionary, null);
     }
 
-    public static void VerifyTuple(Expression<Func<ITuple>> expression, Func<string, string> scrubber = null)
+    public static void VerifyTuple(Expression<Func<ITuple>> expression, Func<string, string>? scrubber = null)
     {
         var dictionary = ExpressionToDictionary(expression);
         Verify(dictionary, scrubber, null);
     }
 
-    public static void VerifyTuple(Expression<Func<ITuple>> expression, Func<string, string> scrubber = null, JsonSerializerSettings jsonSerializerSettings = null)
+    public static void VerifyTuple(Expression<Func<ITuple>> expression, Func<string, string>? scrubber = null, JsonSerializerSettings? jsonSerializerSettings = null)
     {
         var dictionary = ExpressionToDictionary(expression);
         Verify(dictionary, scrubber,jsonSerializerSettings);
@@ -33,7 +33,7 @@ public static partial class ObjectApprover
         bool scrubGuids = true,
         bool scrubDateTimes = true,
         bool ignoreFalse = true,
-        Func<string, string> scrubber = null)
+        Func<string, string>? scrubber = null)
     {
         var dictionary = ExpressionToDictionary(expression);
         Verify(dictionary, ignoreEmptyCollections, scrubGuids, scrubDateTimes, ignoreFalse, scrubber);

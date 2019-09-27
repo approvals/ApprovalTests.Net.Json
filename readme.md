@@ -66,7 +66,7 @@ var person = new Person
 
 ObjectApprover.Verify(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L64-L80) / [anchor](#snippet-before)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L67-L83) / [anchor](#snippet-before)</sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -89,7 +89,7 @@ var person = new Person
 
 ObjectApprover.Verify(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L125-L142) / [anchor](#snippet-after)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L128-L145) / [anchor](#snippet-after)</sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -124,7 +124,7 @@ ObjectApprover.Verify(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L86-L106) / [anchor](#snippet-anon)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L89-L109) / [anchor](#snippet-anon)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -211,7 +211,7 @@ var target = new GuidTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L21-L34) / [anchor](#snippet-guid)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L24-L37) / [anchor](#snippet-guid)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -257,7 +257,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L525-L541) / [anchor](#snippet-date)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L528-L544) / [anchor](#snippet-date)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -308,7 +308,7 @@ ObjectApprover.Verify(target,
     scrubDateTimes: false,
     ignoreFalse: false);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L28-L36) / [anchor](#snippet-changedefaultsperverification)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L31-L39) / [anchor](#snippet-changedefaultsperverification)</sup>
 <!-- endsnippet -->
 
 
@@ -326,7 +326,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L111-L120) / [anchor](#snippet-extrasettings)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L114-L123) / [anchor](#snippet-extrasettings)</sup>
 <!-- endsnippet -->
 
 
@@ -345,7 +345,7 @@ var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
 ObjectApprover.Verify(person, jsonSerializerSettings: serializerSettings);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L47-L59) / [anchor](#snippet-scopedserializer)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L50-L62) / [anchor](#snippet-scopedserializer)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -387,7 +387,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L150-L169) / [anchor](#snippet-addignoretype)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L153-L172) / [anchor](#snippet-addignoretype)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -429,7 +429,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L92-L111) / [anchor](#snippet-addignoreinstance)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L95-L114) / [anchor](#snippet-addignoreinstance)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -469,7 +469,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L209-L226) / [anchor](#snippet-ignorememberbyexpression)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L212-L229) / [anchor](#snippet-ignorememberbyexpression)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -508,7 +508,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L232-L250) / [anchor](#snippet-ignorememberbyname)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L235-L253) / [anchor](#snippet-ignorememberbyname)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -544,7 +544,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L295-L304) / [anchor](#snippet-ignoremembersthatthrow)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L298-L307) / [anchor](#snippet-ignoremembersthatthrow)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -570,7 +570,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L359-L369) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L362-L372) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
 <!-- endsnippet -->
 
 Result:
@@ -599,7 +599,7 @@ var target = new ToBeScrubbed
 ObjectApprover.Verify(target,
     scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L13-L23) / [anchor](#snippet-scrubber)</sup>
+<sup>[snippet source](/src/Tests/Samples.cs#L16-L26) / [anchor](#snippet-scrubber)</sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -626,7 +626,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     return (true, "A", "B");
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L64-L69) / [anchor](#snippet-methodwithnamedtuple)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L67-L72) / [anchor](#snippet-methodwithnamedtuple)</sup>
 <!-- endsnippet -->
 
 Can be verified:
@@ -636,7 +636,7 @@ Can be verified:
 ```cs
 ObjectApprover.VerifyTuple(() => MethodWithNamedTuple());
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L57-L61) / [anchor](#snippet-verifytuple)</sup>
+<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L60-L64) / [anchor](#snippet-verifytuple)</sup>
 <!-- endsnippet -->
 
 Resulting in:

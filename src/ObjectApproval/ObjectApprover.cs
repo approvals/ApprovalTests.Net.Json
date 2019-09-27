@@ -5,17 +5,17 @@ using ObjectApproval;
 
 public static partial class ObjectApprover
 {
-    public static void Verify(object target)
+    public static void Verify(object? target)
     {
         Verify(target, null);
     }
 
-    public static void Verify(object target, Func<string, string> scrubber = null)
+    public static void Verify(object? target, Func<string, string>? scrubber = null)
     {
         Verify(target, scrubber, null);
     }
 
-    public static void Verify(object target, Func<string, string> scrubber = null, JsonSerializerSettings jsonSerializerSettings = null)
+    public static void Verify(object? target, Func<string, string>? scrubber = null, JsonSerializerSettings? jsonSerializerSettings = null)
     {
         var formatJson = AsFormattedJson(target, jsonSerializerSettings);
         if (scrubber == null)
@@ -27,12 +27,12 @@ public static partial class ObjectApprover
     }
 
     public static void Verify(
-        object target,
+        object? target,
         bool ignoreEmptyCollections = true,
         bool scrubGuids = true,
         bool scrubDateTimes = true,
         bool ignoreFalse = true,
-        Func<string, string> scrubber = null)
+        Func<string, string>? scrubber = null)
     {
         var settings = SerializerBuilder.BuildSettings(ignoreEmptyCollections, scrubGuids, scrubDateTimes, ignoreFalse);
         var formatJson = AsFormattedJson(target, settings);

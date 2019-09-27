@@ -166,7 +166,7 @@ namespace ObjectApproval
             return settings;
         }
 
-        public static Action<JsonSerializerSettings> ExtraSettings;
+        public static Action<JsonSerializerSettings> ExtraSettings = null!;
 
         static void AddConverters(bool scrubGuids, bool scrubDateTimes, JsonSerializerSettings settings)
         {

@@ -4,6 +4,9 @@ using ObjectApproval;
 using Xunit;
 using Xunit.Abstractions;
 
+// Non-nullable field is uninitialized
+#pragma warning disable CS8618
+
 public class Samples:
     XunitApprovalBase
 {
@@ -38,7 +41,7 @@ public class Samples:
 
     class ToBeScrubbed
     {
-        public string RowVersion;
+        public string? RowVersion;
     }
 
     [Fact(Skip = "explicit")]

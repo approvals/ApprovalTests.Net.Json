@@ -20,11 +20,11 @@ namespace ObjectApproval
             datetimeOffsetFormats.Add(format);
         }
 
-        Scrubber<Guid> guidScrubber;
-        Scrubber<DateTime> dateTimeScrubber;
-        Scrubber<DateTimeOffset> dateTimeOffsetScrubber;
+        Scrubber<Guid>? guidScrubber;
+        Scrubber<DateTime>? dateTimeScrubber;
+        Scrubber<DateTimeOffset>? dateTimeOffsetScrubber;
 
-        public StringScrubber(Scrubber<Guid> guidScrubber, Scrubber<DateTime> dateTimeScrubber, Scrubber<DateTimeOffset> dateTimeOffsetScrubber)
+        public StringScrubber(Scrubber<Guid>? guidScrubber, Scrubber<DateTime>? dateTimeScrubber, Scrubber<DateTimeOffset>? dateTimeOffsetScrubber)
         {
             this.guidScrubber = guidScrubber;
             this.dateTimeScrubber = dateTimeScrubber;
@@ -45,7 +45,7 @@ namespace ObjectApproval
                     }
                 }
 
-                if (dateTimeScrubber != null)
+                if (dateTimeOffsetScrubber != null)
                 {
                     foreach (var format in datetimeOffsetFormats)
                     {
@@ -55,7 +55,10 @@ namespace ObjectApproval
                             return;
                         }
                     }
+                }
 
+                if (dateTimeScrubber != null)
+                {
                     foreach (var format in datetimeFormats)
                     {
                         if (DateTime.TryParseExact(valueAsString, format, null, DateTimeStyles.None, out var dateTime))

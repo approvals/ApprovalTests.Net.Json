@@ -5,7 +5,7 @@ using ObjectApproval;
 
 public static partial class ObjectApprover
 {
-    public static string AsFormattedJson(object target, JsonSerializerSettings jsonSerializerSettings = null)
+    public static string AsFormattedJson(object? target, JsonSerializerSettings? jsonSerializerSettings = null)
     {
         var serializer = GetJsonSerializer(jsonSerializerSettings);
         var builder = new StringBuilder();
@@ -21,7 +21,7 @@ public static partial class ObjectApprover
         return builder.ToString();
     }
 
-    static JsonSerializer GetJsonSerializer(JsonSerializerSettings jsonSerializerSettings)
+    static JsonSerializer GetJsonSerializer(JsonSerializerSettings? jsonSerializerSettings)
     {
         if (jsonSerializerSettings == null)
         {

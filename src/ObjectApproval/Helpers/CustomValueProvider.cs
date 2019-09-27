@@ -25,7 +25,7 @@ namespace ObjectApproval
             throw new NotImplementedException();
         }
 
-        public object GetValue(object target)
+        public object? GetValue(object target)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace ObjectApproval
             }
         }
 
-        object GetDefault()
+        object? GetDefault()
         {
             if (propertyType.IsValueType)
             {
