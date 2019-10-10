@@ -7,23 +7,21 @@ namespace ObjectApproval
     {
         public static string RemoveLinesContaining(this string input, params string[] stringToMatch)
         {
-            using (var reader = new StringReader(input))
+            using var reader = new StringReader(input);
+            var builder = new StringBuilder();
+
+            string line;
+            while ((line = reader.ReadLine()) != null)
             {
-                var builder = new StringBuilder();
+                var lineContains = line.LineContains(stringToMatch);
 
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                if (!lineContains)
                 {
-                    var lineContains = line.LineContains(stringToMatch);
-
-                    if (!lineContains)
-                    {
-                        builder.AppendLine(line);
-                    }
+                    builder.AppendLine(line);
                 }
-
-                return builder.ToString();
             }
+
+            return builder.ToString();
         }
 
         static bool LineContains(this string line, string[] stringToMatch)

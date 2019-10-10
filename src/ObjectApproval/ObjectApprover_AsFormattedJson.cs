@@ -9,14 +9,13 @@ public static partial class ObjectApprover
     {
         var serializer = GetJsonSerializer(jsonSerializerSettings);
         var builder = new StringBuilder();
-        using (var stringWriter = new StringWriter(builder))
-        using (var writer = new JsonTextWriter(stringWriter))
+        using var stringWriter = new StringWriter(builder);
+        using var writer = new JsonTextWriter(stringWriter)
         {
-            writer.QuoteChar = '\'';
-            writer.QuoteName = false;
-            serializer.Serialize(writer, target);
-        }
-
+            QuoteChar = '\'', 
+            QuoteName = false
+        };
+        serializer.Serialize(writer, target);
         builder.Replace(@"\\", @"\");
         return builder.ToString();
     }
