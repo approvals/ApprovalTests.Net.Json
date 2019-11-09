@@ -20,7 +20,7 @@ namespace ObjectApproval
             this.ignoreMembersThatThrow = ignoreMembersThatThrow;
         }
 
-        public void SetValue(object target, object value)
+        public void SetValue(object target, object? value)
         {
             throw new NotImplementedException();
         }

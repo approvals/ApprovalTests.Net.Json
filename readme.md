@@ -564,7 +564,7 @@ Ignore by exception type and expression:
 ```cs
 // Done on static startup
 SerializerBuilder.IgnoreMembersThatThrow<Exception>(
-    x => { return x.Message == "Ignore"; });
+    x => x.Message == "Ignore");
 
 // Done as part of test
 var target = new WithExceptionIgnoreMessage();

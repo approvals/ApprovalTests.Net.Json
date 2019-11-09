@@ -31,8 +31,12 @@ namespace ObjectApproval
             this.dateTimeOffsetScrubber = dateTimeOffsetScrubber;
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
+            if (value == null)
+            {
+                return;
+            }
             var valueAsString = (string) value;
             if (!string.IsNullOrWhiteSpace(valueAsString))
             {
@@ -73,7 +77,7 @@ namespace ObjectApproval
             writer.WriteValue(valueAsString);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             throw new Exception();
         }

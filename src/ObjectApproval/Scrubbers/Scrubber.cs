@@ -10,7 +10,7 @@ namespace ObjectApproval
         int count;
         Dictionary<T, int> cache = new Dictionary<T, int>();
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             if (value == null)
             {
@@ -31,7 +31,7 @@ namespace ObjectApproval
             writer.WriteRawValue($"{name}_{count}");
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             throw new Exception();
         }

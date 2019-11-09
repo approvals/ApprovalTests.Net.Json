@@ -8,7 +8,8 @@ using Newtonsoft.Json.Serialization;
 
 namespace ObjectApproval
 {
-    public class CustomContractResolver : DefaultContractResolver
+    public class CustomContractResolver :
+        DefaultContractResolver
     {
         bool ignoreEmptyCollections;
         bool ignoreFalse;
@@ -40,6 +41,11 @@ namespace ObjectApproval
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
+
+            if (property.PropertyType == null || property.ValueProvider == null)
+            {
+                return property;
+            }
 
             if (ignoreEmptyCollections)
             {
@@ -77,6 +83,11 @@ namespace ObjectApproval
                 property.ShouldSerialize = declaringInstance =>
                 {
                     var instance = property.ValueProvider.GetValue(declaringInstance);
+
+                    if (instance == null)
+                    {
+                        return false;
+                    }
 
                     foreach (var func in funcs)
                     {

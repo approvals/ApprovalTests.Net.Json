@@ -39,24 +39,29 @@ namespace ObjectApproval
             Guard.AgainstNull(property, nameof(property));
             Guard.AgainstNull(member, nameof(member));
             var type = property.PropertyType;
-            if (type != typeof(string))
+            if (type == null)
             {
-                if (type.IsCollection())
+                return;
+            }
+            if (type == typeof(string))
+            {
+                return;
+            }
+            if (type.IsCollection())
+            {
+                property.ShouldSerialize = instance =>
                 {
-                    property.ShouldSerialize = instance =>
+                    var collection = member.GetValue<IEnumerable>(instance);
+
+                    if (collection == null)
                     {
-                        var collection = member.GetValue<IEnumerable>(instance);
+                        // if the list is null, we defer the decision to NullValueHandling
+                        return true;
+                    }
 
-                        if (collection == null)
-                        {
-                            // if the list is null, we defer the decision to NullValueHandling
-                            return true;
-                        }
-
-                        // check to see if there is at least one item in the Enumerable
-                        return collection.GetEnumerator().MoveNext();
-                    };
-                }
+                    // check to see if there is at least one item in the Enumerable
+                    return collection.GetEnumerator().MoveNext();
+                };
             }
         }
     }

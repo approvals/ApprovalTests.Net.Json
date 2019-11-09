@@ -6,7 +6,7 @@ namespace ObjectApproval
 {
     public class DelegateConverter : JsonConverter
     {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             if (value is null)
             {
@@ -39,7 +39,7 @@ namespace ObjectApproval
             return name;
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
