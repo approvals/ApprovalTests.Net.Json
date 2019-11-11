@@ -35,12 +35,20 @@ public static partial class ObjectApprover
         Func<string, string>? scrubber = null)
     {
         var settings = SerializerBuilder.BuildSettings(ignoreEmptyCollections, scrubGuids, scrubDateTimes, ignoreFalse);
-        var formatJson = AsFormattedJson(target, settings);
-        if (scrubber == null)
+        var json = AsFormattedJson(target, settings);
+        if (scrubber != null)
         {
-            scrubber = s => s;
+            json = scrubber(json);
         }
 
-        Approvals.Verify(formatJson, scrubber);
+        Approvals.Verify(json);
+    }
+
+    static Action<string> verifyAction = Approvals.Verify;
+
+    public static void SetVerifyAction(Action<string> verify)
+    {
+        Guard.AgainstNull(verify, nameof(verify));
+        verifyAction = verify;
     }
 }
