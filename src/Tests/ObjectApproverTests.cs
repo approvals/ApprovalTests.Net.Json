@@ -611,6 +611,31 @@ public class ObjectApproverTests :
     }
 
     [Fact]
+    public void TypeNameHandlingAll()
+    {
+        var person = new Person
+        {
+            Id = Guid.NewGuid(),
+            Title = Title.Mr,
+            GivenNames = "John",
+            FamilyName = "Smith",
+            Dob = DateTime.Now,
+            Spouse = "Jill",
+            Children = new List<string> {"Sam", "Mary"},
+            Address = new Address
+            {
+                Street = "1 Puddle Lane",
+                Country = "USA"
+            }
+        };
+
+        var jsonSerializerSettings = SerializerBuilder.BuildSettings();
+        jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
+        ObjectApprover.Verify(person,
+            jsonSerializerSettings: jsonSerializerSettings);
+    }
+
+    [Fact]
     public void Example()
     {
         var person = new Person

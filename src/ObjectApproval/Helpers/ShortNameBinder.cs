@@ -8,7 +8,7 @@ namespace ObjectApproval
     {
         public void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
         {
-            assemblyName = "";
+            assemblyName = null;
             typeName = TypeNameConverter.GetName(serializedType);
         }
 

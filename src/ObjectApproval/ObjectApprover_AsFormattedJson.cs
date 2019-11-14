@@ -12,7 +12,7 @@ public static partial class ObjectApprover
         using var stringWriter = new StringWriter(builder);
         using var writer = new JsonTextWriter(stringWriter)
         {
-            QuoteChar = '\'', 
+            QuoteChar = '\'',
             QuoteName = false
         };
         serializer.Serialize(writer, target);
