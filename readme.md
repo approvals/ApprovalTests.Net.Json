@@ -35,9 +35,7 @@ Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow
     * [Ignore member by name](#ignore-member-by-name)
     * [Members that throw](#members-that-throw)
     * [Scrubber](#scrubber)
-  * [Named Tuples](#named-tuples)
-<!-- endtoc -->
-
+  * [Named Tuples](#named-tuples)<!-- endtoc -->
 
 
 ## NuGet package
@@ -66,7 +64,7 @@ var person = new Person
 
 ObjectApprover.Verify(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L67-L83) / [anchor](#snippet-before)</sup>
+<sup><a href='/src/Tests/Samples.cs#L67-L83' title='File snippet `before` was extracted from'>snippet source</a> | <a href='#snippet-before' title='Navigate to start of snippet `before`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Then you attempt to verify this 
@@ -89,7 +87,7 @@ var person = new Person
 
 ObjectApprover.Verify(person);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L128-L145) / [anchor](#snippet-after)</sup>
+<sup><a href='/src/Tests/Samples.cs#L128-L145' title='File snippet `after` was extracted from'>snippet source</a> | <a href='#snippet-after' title='Navigate to start of snippet `after`'>anchor</a></sup>
 <!-- endsnippet -->
 
 The serialized json version of these will then be compared and you will be displayed the differences in the diff tool you have asked ApprovalTests to use. For example:
@@ -124,7 +122,7 @@ ObjectApprover.Verify(
         person2
     });
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L89-L109) / [anchor](#snippet-anon)</sup>
+<sup><a href='/src/Tests/Samples.cs#L89-L109' title='File snippet `anon` was extracted from'>snippet source</a> | <a href='#snippet-anon' title='Navigate to start of snippet `anon`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -143,7 +141,7 @@ Results in the following:
   }
 }
 ```
-<sup>[snippet source](/src/Tests/Samples.Anon.approved.txt#L1-L10) / [anchor](#snippet-Samples.Anon.approved.txt)</sup>
+<sup><a href='/src/Tests/Samples.Anon.approved.txt#L1-L10' title='File snippet `Samples.Anon.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-Samples.Anon.approved.txt' title='Navigate to start of snippet `Samples.Anon.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -168,7 +166,7 @@ var settings = new JsonSerializerSettings
     DefaultValueHandling = DefaultValueHandling.Ignore
 };
 ```
-<sup>[snippet source](/src/ApprovalTests.Net.Json/Helpers/SerializerBuilder.cs#L145-L154) / [anchor](#snippet-defaultserialization)</sup>
+<sup><a href='/src/ApprovalTests.Net.Json/Helpers/SerializerBuilder.cs#L145-L154' title='File snippet `defaultserialization` was extracted from'>snippet source</a> | <a href='#snippet-defaultserialization' title='Navigate to start of snippet `defaultserialization`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -211,7 +209,7 @@ var target = new GuidTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L24-L37) / [anchor](#snippet-guid)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L24-L37' title='File snippet `guid` was extracted from'>snippet source</a> | <a href='#snippet-guid' title='Navigate to start of snippet `guid`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -226,7 +224,7 @@ Results in the following:
   OtherGuid: Guid_2
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseGuid.approved.txt#L1-L6) / [anchor](#snippet-ObjectApproverTests.ShouldReUseGuid.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.ShouldReUseGuid.approved.txt#L1-L6' title='File snippet `ObjectApproverTests.ShouldReUseGuid.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.ShouldReUseGuid.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.ShouldReUseGuid.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 To disable this behavior use:
@@ -257,7 +255,7 @@ var target = new DateTimeTarget
 
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L528-L544) / [anchor](#snippet-date)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L528-L544' title='File snippet `date` was extracted from'>snippet source</a> | <a href='#snippet-date' title='Navigate to start of snippet `date`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -274,7 +272,7 @@ Results in the following:
   DateTimeOffsetString: DateTimeOffset_2
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.ShouldReUseDatetime.approved.txt#L1-L8) / [anchor](#snippet-ObjectApproverTests.ShouldReUseDatetime.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.ShouldReUseDatetime.approved.txt#L1-L8' title='File snippet `ObjectApproverTests.ShouldReUseDatetime.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.ShouldReUseDatetime.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.ShouldReUseDatetime.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 To disable this behavior use:
@@ -308,7 +306,7 @@ ObjectApprover.Verify(target,
     scrubDateTimes: false,
     ignoreFalse: false);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L31-L39) / [anchor](#snippet-changedefaultsperverification)</sup>
+<sup><a href='/src/Tests/Samples.cs#L31-L39' title='File snippet `changedefaultsperverification` was extracted from'>snippet source</a> | <a href='#snippet-changedefaultsperverification' title='Navigate to start of snippet `changedefaultsperverification`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -326,7 +324,7 @@ SerializerBuilder.ExtraSettings =
         jsonSerializerSettings.TypeNameHandling = TypeNameHandling.All;
     };
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L114-L123) / [anchor](#snippet-extrasettings)</sup>
+<sup><a href='/src/Tests/Samples.cs#L114-L123' title='File snippet `extrasettings` was extracted from'>snippet source</a> | <a href='#snippet-extrasettings' title='Navigate to start of snippet `extrasettings`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -345,7 +343,7 @@ var serializerSettings = SerializerBuilder.BuildSettings(scrubDateTimes: false);
 serializerSettings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;
 ObjectApprover.Verify(person, jsonSerializerSettings: serializerSettings);
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L50-L62) / [anchor](#snippet-scopedserializer)</sup>
+<sup><a href='/src/Tests/Samples.cs#L50-L62' title='File snippet `scopedserializer` was extracted from'>snippet source</a> | <a href='#snippet-scopedserializer' title='Navigate to start of snippet `scopedserializer`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -359,7 +357,7 @@ Result:
   Dob: '\/Date(970322400000+1000)\/'
 }
 ```
-<sup>[snippet source](/src/Tests/Samples.ScopedSerializer.approved.txt#L1-L5) / [anchor](#snippet-Samples.ScopedSerializer.approved.txt)</sup>
+<sup><a href='/src/Tests/Samples.ScopedSerializer.approved.txt#L1-L5' title='File snippet `Samples.ScopedSerializer.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-Samples.ScopedSerializer.approved.txt' title='Navigate to start of snippet `Samples.ScopedSerializer.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -387,7 +385,7 @@ var target = new IgnoreTypeTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L153-L172) / [anchor](#snippet-addignoretype)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L153-L172' title='File snippet `addignoretype` was extracted from'>snippet source</a> | <a href='#snippet-addignoretype' title='Navigate to start of snippet `addignoretype`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -401,7 +399,7 @@ Result:
   }
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreType.approved.txt#L1-L5) / [anchor](#snippet-ObjectApproverTests.IgnoreType.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.IgnoreType.approved.txt#L1-L5' title='File snippet `ObjectApproverTests.IgnoreType.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.IgnoreType.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.IgnoreType.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -429,7 +427,7 @@ var target = new IgnoreInstanceTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L95-L114) / [anchor](#snippet-addignoreinstance)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L95-L114' title='File snippet `addignoreinstance` was extracted from'>snippet source</a> | <a href='#snippet-addignoreinstance' title='Navigate to start of snippet `addignoreinstance`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -443,7 +441,7 @@ Result:
   }
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreInstance.approved.txt#L1-L5) / [anchor](#snippet-ObjectApproverTests.IgnoreInstance.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.IgnoreInstance.approved.txt#L1-L5' title='File snippet `ObjectApproverTests.IgnoreInstance.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.IgnoreInstance.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.IgnoreInstance.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -469,7 +467,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L212-L229) / [anchor](#snippet-ignorememberbyexpression)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L212-L229' title='File snippet `ignorememberbyexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyexpression' title='Navigate to start of snippet `ignorememberbyexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -481,7 +479,7 @@ Result:
   Include: 'Value'
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByExpression.approved.txt#L1-L3) / [anchor](#snippet-ObjectApproverTests.IgnoreMemberByExpression.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.IgnoreMemberByExpression.approved.txt#L1-L3' title='File snippet `ObjectApproverTests.IgnoreMemberByExpression.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.IgnoreMemberByExpression.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.IgnoreMemberByExpression.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -508,7 +506,7 @@ var target = new IgnoreExplicitTarget
 };
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L235-L253) / [anchor](#snippet-ignorememberbyname)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L235-L253' title='File snippet `ignorememberbyname` was extracted from'>snippet source</a> | <a href='#snippet-ignorememberbyname' title='Navigate to start of snippet `ignorememberbyname`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -520,7 +518,7 @@ Result:
   Include: 'Value'
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.IgnoreMemberByName.approved.txt#L1-L3) / [anchor](#snippet-ObjectApproverTests.IgnoreMemberByName.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.IgnoreMemberByName.approved.txt#L1-L3' title='File snippet `ObjectApproverTests.IgnoreMemberByName.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.IgnoreMemberByName.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.IgnoreMemberByName.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -544,7 +542,7 @@ SerializerBuilder.IgnoreMembersThatThrow<CustomException>();
 var target = new WithCustomException();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L298-L307) / [anchor](#snippet-ignoremembersthatthrow)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L298-L307' title='File snippet `ignoremembersthatthrow` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrow' title='Navigate to start of snippet `ignoremembersthatthrow`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -554,7 +552,7 @@ Result:
 ```txt
 {}
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.CustomExceptionProp.approved.txt#L1-L1) / [anchor](#snippet-ObjectApproverTests.CustomExceptionProp.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.CustomExceptionProp.approved.txt#L1-L1' title='File snippet `ObjectApproverTests.CustomExceptionProp.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.CustomExceptionProp.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.CustomExceptionProp.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Ignore by exception type and expression:
@@ -570,7 +568,7 @@ SerializerBuilder.IgnoreMembersThatThrow<Exception>(
 var target = new WithExceptionIgnoreMessage();
 ObjectApprover.Verify(target);
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L362-L372) / [anchor](#snippet-ignoremembersthatthrowexpression)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L362-L372' title='File snippet `ignoremembersthatthrowexpression` was extracted from'>snippet source</a> | <a href='#snippet-ignoremembersthatthrowexpression' title='Navigate to start of snippet `ignoremembersthatthrowexpression`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Result:
@@ -580,7 +578,7 @@ Result:
 ```txt
 {}
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.ExceptionMessageProp.approved.txt#L1-L1) / [anchor](#snippet-ObjectApproverTests.ExceptionMessageProp.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.ExceptionMessageProp.approved.txt#L1-L1' title='File snippet `ObjectApproverTests.ExceptionMessageProp.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.ExceptionMessageProp.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.ExceptionMessageProp.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -599,7 +597,7 @@ var target = new ToBeScrubbed
 ObjectApprover.Verify(target,
     scrubber: s => s.Replace("0x00000000000007D3", "TheRowVersion"));
 ```
-<sup>[snippet source](/src/Tests/Samples.cs#L16-L26) / [anchor](#snippet-scrubber)</sup>
+<sup><a href='/src/Tests/Samples.cs#L16-L26' title='File snippet `scrubber` was extracted from'>snippet source</a> | <a href='#snippet-scrubber' title='Navigate to start of snippet `scrubber`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Results in the following:
@@ -626,7 +624,7 @@ static (bool Member1, string Member2, string Member3) MethodWithNamedTuple()
     return (true, "A", "B");
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L67-L72) / [anchor](#snippet-methodwithnamedtuple)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L67-L72' title='File snippet `methodwithnamedtuple` was extracted from'>snippet source</a> | <a href='#snippet-methodwithnamedtuple' title='Navigate to start of snippet `methodwithnamedtuple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Can be verified:
@@ -636,7 +634,7 @@ Can be verified:
 ```cs
 ObjectApprover.VerifyTuple(() => MethodWithNamedTuple());
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.cs#L60-L64) / [anchor](#snippet-verifytuple)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.cs#L60-L64' title='File snippet `verifytuple` was extracted from'>snippet source</a> | <a href='#snippet-verifytuple' title='Navigate to start of snippet `verifytuple`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Resulting in:
@@ -650,7 +648,7 @@ Resulting in:
   Member3: 'B'
 }
 ```
-<sup>[snippet source](/src/Tests/ObjectApproverTests.NamedTuple.approved.txt#L1-L5) / [anchor](#snippet-ObjectApproverTests.NamedTuple.approved.txt)</sup>
+<sup><a href='/src/Tests/ObjectApproverTests.NamedTuple.approved.txt#L1-L5' title='File snippet `ObjectApproverTests.NamedTuple.approved.txt` was extracted from'>snippet source</a> | <a href='#snippet-ObjectApproverTests.NamedTuple.approved.txt' title='Navigate to start of snippet `ObjectApproverTests.NamedTuple.approved.txt`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
