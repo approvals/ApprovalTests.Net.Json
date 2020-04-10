@@ -1,7 +1,7 @@
-# <img src="/src/icon.png" height="30px"> ObjectApproval
+# <img src="/src/icon.png" height="30px"> ApprovalTests.Net.Json
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qt5bqw30vp7ywgh3/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/ObjectApproval)
-[![NuGet Status](https://img.shields.io/nuget/v/ObjectApproval.svg?cacheSeconds=86400)](https://www.nuget.org/packages/ObjectApproval/)
+[![Build status](https://ci.appveyor.com/api/projects/status/tsx7biy2rgwtd3wn/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/ApprovalTests.Net.Json)
+[![NuGet Status](https://img.shields.io/nuget/v/ApprovalTests.Net.Json.svg?cacheSeconds=86400)](https://www.nuget.org/packages/ApprovalTests.Net.Json/)
 
 Extends [ApprovalTests](https://github.com/approvals/ApprovalTests.Net) to allow simple approval of complex models using [Json.net](https://www.newtonsoft.com/json).
 
@@ -10,7 +10,7 @@ toc
 
 ## NuGet package
 
-https://nuget.org/packages/ObjectApproval/
+https://nuget.org/packages/ApprovalTests.Net.Json/
 
 
 ## Usage
